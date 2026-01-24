@@ -16,6 +16,7 @@ const GoogleIcon = () => (
 // --- TYPE DEFINITIONS ---
 
 interface SignInPageProps {
+  logoSrc?: string;
   title?: React.ReactNode;
   description?: React.ReactNode;
   heroImageSrc?: string;
@@ -36,6 +37,7 @@ const GlassInputWrapper = ({ children }: { children: React.ReactNode }) => (
 // --- MAIN COMPONENT ---
 
 export const SignInPage: React.FC<SignInPageProps> = ({
+  logoSrc,
   title = <span className="font-light text-foreground tracking-tighter">Bem-vindo</span>,
   description = "Acesse sua conta e continue sua jornada conosco",
   heroImageSrc,
@@ -52,6 +54,13 @@ export const SignInPage: React.FC<SignInPageProps> = ({
       <section className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
           <div className="flex flex-col gap-6">
+            {logoSrc && (
+              <img 
+                src={logoSrc} 
+                alt="Logo" 
+                className="animate-element animate-delay-50 h-12 w-auto object-contain self-start" 
+              />
+            )}
             <h1 className="animate-element animate-delay-100 text-4xl md:text-5xl font-semibold leading-tight">{title}</h1>
             <p className="animate-element animate-delay-200 text-muted-foreground">{description}</p>
 
