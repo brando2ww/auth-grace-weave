@@ -108,7 +108,7 @@ export const SignInPage: React.FC<SignInPageProps> = ({
       {/* Right column: hero image */}
       {heroImageSrc && (
         <section className="hidden md:block flex-1 relative p-4">
-          <div className="animate-slide-right animate-delay-300 absolute inset-4 rounded-3xl bg-contain bg-center bg-no-repeat bg-gray-100" style={{ backgroundImage: `url(${heroImageSrc})` }}></div>
+          <div className="animate-slide-right animate-delay-300 absolute inset-4 rounded-3xl bg-cover bg-center" style={{ backgroundImage: `url(${heroImageSrc})` }}></div>
         </section>
       )}
     </div>
