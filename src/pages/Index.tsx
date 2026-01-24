@@ -1,25 +1,4 @@
-import { SignInPage, Testimonial } from "@/components/ui/sign-in";
-
-const sampleTestimonials: Testimonial[] = [
-  {
-    avatarSrc: "https://randomuser.me/api/portraits/women/57.jpg",
-    name: "Sarah Chen",
-    handle: "@sarahdigital",
-    text: "Plataforma incrível! A experiência do usuário é perfeita e os recursos são exatamente o que eu precisava."
-  },
-  {
-    avatarSrc: "https://randomuser.me/api/portraits/men/64.jpg",
-    name: "Marcus Johnson",
-    handle: "@marcustech",
-    text: "Este serviço transformou minha forma de trabalhar. Design limpo, recursos poderosos e excelente suporte."
-  },
-  {
-    avatarSrc: "https://randomuser.me/api/portraits/men/32.jpg",
-    name: "David Martinez",
-    handle: "@davidcreates",
-    text: "Já testei muitas plataformas, mas esta se destaca. Intuitiva, confiável e genuinamente útil para produtividade."
-  },
-];
+import { SignInPage } from "@/components/ui/sign-in";
 
 const SignInPageDemo = () => {
   const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
@@ -49,7 +28,6 @@ const SignInPageDemo = () => {
         title={<span className="font-light text-foreground tracking-tighter">Bem-vindo</span>}
         description="Acesse sua conta e continue sua jornada conosco"
         heroImageSrc="https://images.unsplash.com/photo-1642615835477-d303d7dc9ee9?w=2160&q=80"
-        testimonials={sampleTestimonials}
         onSignIn={handleSignIn}
         onGoogleSignIn={handleGoogleSignIn}
         onResetPassword={handleResetPassword}
