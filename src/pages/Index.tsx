@@ -27,7 +27,7 @@ const SignInPageDemo = () => {
       <SignInPage
         title={<span className="font-light text-foreground tracking-tighter">Bem-vindo</span>}
         description="Acesse sua conta e continue sua jornada conosco"
-        heroImageSrc="https://images.unsplash.com/photo-1642615835477-d303d7dc9ee9?w=2160&q=80"
+        heroImageSrc="/images/WA.jpg"
         onSignIn={handleSignIn}
         onGoogleSignIn={handleGoogleSignIn}
         onResetPassword={handleResetPassword}
