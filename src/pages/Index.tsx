@@ -1,4 +1,5 @@
 import { SignInPage } from "@/components/ui/sign-in";
+import wiseautoLogo from "@/assets/wiseauto-logo.png";
 
 const SignInPageDemo = () => {
   const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
@@ -25,6 +26,7 @@ const SignInPageDemo = () => {
   return (
     <div className="bg-background text-foreground">
       <SignInPage
+        logoSrc={wiseautoLogo}
         title={<span className="font-light text-foreground tracking-tighter">Bem-vindo</span>}
         description="Acesse sua conta e continue sua jornada conosco"
         heroImageSrc="/images/WA.png"
