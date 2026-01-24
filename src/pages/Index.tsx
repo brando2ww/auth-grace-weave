@@ -28,7 +28,7 @@ const SignInPageDemo = () => {
       <SignInPage
         logoSrc={wiseautoLogo}
         title={<span className="font-light text-foreground tracking-tighter">Bem-vindo</span>}
-        description="Acesse sua conta e continue sua jornada conosco"
+        description="Entre para gerenciar seus veículos e canais."
         heroImageSrc="/images/WA.png"
         onSignIn={handleSignIn}
         onGoogleSignIn={handleGoogleSignIn}
