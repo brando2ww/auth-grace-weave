@@ -58,7 +58,7 @@ export const SignInPage: React.FC<SignInPageProps> = ({
               <img 
                 src={logoSrc} 
                 alt="Logo" 
-                className="animate-element animate-delay-50 h-12 w-auto object-contain self-start" 
+                className="animate-element animate-delay-50 h-24 w-auto object-contain self-start" 
               />
             )}
             <h1 className="animate-element animate-delay-100 text-4xl md:text-5xl font-semibold leading-tight">{title}</h1>
