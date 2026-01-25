@@ -14,6 +14,11 @@ const SignInPageDemo = () => {
     console.log("Continuar com Google clicado");
     alert("Continuar com Google clicado");
   };
+
+  const handleAppleSignIn = () => {
+    console.log("Continuar com Apple clicado");
+    alert("Continuar com Apple clicado");
+  };
   
   const handleResetPassword = () => {
     alert("Redefinir Senha clicado");
@@ -32,6 +37,7 @@ const SignInPageDemo = () => {
         heroImageSrc="/images/WA.png"
         onSignIn={handleSignIn}
         onGoogleSignIn={handleGoogleSignIn}
+        onAppleSignIn={handleAppleSignIn}
         onResetPassword={handleResetPassword}
         onCreateAccount={handleCreateAccount}
       />
