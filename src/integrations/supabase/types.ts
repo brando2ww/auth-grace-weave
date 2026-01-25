@@ -14,6 +14,121 @@ export type Database = {
   }
   public: {
     Tables: {
+      companies: {
+        Row: {
+          cnae_descricao: string | null
+          cnae_principal: string | null
+          cnpj: string
+          created_at: string | null
+          data_abertura: string | null
+          endereco_bairro: string | null
+          endereco_cep: string | null
+          endereco_cidade: string | null
+          endereco_complemento: string | null
+          endereco_logradouro: string | null
+          endereco_numero: string | null
+          endereco_uf: string | null
+          id: string
+          nome_fantasia: string | null
+          razao_social: string
+          situacao_cadastral: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          cnae_descricao?: string | null
+          cnae_principal?: string | null
+          cnpj: string
+          created_at?: string | null
+          data_abertura?: string | null
+          endereco_bairro?: string | null
+          endereco_cep?: string | null
+          endereco_cidade?: string | null
+          endereco_complemento?: string | null
+          endereco_logradouro?: string | null
+          endereco_numero?: string | null
+          endereco_uf?: string | null
+          id?: string
+          nome_fantasia?: string | null
+          razao_social: string
+          situacao_cadastral?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          cnae_descricao?: string | null
+          cnae_principal?: string | null
+          cnpj?: string
+          created_at?: string | null
+          data_abertura?: string | null
+          endereco_bairro?: string | null
+          endereco_cep?: string | null
+          endereco_cidade?: string | null
+          endereco_complemento?: string | null
+          endereco_logradouro?: string | null
+          endereco_numero?: string | null
+          endereco_uf?: string | null
+          id?: string
+          nome_fantasia?: string | null
+          razao_social?: string
+          situacao_cadastral?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "companies_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      onboarding_data: {
+        Row: {
+          channels: string[] | null
+          created_at: string | null
+          id: string
+          main_objective: string | null
+          stock_size: string | null
+          team_size: string | null
+          updated_at: string | null
+          user_id: string
+          vehicle_types: string | null
+        }
+        Insert: {
+          channels?: string[] | null
+          created_at?: string | null
+          id?: string
+          main_objective?: string | null
+          stock_size?: string | null
+          team_size?: string | null
+          updated_at?: string | null
+          user_id: string
+          vehicle_types?: string | null
+        }
+        Update: {
+          channels?: string[] | null
+          created_at?: string | null
+          id?: string
+          main_objective?: string | null
+          stock_size?: string | null
+          team_size?: string | null
+          updated_at?: string | null
+          user_id?: string
+          vehicle_types?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "onboarding_data_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       phone_verifications: {
         Row: {
           attempts: number | null
