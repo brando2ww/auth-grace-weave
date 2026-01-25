@@ -29,8 +29,9 @@ const SignInPageDemo = () => {
     alert("Redefinir Senha clicado");
   }
 
-  const handleCreateAccount = () => {
-    alert("Criar Conta clicado");
+  const handleCreateAccount = (data: { name: string; email: string; password: string; document: string; documentType: 'cpf' | 'cnpj'; plan: string }) => {
+    console.log("Dados do cadastro:", data);
+    alert(`Conta criada com sucesso!\n\nNome: ${data.name}\nE-mail: ${data.email}\nDocumento (${data.documentType.toUpperCase()}): ${data.document}\nPlano: ${data.plan}`);
   }
 
   return (
