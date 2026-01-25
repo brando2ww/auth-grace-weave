@@ -472,11 +472,12 @@ export const SignInPage: React.FC<SignInPageProps> = ({
                   {signupStep === 3 && (
                     <>
                       <div className="animate-element animate-delay-200 space-y-3">
-                        <label className="text-sm font-medium text-muted-foreground mb-3 block">Escolha seu plano</label>
+                        <label className="text-sm font-medium text-muted-foreground mb-1 block">Escolha como sua operação vai funcionar</label>
+                        <p className="text-xs text-muted-foreground mb-3">Você pode mudar de plano quando quiser.</p>
                         
                         <PlanCard 
                           name="Básico"
-                          description="Para começar a anunciar"
+                          description="Ideal para quem quer publicar veículos e ter presença online."
                           price="R$ 49"
                           selected={signupData.plan === 'basic'}
                           onSelect={() => handlePlanSelect('basic')}
@@ -484,7 +485,7 @@ export const SignInPage: React.FC<SignInPageProps> = ({
                         
                         <PlanCard 
                           name="Profissional"
-                          description="Para vendedores ativos"
+                          description="Para revendas que anunciam em vários canais e lidam com leads diariamente."
                           price="R$ 99"
                           selected={signupData.plan === 'pro'}
                           onSelect={() => handlePlanSelect('pro')}
@@ -493,7 +494,7 @@ export const SignInPage: React.FC<SignInPageProps> = ({
                         
                         <PlanCard 
                           name="Empresarial"
-                          description="Para lojas e concessionárias"
+                          description="Para lojas e concessionárias que exigem controle, escala e integração."
                           price="R$ 199"
                           selected={signupData.plan === 'enterprise'}
                           onSelect={() => handlePlanSelect('enterprise')}
