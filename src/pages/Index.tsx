@@ -38,10 +38,6 @@ const SignInPageDemo = () => {
       // Translate common Supabase errors
       if (error.message.includes('Invalid login credentials')) {
         toast.error('E-mail ou senha incorretos.');
-      } else if (error.message.includes('Email not confirmed')) {
-        toast.error('Por favor, confirme seu e-mail antes de fazer login.');
-        sessionStorage.setItem('pendingEmailConfirmation', email);
-        navigate('/confirmar-email');
       } else {
         toast.error(error.message);
       }
@@ -101,10 +97,8 @@ const SignInPageDemo = () => {
         toast.error(error.message);
       }
     } else {
-      // Save email for resend functionality
-      sessionStorage.setItem('pendingEmailConfirmation', data.email);
-      toast.success('Conta criada! Verifique seu e-mail para continuar.');
-      navigate('/confirmar-email');
+      toast.success('Conta criada com sucesso!');
+      // Navigation is handled by useEffect when isAuthenticated changes
     }
   };
 
