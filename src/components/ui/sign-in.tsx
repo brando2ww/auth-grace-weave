@@ -118,20 +118,22 @@ export const SignInPage: React.FC<SignInPageProps> = ({
               <span className="px-4 text-sm text-muted-foreground bg-background absolute">Ou continue com</span>
             </div>
 
-            <button onClick={onGoogleSignIn} className="animate-element animate-delay-800 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
-                <GoogleIcon />
-                Continuar com Google
-            </button>
+            <div className="flex flex-col gap-3">
+              <button onClick={onGoogleSignIn} className="animate-element animate-delay-800 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
+                  <GoogleIcon />
+                  Continuar com Google
+              </button>
 
-            <button onClick={onAppleSignIn} className="animate-element animate-delay-850 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
-                <AppleIcon />
-                Continuar com Apple
-            </button>
+              <button onClick={onAppleSignIn} className="animate-element animate-delay-850 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
+                  <AppleIcon />
+                  Continuar com Apple
+              </button>
 
-            <button onClick={onFacebookSignIn} className="animate-element animate-delay-875 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
-                <FacebookIcon />
-                Continuar com Facebook
-            </button>
+              <button onClick={onFacebookSignIn} className="animate-element animate-delay-875 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
+                  <FacebookIcon />
+                  Continuar com Facebook
+              </button>
+            </div>
 
             <p className="animate-element animate-delay-900 text-center text-sm text-muted-foreground">
               Novo em nossa plataforma? <a href="#" onClick={(e) => { e.preventDefault(); onCreateAccount?.(); }} className="text-[#1f6ae1] hover:underline transition-colors">Criar Conta</a>
