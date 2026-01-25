@@ -50,12 +50,17 @@ export type Database = {
       profiles: {
         Row: {
           created_at: string | null
+          document: string | null
+          document_type: string | null
           first_name: string | null
+          guarantee_ends_at: string | null
           id: string
           language: string | null
           mp_customer_id: string | null
           mp_preapproval_id: string | null
           mp_subscription_id: string | null
+          onboarding_completed: boolean | null
+          onboarding_step: string | null
           phone: string | null
           subscription_cancelled_at: string | null
           subscription_ends_at: string | null
@@ -69,12 +74,17 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          document?: string | null
+          document_type?: string | null
           first_name?: string | null
+          guarantee_ends_at?: string | null
           id: string
           language?: string | null
           mp_customer_id?: string | null
           mp_preapproval_id?: string | null
           mp_subscription_id?: string | null
+          onboarding_completed?: boolean | null
+          onboarding_step?: string | null
           phone?: string | null
           subscription_cancelled_at?: string | null
           subscription_ends_at?: string | null
@@ -88,12 +98,17 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          document?: string | null
+          document_type?: string | null
           first_name?: string | null
+          guarantee_ends_at?: string | null
           id?: string
           language?: string | null
           mp_customer_id?: string | null
           mp_preapproval_id?: string | null
           mp_subscription_id?: string | null
+          onboarding_completed?: boolean | null
+          onboarding_step?: string | null
           phone?: string | null
           subscription_cancelled_at?: string | null
           subscription_ends_at?: string | null
