@@ -358,17 +358,53 @@ export const SignInPage: React.FC<SignInPageProps> = ({
                         </GlassInputWrapper>
                       </div>
 
-                      <button 
-                        type="button" 
-                        onClick={() => setSignupStep(2)}
-                        className="animate-element animate-delay-500 w-full rounded-2xl bg-primary py-4 font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
-                      >
-                        Continuar
-                      </button>
-                    </>
-                  )}
+                  <button 
+                    type="button" 
+                    onClick={() => setSignupStep(2)}
+                    className="animate-element animate-delay-500 w-full rounded-2xl bg-primary py-4 font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+                  >
+                    Continuar
+                  </button>
 
-                  {/* STEP 2: Document */}
+                  {/* Social Login Divider */}
+                  <div className="animate-element animate-delay-550 relative flex items-center justify-center py-2">
+                    <span className="w-full border-t border-border"></span>
+                    <span className="px-4 text-sm text-muted-foreground bg-background absolute whitespace-nowrap">Ou cadastre-se com</span>
+                  </div>
+
+                  {/* Social Login Buttons */}
+                  <button 
+                    type="button"
+                    onClick={onGoogleSignIn} 
+                    className="animate-element animate-delay-600 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 font-medium hover:bg-secondary transition-colors"
+                  >
+                    <GoogleIcon />
+                    Continuar com Google
+                  </button>
+
+                  <div className="flex flex-row gap-3">
+                    <button 
+                      type="button"
+                      onClick={onAppleSignIn} 
+                      className="animate-element animate-delay-650 flex-1 flex items-center justify-center gap-3 border border-border rounded-2xl py-4 font-medium hover:bg-secondary transition-colors"
+                    >
+                      <AppleIcon />
+                      Apple
+                    </button>
+
+                    <button 
+                      type="button"
+                      onClick={onFacebookSignIn} 
+                      className="animate-element animate-delay-700 flex-1 flex items-center justify-center gap-3 border border-border rounded-2xl py-4 font-medium hover:bg-secondary transition-colors"
+                    >
+                      <FacebookIcon />
+                      Facebook
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {/* STEP 2: Document */}
                   {signupStep === 2 && (
                     <>
                       <div className="animate-element animate-delay-200">
