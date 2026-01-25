@@ -1,1 +1,4 @@
 project_id = "zzwujetawkfqhxkwakjr"
+
+[functions.cnpj-lookup]
+verify_jwt = false
