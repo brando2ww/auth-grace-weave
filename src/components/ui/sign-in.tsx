@@ -124,15 +124,17 @@ export const SignInPage: React.FC<SignInPageProps> = ({
                   Continuar com Google
               </button>
 
-              <button onClick={onAppleSignIn} className="animate-element animate-delay-850 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
-                  <AppleIcon />
-                  Continuar com Apple
-              </button>
+              <div className="flex flex-row gap-3">
+                <button onClick={onAppleSignIn} className="animate-element animate-delay-850 flex-1 flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
+                    <AppleIcon />
+                    Apple
+                </button>
 
-              <button onClick={onFacebookSignIn} className="animate-element animate-delay-875 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
-                  <FacebookIcon />
-                  Continuar com Facebook
-              </button>
+                <button onClick={onFacebookSignIn} className="animate-element animate-delay-875 flex-1 flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
+                    <FacebookIcon />
+                    Facebook
+                </button>
+              </div>
             </div>
 
             <p className="animate-element animate-delay-900 text-center text-sm text-muted-foreground">
