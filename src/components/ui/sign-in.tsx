@@ -104,13 +104,13 @@ const PlanCard = ({
         Popular
       </span>
     )}
-    <div className="flex items-center justify-between">
-      <div>
+    <div className="flex items-start justify-between gap-4">
+      <div className="flex-1 min-w-0">
         <h3 className="font-semibold text-foreground">{name}</h3>
         <p className="text-sm text-muted-foreground">{description}</p>
       </div>
-      <div className="text-right">
-        <span className="text-lg font-bold text-foreground">{price}</span>
+      <div className="text-right flex-shrink-0 whitespace-nowrap">
+        <span className="text-xl font-bold text-foreground">{price}</span>
         <span className="text-sm text-muted-foreground">/mês</span>
       </div>
     </div>
