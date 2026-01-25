@@ -39,6 +39,7 @@ export interface OnboardingState {
 const TOTAL_STEPS = 5;
 
 const STEP_MAP: Record<string, number> = {
+  'payment': 1,
   'company': 1,
   'operation': 2,
   'channels': 3,
@@ -71,7 +72,10 @@ export function useOnboarding() {
   // Load existing data on mount
   useEffect(() => {
     const loadExistingData = async () => {
-      if (!user) return;
+      if (!user) {
+        setIsLoading(false);
+        return;
+      }
       
       setIsLoading(true);
       
