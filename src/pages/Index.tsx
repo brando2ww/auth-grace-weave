@@ -1,38 +1,112 @@
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { SignInPage } from "@/components/ui/sign-in";
+import { useAuthContext } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 import wiseautoLogo from "@/assets/wiseauto-logo.png";
 
 const SignInPageDemo = () => {
-  const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+  const { signIn, signUp, signInWithGoogle, resetPassword, loading, isAuthenticated, profile } = useAuthContext();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated && profile) {
+      // Check onboarding status
+      if (profile.onboarding_completed) {
+        navigate('/dashboard');
+      } else {
+        navigate('/onboarding');
+      }
+    }
+  }, [isAuthenticated, profile, navigate]);
+
+  const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const data = Object.fromEntries(formData.entries());
-    console.log("Login enviado:", data);
-    alert(`Login Enviado! Verifique o console do navegador para ver os dados do formulário.`);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    if (!email || !password) {
+      toast.error('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    const { error } = await signIn(email, password);
+    
+    if (error) {
+      // Translate common Supabase errors
+      if (error.message.includes('Invalid login credentials')) {
+        toast.error('E-mail ou senha incorretos.');
+      } else if (error.message.includes('Email not confirmed')) {
+        toast.error('Por favor, confirme seu e-mail antes de fazer login.');
+        sessionStorage.setItem('pendingEmailConfirmation', email);
+        navigate('/confirmar-email');
+      } else {
+        toast.error(error.message);
+      }
+    }
+    // Navigation is handled by useEffect when isAuthenticated changes
   };
 
-  const handleGoogleSignIn = () => {
-    console.log("Continuar com Google clicado");
-    alert("Continuar com Google clicado");
+  const handleGoogleSignIn = async () => {
+    await signInWithGoogle();
   };
 
   const handleAppleSignIn = () => {
-    console.log("Continuar com Apple clicado");
-    alert("Continuar com Apple clicado");
+    toast.info('Login com Apple será implementado em breve.');
   };
 
   const handleFacebookSignIn = () => {
-    console.log("Continuar com Facebook clicado");
-    alert("Continuar com Facebook clicado");
+    toast.info('Login com Facebook será implementado em breve.');
   };
   
-  const handleResetPassword = () => {
-    alert("Redefinir Senha clicado");
-  }
+  const handleResetPassword = async () => {
+    // This will be triggered with email from modal/form
+    const email = prompt('Digite seu e-mail para redefinir a senha:');
+    
+    if (!email) return;
 
-  const handleCreateAccount = (data: { name: string; email: string; password: string; document: string; documentType: 'cpf' | 'cnpj'; plan: string }) => {
-    console.log("Dados do cadastro:", data);
-    alert(`Conta criada com sucesso!\n\nNome: ${data.name}\nE-mail: ${data.email}\nDocumento (${data.documentType.toUpperCase()}): ${data.document}\nPlano: ${data.plan}`);
-  }
+    const { error } = await resetPassword(email);
+    
+    if (error) {
+      toast.error(error.message);
+    } else {
+      toast.success('E-mail de recuperação enviado! Verifique sua caixa de entrada.');
+    }
+  };
+
+  const handleCreateAccount = async (data: { 
+    name: string; 
+    email: string; 
+    password: string; 
+    document: string; 
+    documentType: 'cpf' | 'cnpj'; 
+    plan: string 
+  }) => {
+    const { error } = await signUp(data.email, data.password, {
+      first_name: data.name,
+      document: data.document,
+      document_type: data.documentType,
+      plan: data.plan,
+    });
+
+    if (error) {
+      // Translate common Supabase errors
+      if (error.message.includes('already registered')) {
+        toast.error('Este e-mail já está cadastrado.');
+      } else if (error.message.includes('Password should be at least')) {
+        toast.error('A senha deve ter pelo menos 6 caracteres.');
+      } else {
+        toast.error(error.message);
+      }
+    } else {
+      // Save email for resend functionality
+      sessionStorage.setItem('pendingEmailConfirmation', data.email);
+      toast.success('Conta criada! Verifique seu e-mail para continuar.');
+      navigate('/confirmar-email');
+    }
+  };
 
   return (
     <div className="bg-background text-foreground">
@@ -47,6 +121,7 @@ const SignInPageDemo = () => {
         onFacebookSignIn={handleFacebookSignIn}
         onResetPassword={handleResetPassword}
         onCreateAccount={handleCreateAccount}
+        isLoading={loading}
       />
     </div>
   );

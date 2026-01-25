@@ -47,6 +47,7 @@ interface SignInPageProps {
   onFacebookSignIn?: () => void;
   onResetPassword?: () => void;
   onCreateAccount?: (data: SignupData) => void;
+  isLoading?: boolean;
 }
 
 // --- SUB-COMPONENTS ---
@@ -130,6 +131,7 @@ export const SignInPage: React.FC<SignInPageProps> = ({
   onFacebookSignIn,
   onResetPassword,
   onCreateAccount,
+  isLoading = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [viewMode, setViewMode] = useState<'login' | 'signup'>('login');
@@ -251,8 +253,12 @@ export const SignInPage: React.FC<SignInPageProps> = ({
                     <a href="#" onClick={(e) => { e.preventDefault(); onResetPassword?.(); }} className="hover:underline text-[#1f6ae1] transition-colors">Redefinir senha</a>
                   </div>
 
-                  <button type="submit" className="animate-element animate-delay-600 w-full rounded-2xl bg-primary py-4 font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
-                    Entrar
+                  <button 
+                    type="submit" 
+                    disabled={isLoading}
+                    className="animate-element animate-delay-600 w-full rounded-2xl bg-primary py-4 font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? 'Entrando...' : 'Entrar'}
                   </button>
                 </form>
 
@@ -262,18 +268,30 @@ export const SignInPage: React.FC<SignInPageProps> = ({
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <button onClick={onGoogleSignIn} className="animate-element animate-delay-800 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
+                  <button 
+                    onClick={onGoogleSignIn} 
+                    disabled={isLoading}
+                    className="animate-element animate-delay-800 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
                       <GoogleIcon />
                       Continuar com Google
                   </button>
 
                   <div className="flex flex-row gap-3">
-                    <button onClick={onAppleSignIn} className="animate-element animate-delay-850 flex-1 flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
+                    <button 
+                      onClick={onAppleSignIn} 
+                      disabled={isLoading}
+                      className="animate-element animate-delay-850 flex-1 flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
                         <AppleIcon />
                         Apple
                     </button>
 
-                    <button onClick={onFacebookSignIn} className="animate-element animate-delay-875 flex-1 flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
+                    <button 
+                      onClick={onFacebookSignIn} 
+                      disabled={isLoading}
+                      className="animate-element animate-delay-875 flex-1 flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
                         <FacebookIcon />
                         Facebook
                     </button>
@@ -511,10 +529,10 @@ export const SignInPage: React.FC<SignInPageProps> = ({
                         </button>
                         <button 
                           type="submit"
-                          disabled={!signupData.plan}
+                          disabled={!signupData.plan || isLoading}
                           className="flex-1 rounded-2xl bg-primary py-4 font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          Criar Conta
+                          {isLoading ? 'Criando...' : 'Criar Conta'}
                         </button>
                       </div>
                     </>
