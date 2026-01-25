@@ -57,51 +57,25 @@ const GlassInputWrapper = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-const StepIndicator = ({ currentStep }: { currentStep: 1 | 2 | 3 }) => {
-  const steps = [
-    { num: 1, label: 'Etapa 1' },
-    { num: 2, label: 'Etapa 2' },
-    { num: 3, label: 'Etapa 3' },
-  ];
-
-  return (
-    <div className="flex items-center justify-center mb-6">
-      <div className="flex items-center">
-        {steps.map((step, index) => {
-          const isCompleted = step.num < currentStep;
-          const isCurrent = step.num === currentStep;
-          const isActive = isCompleted || isCurrent;
-          const isFirst = index === 0;
-          const isLast = index === steps.length - 1;
-
-          return (
-            <div
-              key={step.num}
-              className={`relative flex items-center justify-center h-10 px-6 text-sm font-medium transition-all duration-300
-                ${isActive
-                  ? isCurrent
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-primary/70 text-primary-foreground'
-                  : 'bg-muted text-muted-foreground'
-                }
-              `}
-              style={{
-                clipPath: isLast
-                  ? 'polygon(0 0, 100% 0, 100% 100%, 0 100%, 12px 50%)'
-                  : isFirst
-                    ? 'polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%)'
-                    : 'polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 12px 50%)',
-                marginLeft: !isFirst ? '-12px' : '0',
-              }}
-            >
-              {step.label}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
+const StepIndicator = ({ currentStep }: { currentStep: 1 | 2 | 3 }) => (
+  <div className="flex items-center justify-center gap-2 mb-6">
+    {[1, 2, 3].map((step) => (
+      <React.Fragment key={step}>
+        <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300
+          ${step === currentStep 
+            ? 'bg-primary text-primary-foreground scale-110' 
+            : step < currentStep 
+              ? 'bg-primary/20 text-primary' 
+              : 'bg-muted text-muted-foreground'}`}>
+          {step < currentStep ? <Check className="w-4 h-4" /> : step}
+        </div>
+        {step < 3 && (
+          <div className={`w-12 h-0.5 transition-colors duration-300 ${step < currentStep ? 'bg-primary' : 'bg-muted'}`} />
+        )}
+      </React.Fragment>
+    ))}
+  </div>
+);
 
 const PlanCard = ({ 
   name, 
