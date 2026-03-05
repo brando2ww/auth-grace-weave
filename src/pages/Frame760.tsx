@@ -4,6 +4,7 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { EditProfileDialog } from "@/components/EditProfileDialog";
 import induxXIcon from "@/assets/indux-x-icon.png";
 import induxLogo from "@/assets/indux-logo-new.png";
+import wiseautoLogo from "@/assets/wiseauto-logo.png";
 import {
   Search as SearchIcon,
   Dashboard,
@@ -250,17 +251,15 @@ function DetailSidebar() {
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
     >
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-4">
-        <div className="shrink-0">
-          <InterfacesLogoSquare />
-        </div>
-        <div
-          className={`overflow-hidden transition-all duration-300 ${
-            isCollapsed ? "w-0 opacity-0" : "opacity-100"
+      <div className="flex items-center px-4 py-4">
+        <img
+          src={wiseautoLogo}
+          alt="Wise Auto"
+          className={`transition-all duration-300 ${
+            isCollapsed ? "w-8 h-8 object-contain" : "h-8 object-contain"
           }`}
-        >
-          <BrandBadge />
-        </div>
+          style={{ transition: `all 0.4s ${softSpringEasing}` }}
+        />
       </div>
 
       {/* Search */}
