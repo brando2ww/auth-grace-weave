@@ -1,10 +1,11 @@
+"use client";
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuthContext } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/useAuth";
 import { EditProfileDialog } from "@/components/EditProfileDialog";
 import induxXIcon from "@/assets/indux-x-icon.png";
 import induxLogo from "@/assets/indux-logo-new.png";
-import wiseautoLogo from "@/assets/wiseauto-logo.png";
 import {
   Search as SearchIcon,
   Dashboard,
@@ -239,7 +240,7 @@ function SectionTitle({
 
 function DetailSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const { profile, user, refreshProfile, signOut } = useAuthContext();
+  const { profile, user, refreshProfile, signOut } = useAuth();
   const content = getSidebarContent();
   const toggleCollapse = () => setIsCollapsed((s) => !s);
 
@@ -252,26 +253,11 @@ function DetailSidebar() {
     >
       {/* Header */}
       <div className={`flex items-center px-4 py-5 ${isCollapsed ? "justify-center" : "justify-between"}`}>
-        {!isCollapsed && (
-          <img
-            src={wiseautoLogo}
-            alt="Wise Auto"
-            className="h-[60px] max-w-[350px] object-contain transition-all duration-300"
-            style={{ transition: `all 0.4s ${softSpringEasing}` }}
-          />
-        )}
-        <button
-          onClick={toggleCollapse}
-          className="p-1.5 rounded-md hover:bg-neutral-100 transition-colors"
-          title={isCollapsed ? "Expandir menu" : "Recolher menu"}
-        >
-          <ChevronDownIcon
-            size={16}
-            className={`text-neutral-500 transition-transform duration-300 ${
-              isCollapsed ? "rotate-[-90deg]" : "rotate-[90deg]"
-            }`}
-          />
-        </button>
+        <SectionTitle
+          title={content.title}
+          onToggleCollapse={toggleCollapse}
+          isCollapsed={isCollapsed}
+        />
       </div>
 
       {/* Search */}
@@ -287,14 +273,8 @@ function DetailSidebar() {
       </div>
 
       {/* User Footer */}
-      <div className="border-t border-neutral-200 p-3">
-        {isCollapsed ? (
-          <div className="flex justify-center">
-            <button onClick={toggleCollapse} className="p-1 rounded-md hover:bg-neutral-100">
-              <AvatarCircle />
-            </button>
-          </div>
-        ) : (
+      {!isCollapsed && (
+        <div className="border-t border-neutral-200 p-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <AvatarCircle />
@@ -327,8 +307,8 @@ function DetailSidebar() {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -420,13 +400,19 @@ function MenuSection({
   );
 }
 
+/* --------------------------------- Layout -------------------------------- */
+
+function TwoLevelSidebar() {
+  return <DetailSidebar />;
+}
+
 /* ------------------------------- Root Frame ------------------------------ */
 
 export function Frame760({ children }: { children?: React.ReactNode }) {
   return (
     <div className="flex h-screen w-full bg-neutral-950 overflow-hidden">
-      <DetailSidebar />
-      <main className="flex-1 overflow-auto">{children}</main>
+      <TwoLevelSidebar />
+      {children}
     </div>
   );
 }
