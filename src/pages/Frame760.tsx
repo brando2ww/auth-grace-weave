@@ -575,84 +575,8 @@ function getSidebarContent(activeSection: string): SidebarContent {
   return contentMap[activeSection] || contentMap.tasks;
 }
 
-/* ---------------------------- Left Icon Nav Rail -------------------------- */
 
-function IconNavButton({
-  children,
-  isActive = false,
-  onClick,
-}: {
-  children: React.ReactNode;
-  isActive?: boolean;
-  onClick?: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors ${
-        isActive
-          ? "bg-neutral-700 text-neutral-50"
-          : "text-neutral-400 hover:text-neutral-50 hover:bg-neutral-800"
-      }`}
-    >
-      {children}
-    </button>
-  );
-}
 
-function IconNavigation({
-  activeSection,
-  onSectionChange,
-}: {
-  activeSection: string;
-  onSectionChange: (section: string) => void;
-}) {
-  const navItems = [
-    { id: "dashboard", icon: <Dashboard size={20} />, label: "Dashboard" },
-    { id: "tasks", icon: <Task size={20} />, label: "Tasks" },
-    { id: "projects", icon: <Folder size={20} />, label: "Projects" },
-    { id: "calendar", icon: <CalendarIcon size={20} />, label: "Calendar" },
-    { id: "teams", icon: <UserMultiple size={20} />, label: "Teams" },
-    { id: "analytics", icon: <Analytics size={20} />, label: "Analytics" },
-    { id: "files", icon: <Folder size={20} />, label: "Files" },
-  ];
-
-  return (
-    <div className="flex flex-col items-center w-[60px] h-full bg-neutral-900 border-r border-neutral-800 py-4 gap-2">
-      {/* Logo */}
-      <div className="flex items-center justify-center w-10 h-10 mb-4">
-        <div className="flex items-center justify-center w-[33px] h-[22px]">
-          <InterfacesLogoSquare />
-        </div>
-      </div>
-
-      {/* Navigation Icons */}
-      <div className="flex flex-col items-center gap-1 flex-1">
-        {navItems.map((item) => (
-          <IconNavButton
-            key={item.id}
-            isActive={activeSection === item.id}
-            onClick={() => onSectionChange(item.id)}
-          >
-            {item.icon}
-          </IconNavButton>
-        ))}
-      </div>
-
-      <div className="w-8 h-px bg-neutral-700 my-2" />
-
-      {/* Bottom section */}
-      <div className="flex flex-col items-center gap-1">
-        <IconNavButton isActive={activeSection === "settings"} onClick={() => onSectionChange("settings")}>
-          <SettingsIcon size={20} />
-        </IconNavButton>
-        <div className="mt-2">
-          <AvatarCircle />
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ------------------------------ Right Sidebar ----------------------------- */
 
@@ -893,12 +817,9 @@ function MenuSection({
 /* --------------------------------- Layout -------------------------------- */
 
 function TwoLevelSidebar() {
-  const [activeSection, setActiveSection] = useState("dashboard");
-
   return (
     <div className="flex h-full">
-      <IconNavigation activeSection={activeSection} onSectionChange={setActiveSection} />
-      <DetailSidebar activeSection={activeSection} />
+      <DetailSidebar activeSection="dashboard" />
     </div>
   );
 }
