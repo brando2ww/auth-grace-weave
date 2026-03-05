@@ -1,53 +1,15 @@
 
 
-## Plano: Instalar @carbon/icons-react e substituir os ícones
+## Plano: Excluir dashboard atual e começar do zero
 
-### Problema
-O dashboard ficou feio porque os ícones Lucide têm um visual diferente (stroke-based, mais finos) dos ícones Carbon (filled, mais robustos) do design original.
+### Alterações
 
-### Solução
+1. **Excluir `src/pages/Frame760.tsx`** - remover o arquivo completamente
 
-**1. Instalar dependência**
-- `@carbon/icons-react`
+2. **Atualizar `src/pages/Dashboard.tsx`** - remover a referência ao Frame760 e renderizar uma página vazia com layout mínimo:
+   - Fundo escuro (`bg-neutral-950`)
+   - Mensagem "Dashboard" centralizada como placeholder
+   - Manter a lógica de autenticação existente (redirect se não autenticado)
 
-**2. Atualizar `src/pages/Frame760.tsx`**
-- Trocar os imports de `lucide-react` por `@carbon/icons-react`
-- Mapeamento dos imports:
-
-| Atual (lucide-react) | Novo (@carbon/icons-react) |
-|---|---|
-| LayoutDashboard | Dashboard |
-| CheckSquare | Task |
-| FolderOpen | Folder |
-| Calendar | Calendar |
-| Users | UserMultiple |
-| BarChart3 | Analytics |
-| FilePlus | DocumentAdd |
-| Settings | Settings |
-| User | User |
-| ChevronDown | ChevronDown |
-| Plus | AddLarge |
-| Filter | Filter |
-| Clock | Time |
-| Loader | InProgress |
-| CheckCircle | CheckmarkOutline |
-| Flag | Flag |
-| Archive | Archive |
-| Eye | View |
-| FileText | Report |
-| Star | StarFilled |
-| BarChart | ChartBar |
-| FolderClosed | FolderOpen |
-| Share2 | Share |
-| Upload | CloudUpload |
-| Shield | Security |
-| Bell | Notification |
-| Plug | Integration |
-
-- Manter toda a estrutura JSX, estilos e lógica inalterados
-- Os ícones Carbon usam a mesma prop `size={16}` / `size={20}`, sem mudanças no JSX
-
-**3. Remover `"use client"` do código** (já não está presente, apenas confirmar)
-
-Nenhuma outra alteração necessária.
+3. **Atualizar `src/App.tsx`** - remover o import de Frame760 (se houver referência direta)
 
