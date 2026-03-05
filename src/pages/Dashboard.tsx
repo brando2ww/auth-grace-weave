@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { Loader2 } from 'lucide-react';
-import Frame760 from '@/pages/Frame760';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -16,13 +15,17 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen flex items-center justify-center bg-neutral-950">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
-  return <Frame760 />;
+  return (
+    <div className="min-h-screen bg-neutral-950 flex items-center justify-center">
+      <h1 className="text-2xl font-semibold text-neutral-50">Dashboard</h1>
+    </div>
+  );
 };
 
 export default Dashboard;
