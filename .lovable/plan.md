@@ -1,20 +1,53 @@
 
 
-## Plano: Corrigir botão travado em "Entrando..."
+## Plano: Instalar @carbon/icons-react e substituir os ícones
 
 ### Problema
-
-O `useAuth` inicia com `loading: true` enquanto verifica a sessão existente no Supabase. Esse mesmo `loading` é passado como `isLoading` para o `SignInPage`, fazendo o botão mostrar "Entrando..." antes mesmo do usuário clicar.
+O dashboard ficou feio porque os ícones Lucide têm um visual diferente (stroke-based, mais finos) dos ícones Carbon (filled, mais robustos) do design original.
 
 ### Solução
 
-Separar o estado de "inicializando auth" do estado de "submetendo formulário":
+**1. Instalar dependência**
+- `@carbon/icons-react`
 
-**`src/pages/Index.tsx`**:
-- Criar um estado local `isSubmitting` para controlar o loading do formulário
-- Passar `isSubmitting` (em vez de `loading`) como `isLoading` para o `SignInPage`
-- Setar `isSubmitting = true` no `handleSignIn` e `false` quando terminar
-- Enquanto o auth estiver inicializando (`loading && !initialized`), mostrar um spinner em vez do formulário
+**2. Atualizar `src/pages/Frame760.tsx`**
+- Trocar os imports de `lucide-react` por `@carbon/icons-react`
+- Mapeamento dos imports:
 
-Isso garante que o botão só mostra "Entrando..." quando o usuário efetivamente clica nele.
+| Atual (lucide-react) | Novo (@carbon/icons-react) |
+|---|---|
+| LayoutDashboard | Dashboard |
+| CheckSquare | Task |
+| FolderOpen | Folder |
+| Calendar | Calendar |
+| Users | UserMultiple |
+| BarChart3 | Analytics |
+| FilePlus | DocumentAdd |
+| Settings | Settings |
+| User | User |
+| ChevronDown | ChevronDown |
+| Plus | AddLarge |
+| Filter | Filter |
+| Clock | Time |
+| Loader | InProgress |
+| CheckCircle | CheckmarkOutline |
+| Flag | Flag |
+| Archive | Archive |
+| Eye | View |
+| FileText | Report |
+| Star | StarFilled |
+| BarChart | ChartBar |
+| FolderClosed | FolderOpen |
+| Share2 | Share |
+| Upload | CloudUpload |
+| Shield | Security |
+| Bell | Notification |
+| Plug | Integration |
+
+- Manter toda a estrutura JSX, estilos e lógica inalterados
+- Os ícones Carbon usam a mesma prop `size={16}` / `size={20}`, sem mudanças no JSX
+
+**3. Remover `"use client"` do código** (já não está presente, apenas confirmar)
+
+Nenhuma outra alteração necessária.
 
