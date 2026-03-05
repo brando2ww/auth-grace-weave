@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Building2, Search, CheckCircle2, AlertCircle, Loader2, MapPin, FileText } from 'lucide-react';
+import { Search, CheckCircle2, AlertCircle, Loader2, MapPin, FileText } from 'lucide-react';
 import { lookupCNPJ, formatCNPJ, cleanCNPJ, isValidCNPJ } from '@/lib/api/cnpj';
 import { CompanyData } from '@/hooks/useOnboarding';
 import { cn } from '@/lib/utils';
@@ -293,19 +293,6 @@ export function StepCompany({ initialData, onSubmit, isSubmitting }: StepCompany
               </div>
             </div>
 
-            {/* CNAE (read-only) */}
-            <div className="p-4 bg-muted/50 rounded-lg space-y-2">
-              <div className="flex items-center gap-2 text-sm font-medium">
-                <Building2 className="w-4 h-4 text-primary" />
-                CNAE Principal
-              </div>
-              <p className="text-sm text-muted-foreground">
-                {companyData.cnae_principal} - {companyData.cnae_descricao}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Situação: {companyData.situacao_cadastral}
-              </p>
-            </div>
           </CardContent>
         </Card>
       )}
