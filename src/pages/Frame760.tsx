@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import wiseautoLogo from "@/assets/wiseauto-logo.png";
 import {
   Search as SearchIcon,
   Dashboard,
@@ -92,27 +93,8 @@ function InterfacesLogoSquare() {
 
 function BrandBadge() {
   return (
-    <div className="flex items-center gap-[10px]">
-      <div className="flex items-center justify-center w-[33px] h-[22px]">
-        <div className="relative w-[33px] h-[22px]">
-          <svg
-            width="33"
-            height="22"
-            viewBox="0 0 33 22"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d={svgPaths.p1a3cd600} fill="currentColor" />
-          </svg>
-        </div>
-      </div>
-      <div className="flex items-center">
-        <div className="flex items-center">
-          <span className="font-['Lexend:Regular',_sans-serif] text-[16px] font-semibold text-neutral-900">
-            Interfaces
-          </span>
-        </div>
-      </div>
+    <div className="flex items-center">
+      <img src={wiseautoLogo} alt="Wise Auto" className="h-[30px] w-auto" />
     </div>
   );
 }
