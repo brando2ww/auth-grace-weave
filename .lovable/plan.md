@@ -1,15 +1,20 @@
 
 
-## Plano: Corrigir redirecionamento pós-login
+## Plano: Corrigir login travado em "Entrando..."
 
 ### Problema
 
-O `useAuth.tsx` ainda tem referências a `/onboarding` nos redirects do OAuth e signup. Após login com Google ou cadastro, o Supabase redireciona para `/onboarding` que não existe mais, resultando na página 404 ou tela travada.
+O redirecionamento em `Index.tsx` exige `isAuthenticated && profile`. Se o perfil não for encontrado no banco (ou a consulta falhar), o usuário fica preso na tela de login mesmo estando autenticado.
 
 ### Alterações
 
-**Arquivo:** `src/hooks/useAuth.tsx`
+**`src/pages/Index.tsx`** (linha 14):
+- Mudar a condição de redirecionamento de `isAuthenticated && profile` para apenas `isAuthenticated`
+- Isso garante que o usuário seja redirecionado ao dashboard mesmo que o perfil não exista ainda
 
-- Linha 133: Trocar `emailRedirectTo` de `/onboarding` para `/dashboard`
-- Linha 179: Trocar `redirectTo` de `/onboarding` para `/dashboard`
+**`src/pages/Dashboard.tsx`**:
+- Garantir que o dashboard funciona mesmo com `profile` sendo `null` (já funciona com o fallback `'usuário'`)
+
+### Resultado
+Login redireciona ao dashboard imediatamente após autenticação, sem depender do carregamento do perfil.
 
