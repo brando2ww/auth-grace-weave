@@ -1,33 +1,34 @@
 import React, { useState } from "react";
 import {
   Search as SearchIcon,
-  Dashboard as LayoutDashboard,
-  Task as CheckSquare,
-  Folder as FolderOpen,
+  Dashboard,
+  Task,
+  Folder,
   Calendar as CalendarIcon,
-  UserMultiple as Users,
-  Analytics as BarChart3,
-  DocumentAdd as FilePlus,
+  UserMultiple,
+  Analytics,
+  DocumentAdd,
   Settings as SettingsIcon,
   User as UserIcon,
   ChevronDown as ChevronDownIcon,
-  AddLarge as Plus,
+  AddLarge,
   Filter,
-  Time as Clock,
-  InProgress as Loader,
-  CheckmarkOutline as CheckCircle,
+  Time,
+  InProgress,
+  CheckmarkOutline,
   Flag,
   Archive,
-  View as Eye,
-  Report as FileText,
-  StarFilled as Star,
-  ChartBar as BarChart,
-  FolderOpen as FolderClosed,
+  View,
+  Report,
+  StarFilled,
+  Group,
+  ChartBar,
+  FolderOpen,
   Share,
-  CloudUpload as Upload,
-  Security as Shield,
-  Notification as Bell,
-  Integration as Plug,
+  CloudUpload,
+  Security,
+  Notification,
+  Integration,
 } from "@carbon/icons-react";
 
 /** ======================= Local SVG paths (inline) ======================= */
@@ -58,6 +59,7 @@ const svgPaths = {
   pfa0d600:
     "M6.32 10C6.20799 10 6.15198 10 6.1092 9.9782C6.07157 9.95903 6.04097 9.92843 6.0218 9.8908C6 9.84802 6 9.79201 6 9.68V6.32C6 6.20799 6 6.15198 6.0218 6.1092C6.04097 6.07157 6.07157 6.04097 6.1092 6.0218C6.15198 6 6.20799 6 6.32 6L17.68 6C17.792 6 17.848 6 17.8908 6.0218C17.9284 6.04097 17.959 6.07157 17.9782 6.1092C18 6.15198 18 6.20799 18 6.32V9.68C18 9.79201 18 9.84802 17.9782 9.8908C17.959 9.92843 17.9284 9.95903 17.8908 9.9782C17.848 10 17.792 10 17.68 10H6.32Z",
 };
+/** ======================================================================= */
 
 // Softer spring animation curve
 const softSpringEasing = "cubic-bezier(0.25, 1.1, 0.4, 1)";
@@ -163,7 +165,7 @@ function AvatarCircle() {
           justifyContent: "center",
         }}
       >
-        <UserIcon size={16} color="#fff" />
+        <UserIcon size={16} />
       </div>
     </div>
   );
@@ -205,7 +207,7 @@ function SearchContainer({ isCollapsed = false }: { isCollapsed?: boolean }) {
               placeholder="Search"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
-              className="w-full bg-transparent border-none outline-none font-['Lexend',_sans-serif] text-[14px] text-neutral-50 placeholder:text-neutral-400 leading-[20px]"
+              className="w-full bg-transparent border-none outline-none font-['Lexend:Regular',_sans-serif] text-[14px] text-neutral-50 placeholder:text-neutral-400 leading-[20px]"
               tabIndex={isCollapsed ? -1 : 0}
             />
           </div>
@@ -245,9 +247,9 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Dashboard Types",
           items: [
-            { icon: <LayoutDashboard size={16} />, label: "Overview", isActive: true },
+            { icon: <Dashboard size={16} />, label: "Overview", isActive: true },
             {
-              icon: <BarChart3 size={16} />,
+              icon: <Analytics size={16} />,
               label: "Executive Summary",
               hasDropdown: true,
               children: [
@@ -258,7 +260,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
               ],
             },
             {
-              icon: <CheckSquare size={16} />,
+              icon: <Task size={16} />,
               label: "Operations Dashboard",
               hasDropdown: true,
               children: [
@@ -269,7 +271,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
               ],
             },
             {
-              icon: <BarChart size={16} />,
+              icon: <ChartBar size={16} />,
               label: "Financial Dashboard",
               hasDropdown: true,
               children: [
@@ -285,7 +287,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
           title: "Report Summaries",
           items: [
             {
-              icon: <FileText size={16} />,
+              icon: <Report size={16} />,
               label: "Weekly Reports",
               hasDropdown: true,
               children: [
@@ -296,7 +298,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
               ],
             },
             {
-              icon: <FileText size={16} />,
+              icon: <Report size={16} />,
               label: "Monthly Insights",
               hasDropdown: true,
               children: [
@@ -307,7 +309,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
               ],
             },
             {
-              icon: <FileText size={16} />,
+              icon: <Report size={16} />,
               label: "Quarterly Analysis",
               hasDropdown: true,
               children: [
@@ -323,7 +325,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
           title: "Business Intelligence",
           items: [
             {
-              icon: <Star size={16} />,
+              icon: <StarFilled size={16} />,
               label: "Performance Metrics",
               hasDropdown: true,
               children: [
@@ -334,7 +336,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
               ],
             },
             {
-              icon: <BarChart3 size={16} />,
+              icon: <Analytics size={16} />,
               label: "Predictive Analytics",
               hasDropdown: true,
               children: [
@@ -355,7 +357,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Quick Actions",
           items: [
-            { icon: <Plus size={16} />, label: "New task" },
+            { icon: <AddLarge size={16} />, label: "New task" },
             { icon: <Filter size={16} />, label: "Filter tasks" },
           ],
         },
@@ -363,7 +365,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
           title: "My Tasks",
           items: [
             {
-              icon: <Clock size={16} />,
+              icon: <Time size={16} />,
               label: "Due today",
               hasDropdown: true,
               children: [
@@ -373,22 +375,22 @@ function getSidebarContent(activeSection: string): SidebarContent {
               ],
             },
             {
-              icon: <Loader size={16} />,
+              icon: <InProgress size={16} />,
               label: "In progress",
               hasDropdown: true,
               children: [
-                { icon: <Loader size={16} />, label: "Implement user auth" },
-                { icon: <Loader size={16} />, label: "Database migration" },
+                { icon: <InProgress size={16} />, label: "Implement user auth" },
+                { icon: <InProgress size={16} />, label: "Database migration" },
               ],
             },
             {
-              icon: <CheckCircle size={16} />,
+              icon: <CheckmarkOutline size={16} />,
               label: "Completed",
               hasDropdown: true,
               children: [
-                { icon: <CheckCircle size={16} />, label: "Fixed login bug" },
-                { icon: <CheckCircle size={16} />, label: "Updated dependencies" },
-                { icon: <CheckCircle size={16} />, label: "Code review completed" },
+                { icon: <CheckmarkOutline size={16} />, label: "Fixed login bug" },
+                { icon: <CheckmarkOutline size={16} />, label: "Updated dependencies" },
+                { icon: <CheckmarkOutline size={16} />, label: "Code review completed" },
               ],
             },
           ],
@@ -417,7 +419,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Quick Actions",
           items: [
-            { icon: <Plus size={16} />, label: "New project" },
+            { icon: <AddLarge size={16} />, label: "New project" },
             { icon: <Filter size={16} />, label: "Filter projects" },
           ],
         },
@@ -425,22 +427,22 @@ function getSidebarContent(activeSection: string): SidebarContent {
           title: "Active Projects",
           items: [
             {
-              icon: <FolderOpen size={16} />,
+              icon: <Folder size={16} />,
               label: "Web Application",
               hasDropdown: true,
               children: [
-                { icon: <CheckSquare size={16} />, label: "Frontend development" },
-                { icon: <CheckSquare size={16} />, label: "API integration" },
-                { icon: <CheckSquare size={16} />, label: "Testing & QA" },
+                { icon: <Task size={16} />, label: "Frontend development" },
+                { icon: <Task size={16} />, label: "API integration" },
+                { icon: <Task size={16} />, label: "Testing & QA" },
               ],
             },
             {
-              icon: <FolderOpen size={16} />,
+              icon: <Folder size={16} />,
               label: "Mobile App",
               hasDropdown: true,
               children: [
-                { icon: <CheckSquare size={16} />, label: "UI/UX design" },
-                { icon: <CheckSquare size={16} />, label: "Native development" },
+                { icon: <Task size={16} />, label: "UI/UX design" },
+                { icon: <Task size={16} />, label: "Native development" },
               ],
             },
           ],
@@ -448,7 +450,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Other",
           items: [
-            { icon: <CheckCircle size={16} />, label: "Completed" },
+            { icon: <CheckmarkOutline size={16} />, label: "Completed" },
             { icon: <Archive size={16} />, label: "Archived" },
           ],
         },
@@ -470,13 +472,13 @@ function getSidebarContent(activeSection: string): SidebarContent {
           title: "Events",
           items: [
             {
-              icon: <Clock size={16} />,
+              icon: <Time size={16} />,
               label: "Today's events",
               hasDropdown: true,
               children: [
-                { icon: <Clock size={16} />, label: "Team standup (9:00 AM)" },
-                { icon: <Clock size={16} />, label: "Client call (2:00 PM)" },
-                { icon: <Clock size={16} />, label: "Project review (4:00 PM)" },
+                { icon: <Time size={16} />, label: "Team standup (9:00 AM)" },
+                { icon: <Time size={16} />, label: "Client call (2:00 PM)" },
+                { icon: <Time size={16} />, label: "Project review (4:00 PM)" },
               ],
             },
             { icon: <CalendarIcon size={16} />, label: "Upcoming events" },
@@ -485,7 +487,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Quick Actions",
           items: [
-            { icon: <Plus size={16} />, label: "New event" },
+            { icon: <AddLarge size={16} />, label: "New event" },
             { icon: <Share size={16} />, label: "Share calendar" },
           ],
         },
@@ -499,7 +501,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
           title: "My Teams",
           items: [
             {
-              icon: <Users size={16} />,
+              icon: <UserMultiple size={16} />,
               label: "Development Team",
               hasDropdown: true,
               children: [
@@ -509,7 +511,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
               ],
             },
             {
-              icon: <Users size={16} />,
+              icon: <UserMultiple size={16} />,
               label: "Design Team",
               hasDropdown: true,
               children: [
@@ -522,7 +524,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Quick Actions",
           items: [
-            { icon: <Plus size={16} />, label: "Invite member" },
+            { icon: <AddLarge size={16} />, label: "Invite member" },
             { icon: <SettingsIcon size={16} />, label: "Manage teams" },
           ],
         },
@@ -535,22 +537,22 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Reports",
           items: [
-            { icon: <BarChart3 size={16} />, label: "Performance report" },
-            { icon: <CheckCircle size={16} />, label: "Task completion" },
-            { icon: <Users size={16} />, label: "Team productivity" },
+            { icon: <Analytics size={16} />, label: "Performance report" },
+            { icon: <CheckmarkOutline size={16} />, label: "Task completion" },
+            { icon: <UserMultiple size={16} />, label: "Team productivity" },
           ],
         },
         {
           title: "Insights",
           items: [
             {
-              icon: <Star size={16} />,
+              icon: <StarFilled size={16} />,
               label: "Key metrics",
               hasDropdown: true,
               children: [
-                { icon: <CheckSquare size={16} />, label: "Tasks completed: 24" },
-                { icon: <Clock size={16} />, label: "Avg. completion time: 2.5d" },
-                { icon: <BarChart3 size={16} />, label: "Team efficiency: 87%" },
+                { icon: <Task size={16} />, label: "Tasks completed: 24" },
+                { icon: <Time size={16} />, label: "Avg. completion time: 2.5d" },
+                { icon: <Analytics size={16} />, label: "Team efficiency: 87%" },
               ],
             },
           ],
@@ -564,21 +566,21 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Quick Actions",
           items: [
-            { icon: <Upload size={16} />, label: "Upload file" },
-            { icon: <Plus size={16} />, label: "New folder" },
+            { icon: <CloudUpload size={16} />, label: "Upload file" },
+            { icon: <AddLarge size={16} />, label: "New folder" },
           ],
         },
         {
           title: "Recent Files",
           items: [
             {
-              icon: <FileText size={16} />,
+              icon: <Report size={16} />,
               label: "Recent documents",
               hasDropdown: true,
               children: [
-                { icon: <FileText size={16} />, label: "Project proposal.pdf" },
-                { icon: <FileText size={16} />, label: "Meeting notes.docx" },
-                { icon: <FileText size={16} />, label: "Design specs.figma" },
+                { icon: <Report size={16} />, label: "Project proposal.pdf" },
+                { icon: <Report size={16} />, label: "Meeting notes.docx" },
+                { icon: <Report size={16} />, label: "Design specs.figma" },
               ],
             },
             { icon: <Share size={16} />, label: "Shared with me" },
@@ -587,7 +589,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Organization",
           items: [
-            { icon: <FolderOpen size={16} />, label: "All folders" },
+            { icon: <Folder size={16} />, label: "All folders" },
             { icon: <Archive size={16} />, label: "Archived files" },
           ],
         },
@@ -601,8 +603,8 @@ function getSidebarContent(activeSection: string): SidebarContent {
           title: "Account",
           items: [
             { icon: <UserIcon size={16} />, label: "Profile settings" },
-            { icon: <Shield size={16} />, label: "Security" },
-            { icon: <Bell size={16} />, label: "Notifications" },
+            { icon: <Security size={16} />, label: "Security" },
+            { icon: <Notification size={16} />, label: "Notifications" },
           ],
         },
         {
@@ -613,12 +615,12 @@ function getSidebarContent(activeSection: string): SidebarContent {
               label: "Preferences",
               hasDropdown: true,
               children: [
-                { icon: <Eye size={16} />, label: "Theme settings" },
-                { icon: <Clock size={16} />, label: "Time zone" },
-                { icon: <Bell size={16} />, label: "Default notifications" },
+                { icon: <View size={16} />, label: "Theme settings" },
+                { icon: <Time size={16} />, label: "Time zone" },
+                { icon: <Notification size={16} />, label: "Default notifications" },
               ],
             },
-            { icon: <Plug size={16} />, label: "Integrations" },
+            { icon: <Integration size={16} />, label: "Integrations" },
           ],
         },
       ],
@@ -675,13 +677,13 @@ function IconNavigation({
   onSectionChange: (section: string) => void;
 }) {
   const navItems = [
-    { id: "dashboard", icon: <LayoutDashboard size={20} />, label: "Dashboard" },
-    { id: "tasks", icon: <CheckSquare size={20} />, label: "Tasks" },
-    { id: "projects", icon: <FolderOpen size={20} />, label: "Projects" },
+    { id: "dashboard", icon: <Dashboard size={20} />, label: "Dashboard" },
+    { id: "tasks", icon: <Task size={20} />, label: "Tasks" },
+    { id: "projects", icon: <Folder size={20} />, label: "Projects" },
     { id: "calendar", icon: <CalendarIcon size={20} />, label: "Calendar" },
-    { id: "teams", icon: <Users size={20} />, label: "Teams" },
-    { id: "analytics", icon: <BarChart3 size={20} />, label: "Analytics" },
-    { id: "files", icon: <FolderClosed size={20} />, label: "Files" },
+    { id: "teams", icon: <UserMultiple size={20} />, label: "Teams" },
+    { id: "analytics", icon: <Analytics size={20} />, label: "Analytics" },
+    { id: "files", icon: <FolderOpen size={20} />, label: "Files" },
   ];
 
   return (
