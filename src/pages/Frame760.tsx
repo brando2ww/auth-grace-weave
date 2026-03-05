@@ -82,8 +82,8 @@ function InterfacesLogoSquare() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d={svgPaths.p15853b70} fill="white" />
-          <path d={svgPaths.p35081d00} fill="white" />
+          <path d={svgPaths.p15853b70} fill="currentColor" />
+          <path d={svgPaths.p35081d00} fill="currentColor" />
         </svg>
       </div>
     </div>
@@ -102,13 +102,13 @@ function BrandBadge() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path d={svgPaths.p1a3cd600} fill="white" />
+            <path d={svgPaths.p1a3cd600} fill="currentColor" />
           </svg>
         </div>
       </div>
       <div className="flex items-center">
         <div className="flex items-center">
-          <span className="font-['Lexend:Regular',_sans-serif] text-[16px] font-semibold text-neutral-50">
+          <span className="font-['Lexend:Regular',_sans-serif] text-[16px] font-semibold text-neutral-900">
             Interfaces
           </span>
         </div>
@@ -121,9 +121,9 @@ function BrandBadge() {
 
 function AvatarCircle() {
   return (
-    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-neutral-700">
+    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-neutral-200">
       <div className="flex items-center justify-center w-4 h-4">
-        <UserIcon size={16} className="text-neutral-300" />
+        <UserIcon size={16} className="text-neutral-600" />
       </div>
     </div>
   );
@@ -141,17 +141,17 @@ function SearchContainer({
   if (isCollapsed) {
     return (
       <div className="flex items-center justify-center py-2 px-0">
-        <div className="flex items-center justify-center w-10 h-10 rounded-md hover:bg-neutral-800 cursor-pointer transition-colors">
-          <SearchIcon size={16} className="text-neutral-400" />
+        <div className="flex items-center justify-center w-10 h-10 rounded-md hover:bg-neutral-100 cursor-pointer transition-colors">
+          <SearchIcon size={16} className="text-neutral-500" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center gap-2 px-3 py-2 mx-3 rounded-lg bg-neutral-800 border border-neutral-700">
+    <div className="flex items-center gap-2 px-3 py-2 mx-3 rounded-lg bg-neutral-100 border border-neutral-200">
       <div className="flex items-center justify-center w-4 h-4 shrink-0">
-        <SearchIcon size={16} className="text-neutral-400" />
+        <SearchIcon size={16} className="text-neutral-500" />
       </div>
       <div className="flex-1">
         <input
@@ -159,7 +159,7 @@ function SearchContainer({
           placeholder="Search..."
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
-          className="w-full bg-transparent border-none outline-none font-['Lexend:Regular',_sans-serif] text-[14px] text-neutral-50 placeholder:text-neutral-400 leading-[20px]"
+          className="w-full bg-transparent border-none outline-none font-['Lexend:Regular',_sans-serif] text-[14px] text-neutral-900 placeholder:text-neutral-400 leading-[20px]"
         />
       </div>
     </div>
@@ -592,8 +592,8 @@ function SectionTitle({
   if (isCollapsed) {
     return (
       <div className="flex items-center justify-center py-2">
-        <button onClick={onToggleCollapse} className="p-1 rounded hover:bg-neutral-800">
-          <ChevronDownIcon size={16} className="text-neutral-400 rotate-180" />
+        <button onClick={onToggleCollapse} className="p-1 rounded hover:bg-neutral-100">
+          <ChevronDownIcon size={16} className="text-neutral-500 rotate-180" />
         </button>
       </div>
     );
@@ -604,15 +604,15 @@ function SectionTitle({
       <div className="flex items-center gap-2">
         <div className="flex items-center">
           <div className="flex items-center">
-            <span className="font-['Lexend:Regular',_sans-serif] text-[14px] font-semibold text-neutral-50">
+            <span className="font-['Lexend:Regular',_sans-serif] text-[14px] font-semibold text-neutral-900">
               {title}
             </span>
           </div>
         </div>
       </div>
       <div className="flex items-center">
-        <button onClick={onToggleCollapse} className="p-1 rounded hover:bg-neutral-800">
-          <ChevronDownIcon size={16} className="text-neutral-400" />
+        <button onClick={onToggleCollapse} className="p-1 rounded hover:bg-neutral-100">
+          <ChevronDownIcon size={16} className="text-neutral-500" />
         </button>
       </div>
     </div>
@@ -637,7 +637,7 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
 
   return (
     <div
-      className={`flex flex-col h-full bg-neutral-900 border-r border-neutral-800 transition-all duration-400 ${
+      className={`flex flex-col h-full bg-white border-r border-neutral-200 transition-all duration-400 ${
         isCollapsed ? "w-[60px]" : "w-[260px]"
       }`}
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
@@ -674,14 +674,14 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
       </div>
 
       {!isCollapsed && (
-        <div className="border-t border-neutral-800 p-3">
+        <div className="border-t border-neutral-200 p-3">
           <div className="flex items-center gap-2">
             <AvatarCircle />
-            <span className="text-sm text-neutral-300">Text content</span>
+            <span className="text-sm text-neutral-600">Text content</span>
             <div className="ml-auto flex items-center gap-1">
-              <Notification size={16} className="text-neutral-400" />
-              <SettingsIcon size={16} className="text-neutral-400" />
-              <ChevronDownIcon size={16} className="text-neutral-400" />
+              <Notification size={16} className="text-neutral-500" />
+              <SettingsIcon size={16} className="text-neutral-500" />
+              <ChevronDownIcon size={16} className="text-neutral-500" />
             </div>
           </div>
         </div>
@@ -718,8 +718,8 @@ function MenuItem({
           isCollapsed ? "justify-center px-0" : "px-3"
         } ${
           item.isActive
-            ? "bg-neutral-700 text-neutral-50"
-            : "text-neutral-300 hover:bg-neutral-800 hover:text-neutral-50"
+            ? "bg-blue-50 text-blue-600"
+            : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
         }`}
       >
         <div className="flex items-center justify-center w-5 h-5 shrink-0">
@@ -751,7 +751,7 @@ function SubMenuItem({ item, onItemClick }: { item: MenuItemT; onItemClick?: () 
     <div className="mb-0.5">
       <button
         onClick={onItemClick}
-        className="flex items-center w-full pl-10 pr-3 py-1.5 rounded-md text-neutral-400 hover:text-neutral-50 hover:bg-neutral-800 transition-colors"
+        className="flex items-center w-full pl-10 pr-3 py-1.5 rounded-md text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition-colors"
       >
         <div className="flex items-center">
           <span className="text-[12px] whitespace-nowrap">
@@ -828,7 +828,7 @@ function TwoLevelSidebar() {
 
 export function Frame760() {
   return (
-    <div className="flex h-screen w-full bg-neutral-950 overflow-hidden">
+    <div className="flex h-screen w-full bg-white overflow-hidden">
       <TwoLevelSidebar />
     </div>
   );
