@@ -75,8 +75,8 @@ function InterfacesLogoSquare() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d={svgPaths.p15853b70} fill="white" />
-          <path d={svgPaths.p35081d00} fill="white" />
+          <path d={svgPaths.p15853b70} fill="black" />
+          <path d={svgPaths.p35081d00} fill="black" />
         </svg>
       </div>
     </div>
@@ -95,7 +95,7 @@ function BrandBadge() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path d={svgPaths.p1a3cd600} fill="white" />
+            <path d={svgPaths.p1a3cd600} fill="black" />
           </svg>
         </div>
       </div>
@@ -107,9 +107,9 @@ function BrandBadge() {
 
 function AvatarCircle() {
   return (
-    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-neutral-700">
+    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-neutral-200">
       <div className="flex items-center justify-center w-4 h-4">
-        <UserIcon size={16} className="text-neutral-300" />
+        <UserIcon size={16} className="text-neutral-500" />
       </div>
     </div>
   );
@@ -125,13 +125,13 @@ function SearchContainer({
   const [searchValue, setSearchValue] = useState("");
   return (
     <div
-      className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-neutral-800/50 border border-neutral-700/50 transition-all duration-300 ${
+      className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-neutral-100 border border-neutral-200 transition-all duration-300 ${
         isCollapsed ? "w-10 justify-center" : "w-full"
       }`}
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
     >
       <div className="flex items-center justify-center w-4 h-4 shrink-0">
-        <SearchIcon size={16} className="text-neutral-400" />
+        <SearchIcon size={16} className="text-neutral-500" />
       </div>
 
       <div
@@ -211,7 +211,7 @@ function SectionTitle({
     return (
       <div className="flex items-center justify-center py-2">
         <button onClick={onToggleCollapse} className="p-1 rounded hover:bg-neutral-800">
-          <ChevronDownIcon size={16} className="text-neutral-400 rotate-[-90deg]" />
+          <ChevronDownIcon size={16} className="text-neutral-500 rotate-[-90deg]" />
         </button>
       </div>
     );
@@ -221,15 +221,15 @@ function SectionTitle({
       <div className="flex items-center gap-2">
         <div className="flex items-center">
           <div className="flex items-center">
-            <span className="font-['Lexend:Regular',_sans-serif] text-[12px] font-semibold text-neutral-400 uppercase tracking-wider">
+            <span className="font-['Lexend:Regular',_sans-serif] text-[12px] font-semibold text-neutral-500 uppercase tracking-wider">
               {title}
             </span>
           </div>
         </div>
       </div>
       <div className="flex items-center">
-        <button onClick={onToggleCollapse} className="p-1 rounded hover:bg-neutral-800">
-          <ChevronDownIcon size={16} className="text-neutral-400" />
+        <button onClick={onToggleCollapse} className="p-1 rounded hover:bg-neutral-100">
+          <ChevronDownIcon size={16} className="text-neutral-500" />
         </button>
       </div>
     </div>
@@ -244,7 +244,7 @@ function DetailSidebar() {
 
   return (
     <div
-      className={`flex flex-col h-full bg-neutral-900 border-r border-neutral-800 transition-all duration-400 ${
+      className={`flex flex-col h-full bg-white border-r border-neutral-200 transition-all duration-400 ${
         isCollapsed ? "w-[60px]" : "w-[260px]"
       }`}
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
@@ -277,18 +277,18 @@ function DetailSidebar() {
 
       {/* User Footer */}
       {!isCollapsed && (
-        <div className="border-t border-neutral-800 p-3">
+        <div className="border-t border-neutral-200 p-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <AvatarCircle />
-              <span className="text-sm text-neutral-300 truncate max-w-[140px]">
+              <span className="text-sm text-neutral-700 truncate max-w-[140px]">
                 {profile?.first_name || "Usuário"}
               </span>
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="p-1 rounded hover:bg-neutral-800">
-                  <SettingsIcon size={16} className="text-neutral-400" />
+                <button className="p-1 rounded hover:bg-neutral-100">
+                   <SettingsIcon size={16} className="text-neutral-500" />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
@@ -329,7 +329,7 @@ function MenuItem({
 }) {
   const content = (
     <>
-      <div className="flex items-center justify-center w-5 h-5 shrink-0 text-neutral-400">
+      <div className="flex items-center justify-center w-5 h-5 shrink-0 text-neutral-500">
         {item.icon}
       </div>
       <div
@@ -338,7 +338,7 @@ function MenuItem({
         }`}
         style={{ transition: `all 0.4s ${softSpringEasing}` }}
       >
-        <span className="text-[14px] text-neutral-300 whitespace-nowrap">
+        <span className="text-[14px] text-neutral-700 whitespace-nowrap">
           {item.label}
         </span>
       </div>
@@ -350,7 +350,7 @@ function MenuItem({
       <div className="mb-0.5">
         <Link
           to={item.to}
-          className="flex items-center px-3 py-2 rounded-md hover:bg-neutral-800 transition-colors"
+          className="flex items-center px-3 py-2 rounded-md hover:bg-neutral-100 transition-colors"
         >
           {content}
         </Link>
@@ -362,7 +362,7 @@ function MenuItem({
     <div className="mb-0.5">
       <button
         onClick={onItemClick}
-        className="flex items-center w-full px-3 py-2 rounded-md hover:bg-neutral-800 transition-colors"
+        className="flex items-center w-full px-3 py-2 rounded-md hover:bg-neutral-100 transition-colors"
       >
         {content}
       </button>
