@@ -1,34 +1,37 @@
 "use client";
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
-import { EditProfileDialog } from "@/components/EditProfileDialog";
-import induxXIcon from "@/assets/indux-x-icon.png";
-import induxLogo from "@/assets/indux-logo-new.png";
 import {
   Search as SearchIcon,
   Dashboard,
-  DocumentAdd,
+  Task,
+  Folder,
   Calendar as CalendarIcon,
   UserMultiple,
   Analytics,
+  DocumentAdd,
   Settings as SettingsIcon,
   User as UserIcon,
   ChevronDown as ChevronDownIcon,
+  AddLarge,
+  Filter,
+  Time,
   InProgress,
+  CheckmarkOutline,
+  Flag,
+  Archive,
+  View,
   Report,
   StarFilled,
   Group,
+  ChartBar,
+  FolderOpen,
+  Share,
+  CloudUpload,
+  Security,
   Notification,
-  Logout,
+  Integration,
 } from "@carbon/icons-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 /** ======================= Local SVG paths (inline) ======================= */
 const svgPaths = {
@@ -61,7 +64,9 @@ const svgPaths = {
   pfa0d600:
     "M6.32 10C6.20799 10 6.15198 10 6.1092 9.9782C6.07157 9.95903 6.04097 9.92843 6.0218 9.8908C6 9.84802 6 9.79201 6 9.68V6.32C6 6.20799 6 6.15198 6.0218 6.1092C6.04097 6.07157 6.07157 6.04097 6.1092 6.0218C6.15198 6 6.20799 6 6.32 6L17.68 6C17.792 6 17.848 6 17.8908 6.0218C17.9284 6.04097 17.959 6.07157 17.9782 6.1092C18 6.15198 18 6.20799 18 6.32V9.68C18 9.79201 18 9.84802 17.9782 9.8908C17.959 9.92843 17.9284 9.95903 17.8908 9.9782C17.848 10 17.792 10 17.68 10H6.32Z",
 };
+/** ======================================================================= */
 
+// Softer spring animation curve
 const softSpringEasing = "cubic-bezier(0.25, 1.1, 0.4, 1)";
 
 /* ----------------------------- Brand / Logos ----------------------------- */
@@ -77,8 +82,8 @@ function InterfacesLogoSquare() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d={svgPaths.p15853b70} fill="black" />
-          <path d={svgPaths.p35081d00} fill="black" />
+          <path d={svgPaths.p15853b70} fill="white" />
+          <path d={svgPaths.p35081d00} fill="white" />
         </svg>
       </div>
     </div>
@@ -97,8 +102,15 @@ function BrandBadge() {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path d={svgPaths.p1a3cd600} fill="black" />
+            <path d={svgPaths.p1a3cd600} fill="white" />
           </svg>
+        </div>
+      </div>
+      <div className="flex items-center">
+        <div className="flex items-center">
+          <span className="font-['Lexend:Regular',_sans-serif] text-[16px] font-semibold text-neutral-50">
+            Interfaces
+          </span>
         </div>
       </div>
     </div>
@@ -109,9 +121,9 @@ function BrandBadge() {
 
 function AvatarCircle() {
   return (
-    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-neutral-200">
+    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-neutral-700">
       <div className="flex items-center justify-center w-4 h-4">
-        <UserIcon size={16} className="text-neutral-500" />
+        <UserIcon size={16} className="text-neutral-300" />
       </div>
     </div>
   );
@@ -125,15 +137,16 @@ function SearchContainer({
   isCollapsed?: boolean;
 }) {
   const [searchValue, setSearchValue] = useState("");
+
   return (
     <div
-      className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-neutral-100 border border-neutral-200 transition-all duration-300 ${
+      className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-neutral-800 border border-neutral-700 transition-all duration-300 ${
         isCollapsed ? "w-10 justify-center" : "w-full"
       }`}
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
     >
       <div className="flex items-center justify-center w-4 h-4 shrink-0">
-        <SearchIcon size={16} className="text-neutral-500" />
+        <SearchIcon size={16} className="text-neutral-400" />
       </div>
 
       <div
@@ -145,10 +158,10 @@ function SearchContainer({
         <div className="flex items-center">
           <input
             type="text"
-            placeholder="Buscar..."
+            placeholder="Search..."
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            className="w-full bg-transparent border-none outline-none font-['Lexend:Regular',_sans-serif] text-[14px] text-[#3d3d3d] placeholder:text-neutral-500 leading-[20px]"
+            className="w-full bg-transparent border-none outline-none font-['Lexend:Regular',_sans-serif] text-[14px] text-neutral-50 placeholder:text-neutral-400 leading-[20px]"
             tabIndex={isCollapsed ? -1 : 0}
           />
         </div>
@@ -164,8 +177,9 @@ function SearchContainer({
 interface MenuItemT {
   icon?: React.ReactNode;
   label: string;
+  hasDropdown?: boolean;
   isActive?: boolean;
-  to?: string;
+  children?: MenuItemT[];
 }
 interface MenuSectionT {
   title: string;
@@ -176,26 +190,474 @@ interface SidebarContent {
   sections: MenuSectionT[];
 }
 
-function getSidebarContent(): SidebarContent {
-  return {
-    title: "Menu",
-    sections: [
-      {
-        title: "Principal",
-        items: [
-          { icon: <Dashboard size={20} />, label: "Dashboard", to: "/dashboard" },
-          { icon: <UserMultiple size={20} />, label: "Leads", to: "/leads" },
-          { icon: <Group size={20} />, label: "CRM", to: "/crm" },
-          { icon: <DocumentAdd size={20} />, label: "Orçamentos", to: "/orcamentos" },
-          { icon: <CalendarIcon size={20} />, label: "Atendimento", to: "/atendimento" },
-          { icon: <InProgress size={20} />, label: "Produção", to: "/producao" },
-          { icon: <StarFilled size={20} />, label: "Representantes", to: "/representantes" },
-          { icon: <Report size={20} />, label: "Relatórios", to: "/relatorios" },
-          { icon: <Analytics size={20} />, label: "Pós-Venda", to: "/pos-venda" },
-        ],
-      },
-    ],
+function getSidebarContent(activeSection: string): SidebarContent {
+  const contentMap: Record<string, SidebarContent> = {
+    dashboard: {
+      title: "Dashboard",
+      sections: [
+        {
+          title: "Dashboard Types",
+          items: [
+            { icon: <Dashboard size={16} />, label: "Overview", isActive: true },
+            {
+              icon: <Report size={16} />,
+              label: "Executive Summary",
+              hasDropdown: true,
+              children: [
+                { label: "Revenue Overview" },
+                { label: "Key Performance Indicators" },
+                { label: "Strategic Goals Progress" },
+                { label: "Department Highlights" },
+              ],
+            },
+            {
+              icon: <InProgress size={16} />,
+              label: "Operations Dashboard",
+              hasDropdown: true,
+              children: [
+                { label: "Project Timeline" },
+                { label: "Resource Allocation" },
+                { label: "Team Performance" },
+                { label: "Capacity Planning" },
+              ],
+            },
+            {
+              icon: <Analytics size={16} />,
+              label: "Financial Dashboard",
+              hasDropdown: true,
+              children: [
+                { label: "Budget vs Actual" },
+                { label: "Cash Flow Analysis" },
+                { label: "Expense Breakdown" },
+                { label: "Profit & Loss Summary" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "Report Summaries",
+          items: [
+            {
+              icon: <CalendarIcon size={16} />,
+              label: "Weekly Reports",
+              hasDropdown: true,
+              children: [
+                { label: "Team Productivity: 87% ↑" },
+                { label: "Project Completion: 12/15" },
+                { label: "Budget Utilization: 73%" },
+                { label: "Client Satisfaction: 4.6/5" },
+              ],
+            },
+            {
+              icon: <ChartBar size={16} />,
+              label: "Monthly Insights",
+              hasDropdown: true,
+              children: [
+                { label: "Revenue Growth: +15.3%" },
+                { label: "New Clients: 24" },
+                { label: "Team Expansion: 8 hires" },
+                { label: "Cost Reduction: 7.2%" },
+              ],
+            },
+            {
+              icon: <Report size={16} />,
+              label: "Quarterly Analysis",
+              hasDropdown: true,
+              children: [
+                { label: "Market Position: Improved" },
+                { label: "ROI: 23.4%" },
+                { label: "Customer Retention: 92%" },
+                { label: "Innovation Index: 8.7/10" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "Business Intelligence",
+          items: [
+            {
+              icon: <StarFilled size={16} />,
+              label: "Performance Metrics",
+              hasDropdown: true,
+              children: [
+                { label: "Sales Conversion: 34.2%" },
+                { label: "Lead Response Time: 2.3h" },
+                { label: "Customer Lifetime Value: $4,280" },
+                { label: "Churn Rate: 3.1%" },
+              ],
+            },
+            {
+              icon: <Analytics size={16} />,
+              label: "Predictive Analytics",
+              hasDropdown: true,
+              children: [
+                { label: "Q4 Revenue Forecast: $2.4M" },
+                { label: "Resource Demand: High" },
+                { label: "Market Trends: Positive" },
+                { label: "Risk Assessment: Low" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    tasks: {
+      title: "Tasks",
+      sections: [
+        {
+          title: "Quick Actions",
+          items: [
+            { icon: <AddLarge size={16} />, label: "New task" },
+            { icon: <Filter size={16} />, label: "Filter tasks" },
+          ],
+        },
+        {
+          title: "My Tasks",
+          items: [
+            {
+              icon: <Time size={16} />,
+              label: "Due today",
+              hasDropdown: true,
+              children: [
+                { icon: <Task size={16} />, label: "Review design mockups" },
+                { icon: <Task size={16} />, label: "Update documentation" },
+                { icon: <Task size={16} />, label: "Test new feature" },
+              ],
+            },
+            {
+              icon: <InProgress size={16} />,
+              label: "In progress",
+              hasDropdown: true,
+              children: [
+                { icon: <Task size={16} />, label: "Implement user auth" },
+                { icon: <Task size={16} />, label: "Database migration" },
+              ],
+            },
+            {
+              icon: <CheckmarkOutline size={16} />,
+              label: "Completed",
+              hasDropdown: true,
+              children: [
+                { icon: <Task size={16} />, label: "Fixed login bug" },
+                { icon: <Task size={16} />, label: "Updated dependencies" },
+                { icon: <Task size={16} />, label: "Code review completed" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "Other",
+          items: [
+            {
+              icon: <Flag size={16} />,
+              label: "Priority tasks",
+              hasDropdown: true,
+              children: [
+                { icon: <Task size={16} />, label: "Security update" },
+                { icon: <Task size={16} />, label: "Client presentation" },
+              ],
+            },
+            { icon: <Archive size={16} />, label: "Archived" },
+          ],
+        },
+      ],
+    },
+
+    projects: {
+      title: "Projects",
+      sections: [
+        {
+          title: "Quick Actions",
+          items: [
+            { icon: <AddLarge size={16} />, label: "New project" },
+            { icon: <Filter size={16} />, label: "Filter projects" },
+          ],
+        },
+        {
+          title: "Active Projects",
+          items: [
+            {
+              icon: <Folder size={16} />,
+              label: "Web Application",
+              hasDropdown: true,
+              children: [
+                { icon: <Task size={16} />, label: "Frontend development" },
+                { icon: <Task size={16} />, label: "API integration" },
+                { icon: <Task size={16} />, label: "Testing & QA" },
+              ],
+            },
+            {
+              icon: <Folder size={16} />,
+              label: "Mobile App",
+              hasDropdown: true,
+              children: [
+                { icon: <Task size={16} />, label: "UI/UX design" },
+                { icon: <Task size={16} />, label: "Native development" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "Other",
+          items: [
+            { icon: <CheckmarkOutline size={16} />, label: "Completed" },
+            { icon: <Archive size={16} />, label: "Archived" },
+          ],
+        },
+      ],
+    },
+
+    calendar: {
+      title: "Calendar",
+      sections: [
+        {
+          title: "Views",
+          items: [
+            { icon: <CalendarIcon size={16} />, label: "Month view" },
+            { icon: <View size={16} />, label: "Week view" },
+            { icon: <View size={16} />, label: "Day view" },
+          ],
+        },
+        {
+          title: "Events",
+          items: [
+            {
+              icon: <Time size={16} />,
+              label: "Today's events",
+              hasDropdown: true,
+              children: [
+                { icon: <CalendarIcon size={16} />, label: "Team standup (9:00 AM)" },
+                { icon: <CalendarIcon size={16} />, label: "Client call (2:00 PM)" },
+                { icon: <CalendarIcon size={16} />, label: "Project review (4:00 PM)" },
+              ],
+            },
+            { icon: <CalendarIcon size={16} />, label: "Upcoming events" },
+          ],
+        },
+        {
+          title: "Quick Actions",
+          items: [
+            { icon: <AddLarge size={16} />, label: "New event" },
+            { icon: <Share size={16} />, label: "Share calendar" },
+          ],
+        },
+      ],
+    },
+
+    teams: {
+      title: "Teams",
+      sections: [
+        {
+          title: "My Teams",
+          items: [
+            {
+              icon: <Group size={16} />,
+              label: "Development Team",
+              hasDropdown: true,
+              children: [
+                { icon: <UserIcon size={16} />, label: "John Doe (Lead)" },
+                { icon: <UserIcon size={16} />, label: "Jane Smith" },
+                { icon: <UserIcon size={16} />, label: "Mike Johnson" },
+              ],
+            },
+            {
+              icon: <Group size={16} />,
+              label: "Design Team",
+              hasDropdown: true,
+              children: [
+                { icon: <UserIcon size={16} />, label: "Sarah Wilson" },
+                { icon: <UserIcon size={16} />, label: "Tom Brown" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "Quick Actions",
+          items: [
+            { icon: <AddLarge size={16} />, label: "Invite member" },
+            { icon: <SettingsIcon size={16} />, label: "Manage teams" },
+          ],
+        },
+      ],
+    },
+
+    analytics: {
+      title: "Analytics",
+      sections: [
+        {
+          title: "Reports",
+          items: [
+            { icon: <ChartBar size={16} />, label: "Performance report" },
+            { icon: <CheckmarkOutline size={16} />, label: "Task completion" },
+            { icon: <Group size={16} />, label: "Team productivity" },
+          ],
+        },
+        {
+          title: "Insights",
+          items: [
+            {
+              icon: <StarFilled size={16} />,
+              label: "Key metrics",
+              hasDropdown: true,
+              children: [
+                { icon: <Analytics size={16} />, label: "Tasks completed: 24" },
+                { icon: <Analytics size={16} />, label: "Avg. completion time: 2.5d" },
+                { icon: <Analytics size={16} />, label: "Team efficiency: 87%" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    files: {
+      title: "Files",
+      sections: [
+        {
+          title: "Quick Actions",
+          items: [
+            { icon: <CloudUpload size={16} />, label: "Upload file" },
+            { icon: <AddLarge size={16} />, label: "New folder" },
+          ],
+        },
+        {
+          title: "Recent Files",
+          items: [
+            {
+              icon: <FolderOpen size={16} />,
+              label: "Recent documents",
+              hasDropdown: true,
+              children: [
+                { icon: <DocumentAdd size={16} />, label: "Project proposal.pdf" },
+                { icon: <DocumentAdd size={16} />, label: "Meeting notes.docx" },
+                { icon: <DocumentAdd size={16} />, label: "Design specs.figma" },
+              ],
+            },
+            { icon: <Share size={16} />, label: "Shared with me" },
+          ],
+        },
+        {
+          title: "Organization",
+          items: [
+            { icon: <Folder size={16} />, label: "All folders" },
+            { icon: <Archive size={16} />, label: "Archived files" },
+          ],
+        },
+      ],
+    },
+
+    settings: {
+      title: "Settings",
+      sections: [
+        {
+          title: "Account",
+          items: [
+            { icon: <UserIcon size={16} />, label: "Profile settings" },
+            { icon: <Security size={16} />, label: "Security" },
+            { icon: <Notification size={16} />, label: "Notifications" },
+          ],
+        },
+        {
+          title: "Workspace",
+          items: [
+            {
+              icon: <SettingsIcon size={16} />,
+              label: "Preferences",
+              hasDropdown: true,
+              children: [
+                { icon: <View size={16} />, label: "Theme settings" },
+                { icon: <Time size={16} />, label: "Time zone" },
+                { icon: <Notification size={16} />, label: "Default notifications" },
+              ],
+            },
+            { icon: <Integration size={16} />, label: "Integrations" },
+          ],
+        },
+      ],
+    },
   };
+
+  return contentMap[activeSection] || contentMap.tasks;
+}
+
+/* ---------------------------- Left Icon Nav Rail -------------------------- */
+
+function IconNavButton({
+  children,
+  isActive = false,
+  onClick,
+}: {
+  children: React.ReactNode;
+  isActive?: boolean;
+  onClick?: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors ${
+        isActive
+          ? "bg-neutral-700 text-neutral-50"
+          : "text-neutral-400 hover:text-neutral-50 hover:bg-neutral-800"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function IconNavigation({
+  activeSection,
+  onSectionChange,
+}: {
+  activeSection: string;
+  onSectionChange: (section: string) => void;
+}) {
+  const navItems = [
+    { id: "dashboard", icon: <Dashboard size={20} />, label: "Dashboard" },
+    { id: "tasks", icon: <Task size={20} />, label: "Tasks" },
+    { id: "projects", icon: <Folder size={20} />, label: "Projects" },
+    { id: "calendar", icon: <CalendarIcon size={20} />, label: "Calendar" },
+    { id: "teams", icon: <UserMultiple size={20} />, label: "Teams" },
+    { id: "analytics", icon: <Analytics size={20} />, label: "Analytics" },
+    { id: "files", icon: <Folder size={20} />, label: "Files" },
+  ];
+
+  return (
+    <div className="flex flex-col items-center w-[60px] h-full bg-neutral-900 border-r border-neutral-800 py-4 gap-2">
+      {/* Logo */}
+      <div className="flex items-center justify-center w-10 h-10 mb-4">
+        <div className="flex items-center justify-center w-[33px] h-[22px]">
+          <InterfacesLogoSquare />
+        </div>
+      </div>
+
+      {/* Navigation Icons */}
+      <div className="flex flex-col items-center gap-1 flex-1">
+        {navItems.map((item) => (
+          <IconNavButton
+            key={item.id}
+            isActive={activeSection === item.id}
+            onClick={() => onSectionChange(item.id)}
+          >
+            {item.icon}
+          </IconNavButton>
+        ))}
+      </div>
+
+      <div className="w-8 h-px bg-neutral-700 my-2" />
+
+      {/* Bottom section */}
+      <div className="flex flex-col items-center gap-1">
+        <IconNavButton isActive={activeSection === "settings"} onClick={() => onSectionChange("settings")}>
+          <SettingsIcon size={20} />
+        </IconNavButton>
+        <div className="mt-2">
+          <AvatarCircle />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 /* ------------------------------ Right Sidebar ----------------------------- */
@@ -213,99 +675,82 @@ function SectionTitle({
     return (
       <div className="flex items-center justify-center py-2">
         <button onClick={onToggleCollapse} className="p-1 rounded hover:bg-neutral-800">
-          <ChevronDownIcon size={16} className="text-neutral-500 rotate-[-90deg]" />
+          <ChevronDownIcon size={16} className="text-neutral-400 rotate-[-90deg]" />
         </button>
       </div>
     );
   }
+
   return (
     <div className="flex items-center justify-between px-3 py-2">
       <div className="flex items-center gap-2">
         <div className="flex items-center">
           <div className="flex items-center">
-            <span className="font-['Lexend:Regular',_sans-serif] text-[12px] font-semibold text-neutral-500 uppercase tracking-wider">
+            <span className="font-['Lexend:Regular',_sans-serif] text-[14px] font-semibold text-neutral-50">
               {title}
             </span>
           </div>
         </div>
       </div>
       <div className="flex items-center">
-        <button onClick={onToggleCollapse} className="p-1 rounded hover:bg-neutral-100">
-          <ChevronDownIcon size={16} className="text-neutral-500" />
+        <button onClick={onToggleCollapse} className="p-1 rounded hover:bg-neutral-800">
+          <ChevronDownIcon size={16} className="text-neutral-400" />
         </button>
       </div>
     </div>
   );
 }
 
-function DetailSidebar() {
+function DetailSidebar({ activeSection }: { activeSection: string }) {
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const { profile, user, refreshProfile, signOut } = useAuth();
-  const content = getSidebarContent();
+  const content = getSidebarContent(activeSection);
+
+  const toggleExpanded = (itemKey: string) => {
+    setExpandedItems((prev) => {
+      const next = new Set(prev);
+      if (next.has(itemKey)) next.delete(itemKey);
+      else next.add(itemKey);
+      return next;
+    });
+  };
+
   const toggleCollapse = () => setIsCollapsed((s) => !s);
 
   return (
     <div
-      className={`flex flex-col h-full bg-white border-r border-neutral-200 transition-all duration-400 ${
+      className={`flex flex-col h-full bg-neutral-900 border-r border-neutral-800 transition-all duration-400 ${
         isCollapsed ? "w-[60px]" : "w-[260px]"
       }`}
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
     >
-      {/* Header */}
-      <div className={`flex items-center px-4 py-5 ${isCollapsed ? "justify-center" : "justify-between"}`}>
-        <SectionTitle
-          title={content.title}
-          onToggleCollapse={toggleCollapse}
-          isCollapsed={isCollapsed}
-        />
-      </div>
+      {!isCollapsed && <BrandBadge />}
 
-      {/* Search */}
-      <div className="px-3 pb-3">
-        <SearchContainer isCollapsed={isCollapsed} />
-      </div>
+      <SectionTitle title={content.title} onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
+      <SearchContainer isCollapsed={isCollapsed} />
 
-      {/* Menu Sections */}
       <div className="flex-1 overflow-y-auto px-2">
         {content.sections.map((section, index) => (
-          <MenuSection key={index} section={section} isCollapsed={isCollapsed} />
+          <MenuSection
+            key={index}
+            section={section}
+            expandedItems={expandedItems}
+            onToggleExpanded={toggleExpanded}
+            isCollapsed={isCollapsed}
+          />
         ))}
       </div>
 
-      {/* User Footer */}
       {!isCollapsed && (
-        <div className="border-t border-neutral-200 p-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <AvatarCircle />
-              <span className="text-sm text-neutral-700 truncate max-w-[140px]">
-                {profile?.first_name || "Usuário"}
-              </span>
+        <div className="border-t border-neutral-800 p-3">
+          <div className="flex items-center gap-2">
+            <AvatarCircle />
+            <span className="text-sm text-neutral-300">Text content</span>
+            <div className="ml-auto flex items-center gap-1">
+              <Notification size={16} className="text-neutral-400" />
+              <SettingsIcon size={16} className="text-neutral-400" />
+              <ChevronDownIcon size={16} className="text-neutral-400" />
             </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="p-1 rounded hover:bg-neutral-100">
-                   <SettingsIcon size={16} className="text-neutral-500" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem>
-                  <UserIcon size={16} className="mr-2" />
-                  Perfil
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Notification size={16} className="mr-2" />
-                  Notificações
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => signOut()}
-                  className="text-destructive focus:text-destructive cursor-pointer"
-                >
-                  <Logout size={16} className="mr-2" />
-                  Sair
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
         </div>
       )}
@@ -317,51 +762,69 @@ function DetailSidebar() {
 
 function MenuItem({
   item,
+  isExpanded,
+  onToggle,
   onItemClick,
   isCollapsed,
 }: {
   item: MenuItemT;
+  isExpanded?: boolean;
+  onToggle?: () => void;
   onItemClick?: () => void;
   isCollapsed?: boolean;
 }) {
-  const content = (
-    <>
-      <div className="flex items-center justify-center w-5 h-5 shrink-0 text-neutral-500">
-        {item.icon}
-      </div>
-      <div
-        className={`overflow-hidden transition-all duration-300 ${
-          isCollapsed ? "w-0 opacity-0" : "opacity-100 ml-3"
-        }`}
-        style={{ transition: `all 0.4s ${softSpringEasing}` }}
-      >
-        <span className="text-[14px] text-neutral-700 whitespace-nowrap">
-          {item.label}
-        </span>
-      </div>
-    </>
-  );
-
-  if (item.to) {
-    return (
-      <div className="mb-0.5">
-        <Link
-          to={item.to}
-          className="flex items-center px-3 py-2 rounded-md hover:bg-neutral-100 transition-colors"
-        >
-          {content}
-        </Link>
-      </div>
-    );
-  }
+  const handleClick = () => {
+    if (item.hasDropdown && onToggle) onToggle();
+    else onItemClick?.();
+  };
 
   return (
     <div className="mb-0.5">
       <button
-        onClick={onItemClick}
-        className="flex items-center w-full px-3 py-2 rounded-md hover:bg-neutral-100 transition-colors"
+        onClick={handleClick}
+        className={`flex items-center w-full px-3 py-2 rounded-md transition-colors ${
+          item.isActive
+            ? "bg-neutral-700 text-neutral-50"
+            : "text-neutral-300 hover:bg-neutral-800 hover:text-neutral-50"
+        }`}
       >
-        {content}
+        <div className="flex items-center justify-center w-5 h-5 shrink-0">
+          {item.icon}
+        </div>
+
+        <div
+          className={`overflow-hidden transition-all duration-300 ${
+            isCollapsed ? "w-0 opacity-0" : "opacity-100 ml-3"
+          }`}
+          style={{ transition: `all 0.4s ${softSpringEasing}` }}
+        >
+          <span className="text-[13px] whitespace-nowrap">
+            {item.label}
+          </span>
+        </div>
+
+        {item.hasDropdown && (
+          <div className={`ml-auto transition-transform duration-200 ${isExpanded ? "rotate-180" : ""} ${isCollapsed ? "hidden" : ""}`}>
+            <ChevronDownIcon size={14} />
+          </div>
+        )}
+      </button>
+    </div>
+  );
+}
+
+function SubMenuItem({ item, onItemClick }: { item: MenuItemT; onItemClick?: () => void }) {
+  return (
+    <div className="mb-0.5">
+      <button
+        onClick={onItemClick}
+        className="flex items-center w-full pl-10 pr-3 py-1.5 rounded-md text-neutral-400 hover:text-neutral-50 hover:bg-neutral-800 transition-colors"
+      >
+        <div className="flex items-center">
+          <span className="text-[12px] whitespace-nowrap">
+            {item.label}
+          </span>
+        </div>
       </button>
     </div>
   );
@@ -369,9 +832,13 @@ function MenuItem({
 
 function MenuSection({
   section,
+  expandedItems,
+  onToggleExpanded,
   isCollapsed,
 }: {
   section: MenuSectionT;
+  expandedItems: Set<string>;
+  onToggleExpanded: (itemKey: string) => void;
   isCollapsed?: boolean;
 }) {
   return (
@@ -386,13 +853,27 @@ function MenuSection({
 
       {section.items.map((item, index) => {
         const itemKey = `${section.title}-${index}`;
+        const isExpanded = expandedItems.has(itemKey);
         return (
           <div key={itemKey}>
             <MenuItem
               item={item}
+              isExpanded={isExpanded}
+              onToggle={() => onToggleExpanded(itemKey)}
               onItemClick={() => console.log(`Clicked ${item.label}`)}
               isCollapsed={isCollapsed}
             />
+            {isExpanded && item.children && !isCollapsed && (
+              <div className="mt-0.5">
+                {item.children.map((child, childIndex) => (
+                  <SubMenuItem
+                    key={childIndex}
+                    item={child}
+                    onItemClick={() => console.log(`Clicked ${child.label}`)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         );
       })}
@@ -403,16 +884,22 @@ function MenuSection({
 /* --------------------------------- Layout -------------------------------- */
 
 function TwoLevelSidebar() {
-  return <DetailSidebar />;
+  const [activeSection, setActiveSection] = useState("dashboard");
+
+  return (
+    <div className="flex h-full">
+      <IconNavigation activeSection={activeSection} onSectionChange={setActiveSection} />
+      <DetailSidebar activeSection={activeSection} />
+    </div>
+  );
 }
 
 /* ------------------------------- Root Frame ------------------------------ */
 
-export function Frame760({ children }: { children?: React.ReactNode }) {
+export function Frame760() {
   return (
     <div className="flex h-screen w-full bg-neutral-950 overflow-hidden">
       <TwoLevelSidebar />
-      {children}
     </div>
   );
 }
