@@ -1,16 +1,14 @@
 
 
-## Plano: Fundo branco na sidebar e pagina
+## Plano: Substituir o BrandBadge pelo logo da WiseAuto
 
-Trocar todas as cores de fundo escuras para branco/claro em `src/pages/Frame760.tsx`:
+O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
 
-1. **Container principal** (linha 831): `bg-neutral-950` → `bg-white`
-2. **DetailSidebar** (linha 640): `bg-neutral-900` → `bg-white`, `border-neutral-800` → `border-neutral-200`
-3. **Textos e icones**: Trocar `text-neutral-300/400` → `text-neutral-500/600`, `text-neutral-50` → `text-neutral-900`
-4. **Hover states**: `hover:bg-neutral-800` → `hover:bg-neutral-100`
-5. **Item ativo**: `bg-neutral-700 text-neutral-50` → `bg-blue-50 text-blue-600` (seguindo a identidade azul da marca)
-6. **Search bar**: `bg-neutral-800 border-neutral-700` → `bg-neutral-100 border-neutral-200`
-7. **Avatar**: `bg-neutral-700` → `bg-neutral-200`
+### Alteracao em `src/pages/Frame760.tsx`
 
-Todas as ~46 ocorrencias de `bg-neutral-7xx/8xx/9xx` serao atualizadas para equivalentes claros.
+1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
+
+2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
+
+3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
 
