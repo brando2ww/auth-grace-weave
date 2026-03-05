@@ -1,10 +1,9 @@
 
 
-## Plano: Aumentar logo em 5x
+## Plano: Diminuir logo em 2x
 
-### Alteração em `src/pages/Frame760.tsx` (linhas 254-262):
+### Alteração em `src/pages/Frame760.tsx` (linha 259):
 
-- **Expandido**: `h-6` (24px) → `h-[120px]`, remover `max-w-[140px]` ou aumentar para `max-w-[700px]`
-- **Colapsado**: `w-6 h-6` → `w-[30px] h-[30px]`
-- Manter `object-contain` para preservar proporção
+- **Expandido**: `h-[120px]` → `h-[60px]`, `max-w-[700px]` → `max-w-[350px]`
+- **Colapsado**: `w-[30px] h-[30px]` → `w-[15px] h-[15px]`
 
