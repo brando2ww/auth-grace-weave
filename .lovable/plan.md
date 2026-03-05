@@ -1,12 +1,28 @@
 
 
-## Plano: Centralizar icones e corrigir seta no estado colapsado
+## Plano: Mover busca e seta para dentro do bloco centralizado
 
-### Alteracoes em `src/pages/Frame760.tsx`
+Atualmente, o `SectionTitle` (com a seta) e o `SearchContainer` ficam no topo da sidebar colapsada, separados dos icones do menu que estao centralizados via `justify-center`. A solucao e mover esses dois elementos para dentro do container centralizado quando colapsado.
 
-1. **DetailSidebar (colapsado)**: O conteudo dos menus precisa ficar centralizado verticalmente. Trocar o container `flex-1 overflow-y-auto` para usar `flex-1 flex flex-col items-center justify-center` quando colapsado, para que os icones fiquem no meio vertical da sidebar.
+### Alteracao em `src/pages/Frame760.tsx` - `DetailSidebar`
 
-2. **SectionTitle (colapsado)**: A seta de abrir o menu deve apontar para cima (indicando "expandir"). Trocar `rotate-[-90deg]` para `rotate-180` no ChevronDownIcon colapsado.
+Quando `isCollapsed`:
+- Remover `SectionTitle` e `SearchContainer` de fora do container centralizado
+- Colocar a seta (toggle) e o icone de busca **dentro** do `div flex-1 justify-center`, junto com os icones do menu
+- Assim todos os icones (seta, busca, menu items) ficam juntos no centro vertical da sidebar
 
-3. **MenuSection (colapsado)**: Remover padding lateral extra e garantir que os icones fiquem centralizados.
+Estrutura colapsada ficara:
+```text
+┌──────────┐
+│          │
+│          │
+│   ↑ seta │
+│   🔍 busca│
+│   📊 icon │
+│   📋 icon │
+│   ...    │
+│          │
+│          │
+└──────────┘
+```
 
