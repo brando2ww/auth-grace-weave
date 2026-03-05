@@ -251,12 +251,12 @@ function DetailSidebar() {
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
     >
       {/* Header */}
-      <div className="flex items-center px-4 py-4">
+      <div className="flex items-center px-4 py-5">
         <img
           src={wiseautoLogo}
           alt="Wise Auto"
           className={`transition-all duration-300 ${
-            isCollapsed ? "w-8 h-8 object-contain" : "h-8 object-contain"
+            isCollapsed ? "w-6 h-6 object-contain" : "h-6 max-w-[140px] object-contain"
           }`}
           style={{ transition: `all 0.4s ${softSpringEasing}` }}
         />
