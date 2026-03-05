@@ -22,13 +22,7 @@ const Dashboard = () => {
     );
   }
 
-  return (
-    <Frame760>
-      <div className="flex items-center justify-center h-full">
-        <h1 className="text-2xl font-semibold text-neutral-50">Dashboard</h1>
-      </div>
-    </Frame760>
-  );
+  return <Frame760 />;
 };
 
 export default Dashboard;
