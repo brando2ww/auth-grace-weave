@@ -1,18 +1,23 @@
 
 
-## Plano: Adicionar botão de colapsar/expandir o sidebar
+## Plano: Substituir Frame760.tsx pelo codigo fornecido
 
-### Alteração em `src/pages/Frame760.tsx`:
+O codigo que voce enviou teve o JSX removido na formatacao (aparecem linhas vazias onde deveria haver JSX). Vou reconstruir o arquivo baseado no seu codigo, aplicando as diferencas reais em relacao ao arquivo atual:
 
-1. **Adicionar botão de toggle no header** (após o logo, linha ~263): Um botão com ícone `ChevronDown` rotacionado que alterna `isCollapsed`. Quando expandido, mostra seta para a esquerda; quando colapsado, seta para a direita.
+### Alteracoes em `src/pages/Frame760.tsx`:
 
-2. **Header layout**: Mudar o header para `justify-between` para posicionar logo à esquerda e botão de collapse à direita. No estado colapsado, centralizar o botão.
+1. **Adicionar `"use client"` no topo**
+2. **Trocar import**: `useAuthContext` de `@/contexts/AuthContext` -> `useAuth` de `@/hooks/useAuth`
+3. **Remover import** de `wiseautoLogo`
+4. **DetailSidebar**: Usar `useAuth()` com destructuring `{ profile, user, refetchUserData, signOut }`
+5. **Remover logo do header**: Nao renderizar nenhuma imagem no header, manter apenas o botao de collapse
+6. **Profile name**: `profile?.first_name` -> `profile?.name`
+7. **Footer**: Mostrar footer apenas quando `!isCollapsed`
+8. **Adicionar `TwoLevelSidebar`** wrapper e manter estrutura do `Frame760`
 
-3. **Footer colapsado**: Quando colapsado, mostrar apenas o avatar (sem nome/dropdown) como botão de expand, ou mostrar um botão de expand no footer.
+### Problema de compatibilidade:
 
-### Detalhes técnicos:
-
-- Usar o `ChevronDownIcon` já importado, com rotação CSS (`rotate-90` quando colapsado, `-rotate-90` quando expandido)
-- O botão terá estilo `p-1.5 rounded-md hover:bg-neutral-100` para consistência visual
-- No estado colapsado, o footer mostrará apenas o avatar centralizado
+O hook `useAuth` exporta `refreshProfile` (nao `refetchUserData`) e o profile tem `first_name` (nao `name`). Vou usar os nomes corretos do hook existente para evitar erros de runtime:
+- `refetchUserData` -> `refreshProfile`  
+- `profile?.name` -> `profile?.first_name`
 
