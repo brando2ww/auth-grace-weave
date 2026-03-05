@@ -1,29 +1,15 @@
 
 
-## Plano: Remover o Onboarding
+## Plano: Corrigir redirecionamento pós-login
 
-### Arquivos a Deletar
-- `src/pages/Onboarding.tsx`
-- `src/hooks/useOnboarding.ts`
-- `src/components/onboarding/OnboardingProgress.tsx`
-- `src/components/onboarding/StepCompany.tsx`
-- `src/components/onboarding/StepOperation.tsx`
-- `src/components/onboarding/StepChannels.tsx`
-- `src/components/onboarding/StepObjective.tsx`
-- `src/components/onboarding/StepComplete.tsx`
-- `src/lib/api/cnpj.ts`
-- `supabase/functions/cnpj-lookup/index.ts`
+### Problema
 
-### Arquivos a Modificar
+O `useAuth.tsx` ainda tem referências a `/onboarding` nos redirects do OAuth e signup. Após login com Google ou cadastro, o Supabase redireciona para `/onboarding` que não existe mais, resultando na página 404 ou tela travada.
 
-**`src/App.tsx`**: Remover a rota `/onboarding` e o import de `Onboarding`.
+### Alterações
 
-**`src/pages/Index.tsx`**: Remover a lógica de redirecionamento para `/onboarding`. Após login, redirecionar sempre para `/dashboard`.
+**Arquivo:** `src/hooks/useAuth.tsx`
 
-**`src/pages/Dashboard.tsx`**: Remover o redirecionamento para `/onboarding` quando `onboarding_completed` é falso.
-
-**`src/hooks/useAuth.tsx`**: Remover os campos `onboarding_step` e `onboarding_completed` da interface `Profile` (cleanup opcional, não quebra nada se mantidos).
-
-### Resultado
-Login leva direto ao Dashboard, sem fluxo intermediário de onboarding.
+- Linha 133: Trocar `emailRedirectTo` de `/onboarding` para `/dashboard`
+- Linha 179: Trocar `redirectTo` de `/onboarding` para `/dashboard`
 
