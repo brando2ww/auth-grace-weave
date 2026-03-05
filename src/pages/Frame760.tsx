@@ -138,36 +138,30 @@ function SearchContainer({
 }) {
   const [searchValue, setSearchValue] = useState("");
 
+  if (isCollapsed) {
+    return (
+      <div className="flex items-center justify-center py-2 px-0">
+        <div className="flex items-center justify-center w-10 h-10 rounded-md hover:bg-neutral-800 cursor-pointer transition-colors">
+          <SearchIcon size={16} className="text-neutral-400" />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div
-      className={`flex items-center gap-2 px-3 py-2 rounded-lg bg-neutral-800 border border-neutral-700 transition-all duration-300 ${
-        isCollapsed ? "w-10 justify-center" : "w-full"
-      }`}
-      style={{ transition: `all 0.4s ${softSpringEasing}` }}
-    >
+    <div className="flex items-center gap-2 px-3 py-2 mx-3 rounded-lg bg-neutral-800 border border-neutral-700">
       <div className="flex items-center justify-center w-4 h-4 shrink-0">
         <SearchIcon size={16} className="text-neutral-400" />
       </div>
-
-      <div
-        className={`flex-1 overflow-hidden transition-all duration-300 ${
-          isCollapsed ? "w-0 opacity-0" : "opacity-100"
-        }`}
-        style={{ transition: `all 0.4s ${softSpringEasing}` }}
-      >
-        <div className="flex items-center">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className="w-full bg-transparent border-none outline-none font-['Lexend:Regular',_sans-serif] text-[14px] text-neutral-50 placeholder:text-neutral-400 leading-[20px]"
-            tabIndex={isCollapsed ? -1 : 0}
-          />
-        </div>
+      <div className="flex-1">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          className="w-full bg-transparent border-none outline-none font-['Lexend:Regular',_sans-serif] text-[14px] text-neutral-50 placeholder:text-neutral-400 leading-[20px]"
+        />
       </div>
-
-      <div className={`${isCollapsed ? "hidden" : ""}`} />
     </div>
   );
 }
@@ -724,7 +718,11 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
       }`}
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
     >
-      {!isCollapsed && <BrandBadge />}
+      {!isCollapsed && (
+        <div className="px-3 pt-4 pb-2">
+          <BrandBadge />
+        </div>
+      )}
 
       <SectionTitle title={content.title} onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
       <SearchContainer isCollapsed={isCollapsed} />
@@ -782,7 +780,9 @@ function MenuItem({
     <div className="mb-0.5">
       <button
         onClick={handleClick}
-        className={`flex items-center w-full px-3 py-2 rounded-md transition-colors ${
+        className={`flex items-center w-full py-2 rounded-md transition-colors ${
+          isCollapsed ? "justify-center px-0" : "px-3"
+        } ${
           item.isActive
             ? "bg-neutral-700 text-neutral-50"
             : "text-neutral-300 hover:bg-neutral-800 hover:text-neutral-50"
@@ -792,21 +792,20 @@ function MenuItem({
           {item.icon}
         </div>
 
-        <div
-          className={`overflow-hidden transition-all duration-300 ${
-            isCollapsed ? "w-0 opacity-0" : "opacity-100 ml-3"
-          }`}
-          style={{ transition: `all 0.4s ${softSpringEasing}` }}
-        >
-          <span className="text-[13px] whitespace-nowrap">
-            {item.label}
-          </span>
-        </div>
+        {!isCollapsed && (
+          <>
+            <div className="ml-3">
+              <span className="text-[13px] whitespace-nowrap">
+                {item.label}
+              </span>
+            </div>
 
-        {item.hasDropdown && (
-          <div className={`ml-auto transition-transform duration-200 ${isExpanded ? "rotate-180" : ""} ${isCollapsed ? "hidden" : ""}`}>
-            <ChevronDownIcon size={14} />
-          </div>
+            {item.hasDropdown && (
+              <div className={`ml-auto transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}>
+                <ChevronDownIcon size={14} />
+              </div>
+            )}
+          </>
         )}
       </button>
     </div>
