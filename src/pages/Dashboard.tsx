@@ -16,12 +16,6 @@ const Dashboard = () => {
     }
   }, [loading, isAuthenticated, navigate]);
 
-  // Redirect to onboarding if not completed
-  useEffect(() => {
-    if (profile && !profile.onboarding_completed) {
-      navigate('/onboarding');
-    }
-  }, [profile, navigate]);
 
   const handleSignOut = async () => {
     await signOut();

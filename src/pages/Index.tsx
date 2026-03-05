@@ -12,12 +12,7 @@ const SignInPageDemo = () => {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated && profile) {
-      // Check onboarding status
-      if (profile.onboarding_completed) {
-        navigate('/dashboard');
-      } else {
-        navigate('/onboarding');
-      }
+      navigate('/dashboard');
     }
   }, [isAuthenticated, profile, navigate]);
 
