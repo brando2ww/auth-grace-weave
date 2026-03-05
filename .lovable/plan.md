@@ -1,28 +1,12 @@
 
+## Plano: Remover o menu de navegacao esquerdo (IconNavigation)
 
-## Plano: Mover busca e seta para dentro do bloco centralizado
+O elemento selecionado e o `IconNavigation` - a coluna estreita de 60px com icones no lado esquerdo. O usuario quer remove-lo.
 
-Atualmente, o `SectionTitle` (com a seta) e o `SearchContainer` ficam no topo da sidebar colapsada, separados dos icones do menu que estao centralizados via `justify-center`. A solucao e mover esses dois elementos para dentro do container centralizado quando colapsado.
+### Alteracoes em `src/pages/Frame760.tsx`
 
-### Alteracao em `src/pages/Frame760.tsx` - `DetailSidebar`
+1. **`TwoLevelSidebar`** (linha 895-903): Remover a renderizacao de `<IconNavigation>` e o state `activeSection`/`setActiveSection`. Passar um valor fixo de `activeSection` para `DetailSidebar` (ex: `"dashboard"`).
 
-Quando `isCollapsed`:
-- Remover `SectionTitle` e `SearchContainer` de fora do container centralizado
-- Colocar a seta (toggle) e o icone de busca **dentro** do `div flex-1 justify-center`, junto com os icones do menu
-- Assim todos os icones (seta, busca, menu items) ficam juntos no centro vertical da sidebar
+2. **Componentes que podem ser removidos**: `IconNavigation`, `IconNavButton`, e `AvatarCircle` (se usados apenas ali). Manter `DetailSidebar` intacta.
 
-Estrutura colapsada ficara:
-```text
-┌──────────┐
-│          │
-│          │
-│   ↑ seta │
-│   🔍 busca│
-│   📊 icon │
-│   📋 icon │
-│   ...    │
-│          │
-│          │
-└──────────┘
-```
-
+3. **Layout**: O `TwoLevelSidebar` ficara apenas com `<DetailSidebar activeSection="dashboard" />`.
