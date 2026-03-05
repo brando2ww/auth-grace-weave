@@ -130,7 +130,7 @@ export function useAuth() {
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/onboarding`,
+          emailRedirectTo: `${window.location.origin}/dashboard`,
           data: metadata,
         },
       });
@@ -176,7 +176,7 @@ export function useAuth() {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/onboarding`,
+        redirectTo: `${window.location.origin}/dashboard`,
       },
     });
   };
