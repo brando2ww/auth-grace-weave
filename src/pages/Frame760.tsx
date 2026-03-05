@@ -256,7 +256,7 @@ function DetailSidebar() {
           src={wiseautoLogo}
           alt="Wise Auto"
           className={`transition-all duration-300 ${
-            isCollapsed ? "w-6 h-6 object-contain" : "h-6 max-w-[140px] object-contain"
+            isCollapsed ? "w-[30px] h-[30px] object-contain" : "h-[120px] max-w-[700px] object-contain"
           }`}
           style={{ transition: `all 0.4s ${softSpringEasing}` }}
         />
