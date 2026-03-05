@@ -1,14 +1,11 @@
 
 
-## Plano: Substituir logos do header pela logo da Wise Auto
+## Plano: Ajustar tamanho e proporção do logo Wise Auto
 
-Substituir os componentes `InterfacesLogoSquare` e `BrandBadge` no header do sidebar (linha 253-264) pela imagem `wiseauto-logo.png` que já existe em `src/assets/`.
+### Alteração em `src/pages/Frame760.tsx` (linhas 254-263):
 
-### Alteração em `src/pages/Frame760.tsx`:
-
-1. **Linha 253-264** - Substituir o header atual por uma `<img>` com o logo da Wise Auto:
-   - Importar `wiseautoLogo from "@/assets/wiseauto-logo.png"`
-   - Quando expandido: mostrar logo completo com tamanho adequado
-   - Quando colapsado: mostrar logo menor ou ícone reduzido
-   - Manter padding e alinhamento existentes
+Reduzir o logo para um tamanho mais harmonioso:
+- Expandido: `h-6` (24px) em vez de `h-8` (32px), com `max-w-[140px]`
+- Colapsado: `w-6 h-6` em vez de `w-8 h-8`
+- Adicionar padding vertical maior (`py-5`) para dar mais respiro ao header
 
