@@ -669,7 +669,7 @@ function SectionTitle({
     return (
       <div className="flex items-center justify-center py-2">
         <button onClick={onToggleCollapse} className="p-1 rounded hover:bg-neutral-800">
-          <ChevronDownIcon size={16} className="text-neutral-400 rotate-[-90deg]" />
+          <ChevronDownIcon size={16} className="text-neutral-400 rotate-180" />
         </button>
       </div>
     );
@@ -727,7 +727,7 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
       <SectionTitle title={content.title} onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
       <SearchContainer isCollapsed={isCollapsed} />
 
-      <div className="flex-1 overflow-y-auto px-2">
+      <div className={`flex-1 overflow-y-auto ${isCollapsed ? "flex flex-col items-center justify-center px-0" : "px-2"}`}>
         {content.sections.map((section, index) => (
           <MenuSection
             key={index}
