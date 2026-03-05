@@ -1,14 +1,29 @@
 
 
-## Plano: Remover verificação/exibição de CNAE
+## Plano: Remover o Onboarding
 
-Remover a seção de CNAE (read-only) do componente `StepCompany.tsx`.
+### Arquivos a Deletar
+- `src/pages/Onboarding.tsx`
+- `src/hooks/useOnboarding.ts`
+- `src/components/onboarding/OnboardingProgress.tsx`
+- `src/components/onboarding/StepCompany.tsx`
+- `src/components/onboarding/StepOperation.tsx`
+- `src/components/onboarding/StepChannels.tsx`
+- `src/components/onboarding/StepObjective.tsx`
+- `src/components/onboarding/StepComplete.tsx`
+- `src/lib/api/cnpj.ts`
+- `supabase/functions/cnpj-lookup/index.ts`
 
-### Alteração
+### Arquivos a Modificar
 
-**Arquivo:** `src/components/onboarding/StepCompany.tsx`
+**`src/App.tsx`**: Remover a rota `/onboarding` e o import de `Onboarding`.
 
-- Remover o bloco de CNAE Principal (linhas ~230-242) que exibe `companyData.cnae_principal`, `companyData.cnae_descricao` e `companyData.situacao_cadastral`
-- Remover o import do ícone `Building2` que é usado apenas nessa seção
-- Manter todos os outros campos editáveis intactos
+**`src/pages/Index.tsx`**: Remover a lógica de redirecionamento para `/onboarding`. Após login, redirecionar sempre para `/dashboard`.
+
+**`src/pages/Dashboard.tsx`**: Remover o redirecionamento para `/onboarding` quando `onboarding_completed` é falso.
+
+**`src/hooks/useAuth.tsx`**: Remover os campos `onboarding_step` e `onboarding_completed` da interface `Profile` (cleanup opcional, não quebra nada se mantidos).
+
+### Resultado
+Login leva direto ao Dashboard, sem fluxo intermediário de onboarding.
 
