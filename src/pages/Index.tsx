@@ -11,10 +11,10 @@ const SignInPageDemo = () => {
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (isAuthenticated && profile) {
+    if (isAuthenticated) {
       navigate('/dashboard');
     }
-  }, [isAuthenticated, profile, navigate]);
+  }, [isAuthenticated, navigate]);
 
   const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
