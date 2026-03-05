@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SignInPage } from "@/components/ui/sign-in";
 import { useAuthContext } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import wiseautoLogo from "@/assets/wiseauto-logo.png";
+import { Loader2 } from 'lucide-react';
 
 const SignInPageDemo = () => {
   const navigate = useNavigate();
-  const { signIn, signUp, signInWithGoogle, resetPassword, loading, isAuthenticated, profile } = useAuthContext();
+  const { signIn, signUp, signInWithGoogle, resetPassword, loading, initialized, isAuthenticated, profile } = useAuthContext();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -27,7 +29,9 @@ const SignInPageDemo = () => {
       return;
     }
 
+    setIsSubmitting(true);
     const { error } = await signIn(email, password);
+    setIsSubmitting(false);
     
     if (error) {
       // Translate common Supabase errors
@@ -97,6 +101,14 @@ const SignInPageDemo = () => {
     }
   };
 
+  if (!initialized) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-background">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
   return (
     <div className="bg-background text-foreground">
       <SignInPage
@@ -110,7 +122,7 @@ const SignInPageDemo = () => {
         onFacebookSignIn={handleFacebookSignIn}
         onResetPassword={handleResetPassword}
         onCreateAccount={handleCreateAccount}
-        isLoading={loading}
+        isLoading={isSubmitting}
       />
     </div>
   );
