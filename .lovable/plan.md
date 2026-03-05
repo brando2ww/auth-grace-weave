@@ -1,25 +1,20 @@
 
 
-## Plano: Implementar o Dashboard Exato do Código Fornecido
+## Plano: Corrigir botão travado em "Entrando..."
 
-Vou pegar o código fornecido e adaptá-lo minimamente para funcionar no projeto (sem `@carbon/icons-react`, sem `"use client"`), substituindo os ícones Carbon por Lucide e corrigindo caracteres corrompidos nos SVG paths.
+### Problema
 
-### Arquivos a Criar
+O `useAuth` inicia com `loading: true` enquanto verifica a sessão existente no Supabase. Esse mesmo `loading` é passado como `isLoading` para o `SignInPage`, fazendo o botão mostrar "Entrando..." antes mesmo do usuário clicar.
 
-**`src/pages/Frame760.tsx`** — O componente completo do dashboard, traduzido do código fornecido:
-- Remover `"use client"` e imports de `@carbon/icons-react`
-- Substituir cada ícone Carbon pelo equivalente Lucide
-- Manter toda a estrutura: `IconNavigation`, `DetailSidebar`, `SearchContainer`, `MenuSection`, `MenuItem`, `SubMenuItem`, `SectionTitle`, `BrandBadge`, `AvatarCircle`, `InterfacesLogoSquare`, `getSidebarContent`, `TwoLevelSidebar`, `Frame760`
-- Manter todos os SVG paths inline, estilos inline, e lógica de estado
-- Corrigir os caracteres Cyrillic corrompidos nos SVG paths (`В` → `V`)
-- Tudo em um único arquivo como no original
+### Solução
 
-### Arquivos a Modificar
+Separar o estado de "inicializando auth" do estado de "submetendo formulário":
 
-**`src/pages/Dashboard.tsx`** — Importar e renderizar o `Frame760` como conteúdo principal, mantendo guard de autenticação e loading state
+**`src/pages/Index.tsx`**:
+- Criar um estado local `isSubmitting` para controlar o loading do formulário
+- Passar `isSubmitting` (em vez de `loading`) como `isLoading` para o `SignInPage`
+- Setar `isSubmitting = true` no `handleSignIn` e `false` quando terminar
+- Enquanto o auth estiver inicializando (`loading && !initialized`), mostrar um spinner em vez do formulário
 
-**`src/App.tsx`** — Nenhuma alteração necessária (rota `/dashboard` já existe)
-
-### Resultado
-Dashboard idêntico ao design fornecido, com sidebar de dois níveis, navegação por ícones, menus expansíveis, busca e avatar.
+Isso garante que o botão só mostra "Entrando..." quando o usuário efetivamente clica nele.
 
