@@ -251,15 +251,27 @@ function DetailSidebar() {
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
     >
       {/* Header */}
-      <div className="flex items-center px-4 py-5">
-        <img
-          src={wiseautoLogo}
-          alt="Wise Auto"
-          className={`transition-all duration-300 ${
-            isCollapsed ? "w-[15px] h-[15px] object-contain" : "h-[60px] max-w-[350px] object-contain"
-          }`}
-          style={{ transition: `all 0.4s ${softSpringEasing}` }}
-        />
+      <div className={`flex items-center px-4 py-5 ${isCollapsed ? "justify-center" : "justify-between"}`}>
+        {!isCollapsed && (
+          <img
+            src={wiseautoLogo}
+            alt="Wise Auto"
+            className="h-[60px] max-w-[350px] object-contain transition-all duration-300"
+            style={{ transition: `all 0.4s ${softSpringEasing}` }}
+          />
+        )}
+        <button
+          onClick={toggleCollapse}
+          className="p-1.5 rounded-md hover:bg-neutral-100 transition-colors"
+          title={isCollapsed ? "Expandir menu" : "Recolher menu"}
+        >
+          <ChevronDownIcon
+            size={16}
+            className={`text-neutral-500 transition-transform duration-300 ${
+              isCollapsed ? "rotate-[-90deg]" : "rotate-[90deg]"
+            }`}
+          />
+        </button>
       </div>
 
       {/* Search */}
@@ -275,8 +287,14 @@ function DetailSidebar() {
       </div>
 
       {/* User Footer */}
-      {!isCollapsed && (
-        <div className="border-t border-neutral-200 p-3">
+      <div className="border-t border-neutral-200 p-3">
+        {isCollapsed ? (
+          <div className="flex justify-center">
+            <button onClick={toggleCollapse} className="p-1 rounded-md hover:bg-neutral-100">
+              <AvatarCircle />
+            </button>
+          </div>
+        ) : (
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <AvatarCircle />
@@ -309,8 +327,8 @@ function DetailSidebar() {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
