@@ -1,23 +1,12 @@
 
 
-## Plano: Corrigir a visualizacao colapsada da DetailSidebar
+## Plano: Centralizar icones e corrigir seta no estado colapsado
 
-A imagem mostra que, quando colapsada, a detail sidebar deve virar uma "segunda coluna de icones" - mostrando apenas os icones de cada item do menu centralizado verticalmente, sem texto, titulos de secao, search bar completa, footer, ou brand badge. Apenas icones empilhados com um icone de search no topo.
+### Alteracoes em `src/pages/Frame760.tsx`
 
-### Alteracao em `src/pages/Frame760.tsx`
+1. **DetailSidebar (colapsado)**: O conteudo dos menus precisa ficar centralizado verticalmente. Trocar o container `flex-1 overflow-y-auto` para usar `flex-1 flex flex-col items-center justify-center` quando colapsado, para que os icones fiquem no meio vertical da sidebar.
 
-**DetailSidebar** - quando `isCollapsed`:
-1. Esconder `BrandBadge`, `SectionTitle` (ja feito), footer (ja feito)
-2. Esconder a `SearchContainer` completa e mostrar apenas o icone de search centralizado
-3. Esconder os titulos das secoes (ja feito via `hidden`)
-4. Na `MenuItem`, quando colapsado, mostrar **somente o icone centralizado** sem padding lateral, sem texto, sem chevron
-5. Esconder sub-items quando colapsado (ja feito)
-6. A largura colapsada de `60px` esta OK, mas os icones precisam ficar centralizados
+2. **SectionTitle (colapsado)**: A seta de abrir o menu deve apontar para cima (indicando "expandir"). Trocar `rotate-[-90deg]` para `rotate-180` no ChevronDownIcon colapsado.
 
-### Detalhes tecnicos:
-
-- `SearchContainer`: quando `isCollapsed`, renderizar apenas o icone `<SearchIcon>` centralizado em vez do input completo
-- `MenuItem`: quando `isCollapsed`, renderizar o botao apenas com o icone centralizado (`justify-center`), sem margin left no icone, sem o div de texto
-- `MenuSection`: quando `isCollapsed`, esconder o titulo da secao (ja feito) e ajustar padding
-- Manter a animacao de transicao `softSpringEasing` com `duration 0.4s`
+3. **MenuSection (colapsado)**: Remover padding lateral extra e garantir que os icones fiquem centralizados.
 
