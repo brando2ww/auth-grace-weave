@@ -36,15 +36,15 @@ interface Vehicle {
 }
 
 const mockVehicles: Vehicle[] = [
-  { id: "1", modelo: "Civic Touring", marca: "Honda", ano: 2024, placa: "ABC-1D23", preco: 165000, status: "disponivel", tipo: "Sedan", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
-  { id: "2", modelo: "Corolla XEi", marca: "Toyota", ano: 2023, placa: "DEF-4G56", preco: 142000, status: "disponivel", tipo: "Sedan", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
-  { id: "3", modelo: "HB20 Sense", marca: "Hyundai", ano: 2024, placa: "GHI-7H89", preco: 82000, status: "reservado", tipo: "Hatchback", cambio: "Manual", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
-  { id: "4", modelo: "Onix LTZ", marca: "Chevrolet", ano: 2023, placa: "JKL-0I12", preco: 89000, status: "vendido", tipo: "Hatchback", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
-  { id: "5", modelo: "Compass Limited", marca: "Jeep", ano: 2024, placa: "MNO-3J45", preco: 198000, status: "disponivel", tipo: "SUV", cambio: "Automático", assentos: 5, combustivel: "Diesel", imagem: "/placeholder.svg" },
-  { id: "6", modelo: "T-Cross Highline", marca: "Volkswagen", ano: 2023, placa: "PQR-6K78", preco: 145000, status: "reservado", tipo: "SUV", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
-  { id: "7", modelo: "Tracker Premier", marca: "Chevrolet", ano: 2024, placa: "STU-9L01", preco: 155000, status: "disponivel", tipo: "SUV", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
-  { id: "8", modelo: "Creta Ultimate", marca: "Hyundai", ano: 2024, placa: "VWX-2M34", preco: 168000, status: "vendido", tipo: "SUV", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
-  { id: "9", modelo: "Saveiro Robust", marca: "Volkswagen", ano: 2024, placa: "YZA-5N67", preco: 98000, status: "disponivel", tipo: "Pickup", cambio: "Manual", assentos: 2, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "1", modelo: "Civic Touring", marca: "Honda", ano: 2024, placa: "ABC-1D23", preco: 165000, status: "disponivel", tipo: "Carros", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "2", modelo: "Corolla XEi", marca: "Toyota", ano: 2023, placa: "DEF-4G56", preco: 142000, status: "disponivel", tipo: "Carros", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "3", modelo: "HB20 Sense", marca: "Hyundai", ano: 2024, placa: "GHI-7H89", preco: 82000, status: "reservado", tipo: "Carros", cambio: "Manual", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "4", modelo: "Onix LTZ", marca: "Chevrolet", ano: 2023, placa: "JKL-0I12", preco: 89000, status: "vendido", tipo: "Carros", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "5", modelo: "Compass Limited", marca: "Jeep", ano: 2024, placa: "MNO-3J45", preco: 198000, status: "disponivel", tipo: "Utilitários", cambio: "Automático", assentos: 5, combustivel: "Diesel", imagem: "/placeholder.svg" },
+  { id: "6", modelo: "T-Cross Highline", marca: "Volkswagen", ano: 2023, placa: "PQR-6K78", preco: 145000, status: "reservado", tipo: "Utilitários", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "7", modelo: "Tracker Premier", marca: "Chevrolet", ano: 2024, placa: "STU-9L01", preco: 155000, status: "disponivel", tipo: "Utilitários", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "8", modelo: "Creta Ultimate", marca: "Hyundai", ano: 2024, placa: "VWX-2M34", preco: 168000, status: "vendido", tipo: "Utilitários", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "9", modelo: "Saveiro Robust", marca: "Volkswagen", ano: 2024, placa: "YZA-5N67", preco: 98000, status: "disponivel", tipo: "Camionetes", cambio: "Manual", assentos: 2, combustivel: "Flex", imagem: "/placeholder.svg" },
 ];
 
 const statusConfig: Record<VehicleStatus, { label: string; className: string }> = {
