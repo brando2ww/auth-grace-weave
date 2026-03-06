@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import wiseautoLogo from "@/assets/wiseauto-logo.png";
+import waIcon from "@/assets/wa-icon.png";
 import {
   Search as SearchIcon,
   Dashboard,
@@ -627,6 +628,12 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
       {!isCollapsed && (
         <div className="px-3 pt-4 pb-2">
           <BrandBadge />
+        </div>
+      )}
+
+      {isCollapsed && (
+        <div className="flex justify-center pt-4 pb-2">
+          <img src={waIcon} alt="WA" className="h-8 w-8" />
         </div>
       )}
 
