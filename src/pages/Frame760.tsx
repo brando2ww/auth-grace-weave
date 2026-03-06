@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Estoque from "@/pages/Estoque";
 import wiseautoLogo from "@/assets/wiseauto-logo-new.png";
 import waIcon from "@/assets/wa-icon.png";
 import {
@@ -158,6 +159,7 @@ interface MenuItemT {
   hasDropdown?: boolean;
   isActive?: boolean;
   children?: MenuItemT[];
+  sectionKey?: string;
 }
 interface MenuSectionT {
   title: string;
@@ -172,8 +174,8 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <Dashboard size={16} />,
     label: "Dashboard",
-    isActive: true,
     hasDropdown: true,
+    sectionKey: "dashboard",
     children: [
       { label: "Overview" },
       { label: "Resumo Executivo" },
@@ -184,6 +186,7 @@ const sidebarMenuItems: MenuItemT[] = [
     icon: <Folder size={16} />,
     label: "Estoque",
     hasDropdown: true,
+    sectionKey: "estoque",
     children: [
       { label: "Veículos Disponíveis" },
       { label: "Entrada de Veículos" },
@@ -313,7 +316,7 @@ function SectionTitle({
   );
 }
 
-function DetailSidebar() {
+function DetailSidebar({ activeSection, onSectionChange }: { activeSection: string; onSectionChange: (s: string) => void }) {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -366,13 +369,16 @@ function DetailSidebar() {
           {sidebarMenuItems.map((item, index) => {
             const itemKey = `menu-${index}`;
             const isExpanded = expandedItems.has(itemKey);
+            const itemWithActive = { ...item, isActive: item.sectionKey === activeSection };
             return (
               <div key={itemKey}>
                 <MenuItem
-                  item={item}
+                  item={itemWithActive}
                   isExpanded={isExpanded}
                   onToggle={() => toggleExpanded(itemKey)}
-                  onItemClick={() => console.log(`Clicked ${item.label}`)}
+                  onItemClick={() => {
+                    if (item.sectionKey) onSectionChange(item.sectionKey);
+                  }}
                   isCollapsed={isCollapsed}
                 />
                 {isExpanded && item.children && !isCollapsed && (
@@ -541,10 +547,10 @@ function MenuSection({
 
 /* --------------------------------- Layout -------------------------------- */
 
-function TwoLevelSidebar() {
+function TwoLevelSidebar({ activeSection, onSectionChange }: { activeSection: string; onSectionChange: (s: string) => void }) {
   return (
     <div className="flex h-full">
-      <DetailSidebar />
+      <DetailSidebar activeSection={activeSection} onSectionChange={onSectionChange} />
     </div>
   );
 }
@@ -552,9 +558,12 @@ function TwoLevelSidebar() {
 /* ------------------------------- Root Frame ------------------------------ */
 
 export function Frame760() {
+  const [activeSection, setActiveSection] = useState("dashboard");
+
   return (
     <div className="flex h-screen w-full bg-white overflow-hidden">
-      <TwoLevelSidebar />
+      <TwoLevelSidebar activeSection={activeSection} onSectionChange={setActiveSection} />
+      {activeSection === "estoque" && <Estoque />}
     </div>
   );
 }
