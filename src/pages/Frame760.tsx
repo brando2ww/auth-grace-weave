@@ -167,396 +167,99 @@ interface SidebarContent {
   sections: MenuSectionT[];
 }
 
-function getSidebarContent(activeSection: string): SidebarContent {
-  const contentMap: Record<string, SidebarContent> = {
-    dashboard: {
-      title: "Dashboard",
-      sections: [
-        {
-          title: "Dashboard Types",
-          items: [
-            { icon: <Dashboard size={16} />, label: "Overview", isActive: true },
-            {
-              icon: <Report size={16} />,
-              label: "Executive Summary",
-              hasDropdown: true,
-              children: [
-                { label: "Revenue Overview" },
-                { label: "Key Performance Indicators" },
-                { label: "Strategic Goals Progress" },
-                { label: "Department Highlights" },
-              ],
-            },
-            {
-              icon: <InProgress size={16} />,
-              label: "Operations Dashboard",
-              hasDropdown: true,
-              children: [
-                { label: "Project Timeline" },
-                { label: "Resource Allocation" },
-                { label: "Team Performance" },
-                { label: "Capacity Planning" },
-              ],
-            },
-            {
-              icon: <Analytics size={16} />,
-              label: "Financial Dashboard",
-              hasDropdown: true,
-              children: [
-                { label: "Budget vs Actual" },
-                { label: "Cash Flow Analysis" },
-                { label: "Expense Breakdown" },
-                { label: "Profit & Loss Summary" },
-              ],
-            },
-          ],
-        },
-        {
-          title: "Report Summaries",
-          items: [
-            {
-              icon: <CalendarIcon size={16} />,
-              label: "Weekly Reports",
-              hasDropdown: true,
-              children: [
-                { label: "Team Productivity: 87% ↑" },
-                { label: "Project Completion: 12/15" },
-                { label: "Budget Utilization: 73%" },
-                { label: "Client Satisfaction: 4.6/5" },
-              ],
-            },
-            {
-              icon: <ChartBar size={16} />,
-              label: "Monthly Insights",
-              hasDropdown: true,
-              children: [
-                { label: "Revenue Growth: +15.3%" },
-                { label: "New Clients: 24" },
-                { label: "Team Expansion: 8 hires" },
-                { label: "Cost Reduction: 7.2%" },
-              ],
-            },
-            {
-              icon: <Report size={16} />,
-              label: "Quarterly Analysis",
-              hasDropdown: true,
-              children: [
-                { label: "Market Position: Improved" },
-                { label: "ROI: 23.4%" },
-                { label: "Customer Retention: 92%" },
-                { label: "Innovation Index: 8.7/10" },
-              ],
-            },
-          ],
-        },
-        {
-          title: "Business Intelligence",
-          items: [
-            {
-              icon: <StarFilled size={16} />,
-              label: "Performance Metrics",
-              hasDropdown: true,
-              children: [
-                { label: "Sales Conversion: 34.2%" },
-                { label: "Lead Response Time: 2.3h" },
-                { label: "Customer Lifetime Value: $4,280" },
-                { label: "Churn Rate: 3.1%" },
-              ],
-            },
-            {
-              icon: <Analytics size={16} />,
-              label: "Predictive Analytics",
-              hasDropdown: true,
-              children: [
-                { label: "Q4 Revenue Forecast: $2.4M" },
-                { label: "Resource Demand: High" },
-                { label: "Market Trends: Positive" },
-                { label: "Risk Assessment: Low" },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-
-    tasks: {
-      title: "Tasks",
-      sections: [
-        {
-          title: "Quick Actions",
-          items: [
-            { icon: <AddLarge size={16} />, label: "New task" },
-            { icon: <Filter size={16} />, label: "Filter tasks" },
-          ],
-        },
-        {
-          title: "My Tasks",
-          items: [
-            {
-              icon: <Time size={16} />,
-              label: "Due today",
-              hasDropdown: true,
-              children: [
-                { icon: <Task size={16} />, label: "Review design mockups" },
-                { icon: <Task size={16} />, label: "Update documentation" },
-                { icon: <Task size={16} />, label: "Test new feature" },
-              ],
-            },
-            {
-              icon: <InProgress size={16} />,
-              label: "In progress",
-              hasDropdown: true,
-              children: [
-                { icon: <Task size={16} />, label: "Implement user auth" },
-                { icon: <Task size={16} />, label: "Database migration" },
-              ],
-            },
-            {
-              icon: <CheckmarkOutline size={16} />,
-              label: "Completed",
-              hasDropdown: true,
-              children: [
-                { icon: <Task size={16} />, label: "Fixed login bug" },
-                { icon: <Task size={16} />, label: "Updated dependencies" },
-                { icon: <Task size={16} />, label: "Code review completed" },
-              ],
-            },
-          ],
-        },
-        {
-          title: "Other",
-          items: [
-            {
-              icon: <Flag size={16} />,
-              label: "Priority tasks",
-              hasDropdown: true,
-              children: [
-                { icon: <Task size={16} />, label: "Security update" },
-                { icon: <Task size={16} />, label: "Client presentation" },
-              ],
-            },
-            { icon: <Archive size={16} />, label: "Archived" },
-          ],
-        },
-      ],
-    },
-
-    projects: {
-      title: "Projects",
-      sections: [
-        {
-          title: "Quick Actions",
-          items: [
-            { icon: <AddLarge size={16} />, label: "New project" },
-            { icon: <Filter size={16} />, label: "Filter projects" },
-          ],
-        },
-        {
-          title: "Active Projects",
-          items: [
-            {
-              icon: <Folder size={16} />,
-              label: "Web Application",
-              hasDropdown: true,
-              children: [
-                { icon: <Task size={16} />, label: "Frontend development" },
-                { icon: <Task size={16} />, label: "API integration" },
-                { icon: <Task size={16} />, label: "Testing & QA" },
-              ],
-            },
-            {
-              icon: <Folder size={16} />,
-              label: "Mobile App",
-              hasDropdown: true,
-              children: [
-                { icon: <Task size={16} />, label: "UI/UX design" },
-                { icon: <Task size={16} />, label: "Native development" },
-              ],
-            },
-          ],
-        },
-        {
-          title: "Other",
-          items: [
-            { icon: <CheckmarkOutline size={16} />, label: "Completed" },
-            { icon: <Archive size={16} />, label: "Archived" },
-          ],
-        },
-      ],
-    },
-
-    calendar: {
-      title: "Calendar",
-      sections: [
-        {
-          title: "Views",
-          items: [
-            { icon: <CalendarIcon size={16} />, label: "Month view" },
-            { icon: <View size={16} />, label: "Week view" },
-            { icon: <View size={16} />, label: "Day view" },
-          ],
-        },
-        {
-          title: "Events",
-          items: [
-            {
-              icon: <Time size={16} />,
-              label: "Today's events",
-              hasDropdown: true,
-              children: [
-                { icon: <CalendarIcon size={16} />, label: "Team standup (9:00 AM)" },
-                { icon: <CalendarIcon size={16} />, label: "Client call (2:00 PM)" },
-                { icon: <CalendarIcon size={16} />, label: "Project review (4:00 PM)" },
-              ],
-            },
-            { icon: <CalendarIcon size={16} />, label: "Upcoming events" },
-          ],
-        },
-        {
-          title: "Quick Actions",
-          items: [
-            { icon: <AddLarge size={16} />, label: "New event" },
-            { icon: <Share size={16} />, label: "Share calendar" },
-          ],
-        },
-      ],
-    },
-
-    teams: {
-      title: "Teams",
-      sections: [
-        {
-          title: "My Teams",
-          items: [
-            {
-              icon: <Group size={16} />,
-              label: "Development Team",
-              hasDropdown: true,
-              children: [
-                { icon: <UserIcon size={16} />, label: "John Doe (Lead)" },
-                { icon: <UserIcon size={16} />, label: "Jane Smith" },
-                { icon: <UserIcon size={16} />, label: "Mike Johnson" },
-              ],
-            },
-            {
-              icon: <Group size={16} />,
-              label: "Design Team",
-              hasDropdown: true,
-              children: [
-                { icon: <UserIcon size={16} />, label: "Sarah Wilson" },
-                { icon: <UserIcon size={16} />, label: "Tom Brown" },
-              ],
-            },
-          ],
-        },
-        {
-          title: "Quick Actions",
-          items: [
-            { icon: <AddLarge size={16} />, label: "Invite member" },
-            { icon: <SettingsIcon size={16} />, label: "Manage teams" },
-          ],
-        },
-      ],
-    },
-
-    analytics: {
-      title: "Analytics",
-      sections: [
-        {
-          title: "Reports",
-          items: [
-            { icon: <ChartBar size={16} />, label: "Performance report" },
-            { icon: <CheckmarkOutline size={16} />, label: "Task completion" },
-            { icon: <Group size={16} />, label: "Team productivity" },
-          ],
-        },
-        {
-          title: "Insights",
-          items: [
-            {
-              icon: <StarFilled size={16} />,
-              label: "Key metrics",
-              hasDropdown: true,
-              children: [
-                { icon: <Analytics size={16} />, label: "Tasks completed: 24" },
-                { icon: <Analytics size={16} />, label: "Avg. completion time: 2.5d" },
-                { icon: <Analytics size={16} />, label: "Team efficiency: 87%" },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-
-    files: {
-      title: "Files",
-      sections: [
-        {
-          title: "Quick Actions",
-          items: [
-            { icon: <CloudUpload size={16} />, label: "Upload file" },
-            { icon: <AddLarge size={16} />, label: "New folder" },
-          ],
-        },
-        {
-          title: "Recent Files",
-          items: [
-            {
-              icon: <FolderOpen size={16} />,
-              label: "Recent documents",
-              hasDropdown: true,
-              children: [
-                { icon: <DocumentAdd size={16} />, label: "Project proposal.pdf" },
-                { icon: <DocumentAdd size={16} />, label: "Meeting notes.docx" },
-                { icon: <DocumentAdd size={16} />, label: "Design specs.figma" },
-              ],
-            },
-            { icon: <Share size={16} />, label: "Shared with me" },
-          ],
-        },
-        {
-          title: "Organization",
-          items: [
-            { icon: <Folder size={16} />, label: "All folders" },
-            { icon: <Archive size={16} />, label: "Archived files" },
-          ],
-        },
-      ],
-    },
-
-    settings: {
-      title: "Settings",
-      sections: [
-        {
-          title: "Account",
-          items: [
-            { icon: <UserIcon size={16} />, label: "Profile settings" },
-            { icon: <Security size={16} />, label: "Security" },
-            { icon: <Notification size={16} />, label: "Notifications" },
-          ],
-        },
-        {
-          title: "Workspace",
-          items: [
-            {
-              icon: <SettingsIcon size={16} />,
-              label: "Preferences",
-              hasDropdown: true,
-              children: [
-                { icon: <View size={16} />, label: "Theme settings" },
-                { icon: <Time size={16} />, label: "Time zone" },
-                { icon: <Notification size={16} />, label: "Default notifications" },
-              ],
-            },
-            { icon: <Integration size={16} />, label: "Integrations" },
-          ],
-        },
-      ],
-    },
-  };
-
-  return contentMap[activeSection] || contentMap.tasks;
-}
+const sidebarMenuItems: MenuItemT[] = [
+  {
+    icon: <Dashboard size={16} />,
+    label: "Dashboard",
+    isActive: true,
+    hasDropdown: true,
+    children: [
+      { label: "Overview" },
+      { label: "Resumo Executivo" },
+      { label: "KPIs" },
+    ],
+  },
+  {
+    icon: <Folder size={16} />,
+    label: "Estoque",
+    hasDropdown: true,
+    children: [
+      { label: "Veículos Disponíveis" },
+      { label: "Entrada de Veículos" },
+      { label: "Avaliações" },
+    ],
+  },
+  {
+    icon: <UserMultiple size={16} />,
+    label: "Leads",
+    hasDropdown: true,
+    children: [
+      { label: "Novos Leads" },
+      { label: "Em Negociação" },
+      { label: "Convertidos" },
+    ],
+  },
+  {
+    icon: <View size={16} />,
+    label: "Anúncios",
+    hasDropdown: true,
+    children: [
+      { label: "Ativos" },
+      { label: "Criar Anúncio" },
+      { label: "Performance" },
+    ],
+  },
+  {
+    icon: <InProgress size={16} />,
+    label: "Automação",
+    hasDropdown: true,
+    children: [
+      { label: "Fluxos Ativos" },
+      { label: "Criar Fluxo" },
+      { label: "Histórico" },
+    ],
+  },
+  {
+    icon: <Analytics size={16} />,
+    label: "Inteligência",
+    hasDropdown: true,
+    children: [
+      { label: "Métricas" },
+      { label: "Previsões" },
+      { label: "Relatórios" },
+    ],
+  },
+  {
+    icon: <Integration size={16} />,
+    label: "Integrações",
+    hasDropdown: true,
+    children: [
+      { label: "Conectadas" },
+      { label: "Marketplace" },
+      { label: "Configurações" },
+    ],
+  },
+  {
+    icon: <ChartBar size={16} />,
+    label: "Financeiro",
+    hasDropdown: true,
+    children: [
+      { label: "Faturamento" },
+      { label: "Despesas" },
+      { label: "Fluxo de Caixa" },
+    ],
+  },
+  {
+    icon: <Group size={16} />,
+    label: "Equipe",
+    hasDropdown: true,
+    children: [
+      { label: "Membros" },
+      { label: "Desempenho" },
+      { label: "Permissões" },
+    ],
+  },
+];
 
 
 
@@ -602,10 +305,9 @@ function SectionTitle({
   );
 }
 
-function DetailSidebar({ activeSection }: { activeSection: string }) {
+function DetailSidebar() {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const content = getSidebarContent(activeSection);
 
   const toggleExpanded = (itemKey: string) => {
     setExpandedItems((prev) => {
@@ -625,7 +327,7 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
       }`}
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
     >
-      {/* Logo expandido - fora do container centralizado */}
+      {/* Logo expandido */}
       <div 
         className={`px-3 pt-4 pb-2 transition-all duration-300 ease-in-out ${
           isCollapsed ? "opacity-0 h-0 overflow-hidden" : "opacity-100"
@@ -634,7 +336,7 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
         <BrandBadge />
       </div>
 
-      {/* Container principal - centralizado verticalmente quando colapsado */}
+      {/* Container principal */}
       <div className={`flex-1 overflow-y-auto ${
         isCollapsed 
           ? "flex flex-col items-center justify-center px-0" 
@@ -649,18 +351,37 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
           <img src={waIcon} alt="WA" className="h-8 w-8" />
         </div>
 
-        <SectionTitle title={content.title} onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
+        <SectionTitle title="Menu" onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
         <SearchContainer isCollapsed={isCollapsed} />
 
-        {content.sections.map((section, index) => (
-          <MenuSection
-            key={index}
-            section={section}
-            expandedItems={expandedItems}
-            onToggleExpanded={toggleExpanded}
-            isCollapsed={isCollapsed}
-          />
-        ))}
+        <div className="mt-1">
+          {sidebarMenuItems.map((item, index) => {
+            const itemKey = `menu-${index}`;
+            const isExpanded = expandedItems.has(itemKey);
+            return (
+              <div key={itemKey}>
+                <MenuItem
+                  item={item}
+                  isExpanded={isExpanded}
+                  onToggle={() => toggleExpanded(itemKey)}
+                  onItemClick={() => console.log(`Clicked ${item.label}`)}
+                  isCollapsed={isCollapsed}
+                />
+                {isExpanded && item.children && !isCollapsed && (
+                  <div className="mt-0.5">
+                    {item.children.map((child, childIndex) => (
+                      <SubMenuItem
+                        key={childIndex}
+                        item={child}
+                        onItemClick={() => console.log(`Clicked ${child.label}`)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {!isCollapsed && (
@@ -809,7 +530,7 @@ function MenuSection({
 function TwoLevelSidebar() {
   return (
     <div className="flex h-full">
-      <DetailSidebar activeSection="dashboard" />
+      <DetailSidebar />
     </div>
   );
 }
