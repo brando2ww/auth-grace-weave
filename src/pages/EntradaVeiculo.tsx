@@ -248,12 +248,15 @@ export default function EntradaVeiculo({ onBack }: EntradaVeiculoProps) {
           <Field label="Vídeo (URL)">
             <Input value={form.video} onChange={(e) => updateField("video", e.target.value)} placeholder="https://..." />
           </Field>
-          <Field label="Fotos (URL)">
-            <Input value={form.fotos} onChange={(e) => updateField("fotos", e.target.value)} placeholder="https://..." />
-          </Field>
-          <Field label="Foto Principal (URL)">
-            <Input value={form.foto1} onChange={(e) => updateField("foto1", e.target.value)} placeholder="https://..." />
-          </Field>
+        </div>
+        <div className="mt-4">
+          <VehiclePhotoUpload
+            photos={photos}
+            onPhotosChange={setPhotos}
+            mainPhotoIndex={mainPhotoIndex}
+            onMainPhotoChange={setMainPhotoIndex}
+          />
+        </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <Field label="Equipamentos">
