@@ -547,10 +547,10 @@ function MenuSection({
 
 /* --------------------------------- Layout -------------------------------- */
 
-function TwoLevelSidebar() {
+function TwoLevelSidebar({ activeSection, onSectionChange }: { activeSection: string; onSectionChange: (s: string) => void }) {
   return (
     <div className="flex h-full">
-      <DetailSidebar />
+      <DetailSidebar activeSection={activeSection} onSectionChange={onSectionChange} />
     </div>
   );
 }
