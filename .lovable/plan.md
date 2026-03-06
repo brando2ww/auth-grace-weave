@@ -1,14 +1,48 @@
 
 
-## Plano: Substituir o BrandBadge pelo logo da WiseAuto
+## Plano: Upload de Fotos com Supabase Storage
 
-O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
+Substituir os campos de URL de fotos por um componente de upload real, seguindo o design da imagem de referência (drag & drop + upload por URL + progress bar).
 
-### Alteracao em `src/pages/Frame760.tsx`
+### 1. Criar bucket no Supabase Storage
 
-1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
+Migration SQL para criar bucket `vehicle-photos` (público) com RLS policies permitindo upload/leitura por usuários autenticados.
 
-2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
+```sql
+INSERT INTO storage.buckets (id, name, public) VALUES ('vehicle-photos', 'vehicle-photos', true);
 
-3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
+CREATE POLICY "Authenticated users can upload vehicle photos"
+ON storage.objects FOR INSERT TO authenticated
+WITH CHECK (bucket_id = 'vehicle-photos');
+
+CREATE POLICY "Anyone can view vehicle photos"
+ON storage.objects FOR SELECT TO public
+USING (bucket_id = 'vehicle-photos');
+
+CREATE POLICY "Authenticated users can delete own vehicle photos"
+ON storage.objects FOR DELETE TO authenticated
+USING (bucket_id = 'vehicle-photos');
+```
+
+### 2. Novo componente: `src/components/VehiclePhotoUpload.tsx`
+
+Componente inspirado no design da imagem de referência:
+- **Área de drag & drop** com borda tracejada, ícone de upload, texto "Selecione fotos ou arraste aqui"
+- **Campo "Upload por URL"** com input + botão Upload (como na imagem)
+- **Barra de progresso** durante upload com percentual
+- **Preview das fotos** com miniatura e botão X para remover
+- **Foto principal**: a primeira foto enviada é marcada como principal (foto1), com opção de reordenar
+- Upload via `supabase.storage.from('vehicle-photos').upload()`
+- Retorna array de URLs públicas das fotos
+
+### 3. Atualizar `src/pages/EntradaVeiculo.tsx`
+
+- Substituir os campos "Fotos (URL)" e "Foto Principal (URL)" pelo novo componente `VehiclePhotoUpload`
+- O state `fotos` passa a ser um array de URLs retornadas pelo storage
+- O state `foto1` é automaticamente a primeira foto do array
+
+### Arquivos alterados
+- `src/components/VehiclePhotoUpload.tsx` (novo)
+- `src/pages/EntradaVeiculo.tsx` (atualizado)
+- Migration SQL para bucket + RLS
 
