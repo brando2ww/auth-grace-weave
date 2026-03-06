@@ -248,6 +248,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <ChartBar size={16} />,
     label: "Financeiro",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Faturamento" },
