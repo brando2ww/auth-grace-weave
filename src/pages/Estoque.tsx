@@ -136,7 +136,7 @@ export default function Estoque({ onNavigate }: { onNavigate?: (section: string)
             <Download className="h-4 w-4" />
             Exportar
           </Button>
-          <Button variant="default" size="sm">
+          <Button variant="default" size="sm" onClick={() => onNavigate?.("entrada-veiculo")}>
             <Plus className="h-4 w-4" />
             Entrada de Veículo
           </Button>

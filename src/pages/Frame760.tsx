@@ -558,7 +558,8 @@ export function Frame760() {
   return (
     <div className="flex h-screen w-full bg-white overflow-hidden">
       <TwoLevelSidebar activeSection={activeSection} onSectionChange={setActiveSection} />
-      {activeSection === "estoque" && <Estoque />}
+      {activeSection === "estoque" && <Estoque onNavigate={setActiveSection} />}
+      {activeSection === "entrada-veiculo" && <EntradaVeiculo onBack={() => setActiveSection("estoque")} />}
     </div>
   );
 }
