@@ -154,6 +154,7 @@ function SearchContainer({
 interface MenuItemT {
   icon?: React.ReactNode;
   label: string;
+  badge?: string;
   hasDropdown?: boolean;
   isActive?: boolean;
   children?: MenuItemT[];
@@ -192,6 +193,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <UserMultiple size={16} />,
     label: "Leads",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Novos Leads" },
@@ -202,6 +204,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <View size={16} />,
     label: "Anúncios",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Ativos" },
@@ -212,6 +215,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <InProgress size={16} />,
     label: "Automação",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Fluxos Ativos" },
@@ -222,6 +226,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <Analytics size={16} />,
     label: "Inteligência",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Métricas" },
@@ -232,6 +237,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <Integration size={16} />,
     label: "Integrações",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Conectadas" },
@@ -242,6 +248,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <ChartBar size={16} />,
     label: "Financeiro",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Faturamento" },
@@ -252,6 +259,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <Group size={16} />,
     label: "Equipe",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Membros" },
@@ -444,6 +452,12 @@ function MenuItem({
                 {item.label}
               </span>
             </div>
+
+            {item.badge && (
+              <span className="ml-2 px-1.5 py-0.5 rounded text-[10px] font-medium text-white" style={{ backgroundColor: '#1f6ae1' }}>
+                {item.badge}
+              </span>
+            )}
 
             {item.hasDropdown && (
               <div className={`ml-auto transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}>

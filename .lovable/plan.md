@@ -1,22 +1,14 @@
 
 
-## Plano: Adicionar badge "em breve" nos itens Leads até Equipe
+## Plano: Substituir o BrandBadge pelo logo da WiseAuto
 
-**Objetivo:** Adicionar uma badge azul (#1f6ae1) com o texto "em breve" nos itens de menu: Leads, Anúncios, Automação, Inteligência, Integrações, Financeiro e Equipe.
+O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
 
-### Alterações em `src/pages/Frame760.tsx`:
+### Alteracao em `src/pages/Frame760.tsx`
 
-1. **Adicionar `badge` ao tipo `MenuItemT`** (linha 155) — campo opcional `badge?: string`
+1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
 
-2. **Adicionar `badge: "em breve"` nos itens** de Leads até Equipe no array `sidebarMenuItems` (linhas 192-261)
+2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
 
-3. **Renderizar a badge no `MenuItem`** (após o label, antes do chevron) — um `<span>` com fundo `#1f6ae1`, texto branco, arredondado, texto pequeno (~10px). Só aparece quando `!isCollapsed`.
-
-```tsx
-{item.badge && !isCollapsed && (
-  <span className="ml-2 px-1.5 py-0.5 rounded text-[10px] font-medium text-white" style={{ backgroundColor: '#1f6ae1' }}>
-    {item.badge}
-  </span>
-)}
-```
+3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
 
