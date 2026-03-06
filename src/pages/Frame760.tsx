@@ -193,6 +193,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <UserMultiple size={16} />,
     label: "Leads",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Novos Leads" },
