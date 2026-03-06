@@ -631,12 +631,6 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
         </div>
       )}
 
-      {isCollapsed && (
-        <div className="flex justify-center pt-4 pb-2">
-          <img src={waIcon} alt="WA" className="h-8 w-8" />
-        </div>
-      )}
-
       {!isCollapsed && (
         <>
           <SectionTitle title={content.title} onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
