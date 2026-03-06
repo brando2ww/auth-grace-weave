@@ -631,12 +631,6 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
         </div>
       )}
 
-      {isCollapsed && (
-        <div className="flex justify-center pt-4 pb-2">
-          <img src={waIcon} alt="WA" className="h-8 w-8" />
-        </div>
-      )}
-
       {!isCollapsed && (
         <>
           <SectionTitle title={content.title} onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
@@ -647,6 +641,7 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
       <div className={`flex-1 overflow-y-auto ${isCollapsed ? "flex flex-col items-center justify-center px-0" : "px-2"}`}>
         {isCollapsed && (
           <>
+            <img src={waIcon} alt="WA" className="h-8 w-8 mb-2" />
             <SectionTitle title={content.title} onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
             <SearchContainer isCollapsed={isCollapsed} />
           </>

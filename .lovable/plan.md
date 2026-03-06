@@ -1,17 +1,14 @@
 
 
-## Plano: Mover logo WA para junto das opções no sidebar colapsado
+## Plano: Substituir o BrandBadge pelo logo da WiseAuto
 
-Mover o bloco do `waIcon` de fora do container `flex-1` (linha 634-638) para dentro dele (linha 647-663), posicionando-o logo acima do `SectionTitle` (flechinha). Assim ficará junto aos ícones de navegação, centralizado verticalmente com eles.
+O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
 
-**Alterações em `src/pages/Frame760.tsx`:**
+### Alteracao em `src/pages/Frame760.tsx`
 
-1. **Remover** o bloco das linhas 634-638 (o `waIcon` solto no topo).
+1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
 
-2. **Inserir** o logo dentro do container `flex-1` colapsado (linha 649), antes do `SectionTitle`:
-```tsx
-<img src={waIcon} alt="WA" className="h-8 w-8 mb-2" />
-```
+2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
 
-Resultado: no estado colapsado, a ordem será: logo WA → flechinha (SectionTitle) → busca → itens de menu, todos centralizados verticalmente.
+3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
 
