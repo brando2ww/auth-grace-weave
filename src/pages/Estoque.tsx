@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Search, Download, View, Edit, TrashCan } from "@carbon/icons-react";
+import { Search, Download, ChevronLeft, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -10,15 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type VehicleStatus = "disponivel" | "reservado" | "vendido";
 
@@ -53,6 +43,13 @@ function formatCurrency(value: number) {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
+const tabs = [
+  { key: "todos", label: "Todos os Veículos" },
+  { key: "disponiveis", label: "Disponíveis" },
+  { key: "reservados", label: "Reservados" },
+  { key: "vendidos", label: "Vendidos" },
+];
+
 export default function Estoque() {
   const [activeTab, setActiveTab] = useState("todos");
   const [search, setSearch] = useState("");
@@ -66,21 +63,17 @@ export default function Estoque() {
       (activeTab === "disponiveis" && v.status === "disponivel") ||
       (activeTab === "reservados" && v.status === "reservado") ||
       (activeTab === "vendidos" && v.status === "vendido");
-
     const matchSearch =
       !search ||
       v.modelo.toLowerCase().includes(search.toLowerCase()) ||
       v.placa.toLowerCase().includes(search.toLowerCase());
-
     const matchCategoria =
       categoria === "todas" || v.marca.toLowerCase() === categoria.toLowerCase();
-
     return matchTab && matchSearch && matchCategoria;
   });
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
   const paginated = filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
-
   const uniqueBrands = [...new Set(mockVehicles.map((v) => v.marca))];
 
   return (
@@ -93,141 +86,150 @@ export default function Estoque() {
         </p>
       </div>
 
-      {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={(v) => { setActiveTab(v); setCurrentPage(1); }} className="mb-6">
-        <TabsList>
-          <TabsTrigger value="todos">Todos os Veículos</TabsTrigger>
-          <TabsTrigger value="disponiveis">Disponíveis</TabsTrigger>
-          <TabsTrigger value="reservados">Reservados</TabsTrigger>
-          <TabsTrigger value="vendidos">Vendidos</TabsTrigger>
-        </TabsList>
-      </Tabs>
+      {/* Underline Tabs */}
+      <div className="flex items-center gap-6 border-b border-border mb-6">
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => { setActiveTab(tab.key); setCurrentPage(1); }}
+            className={`pb-3 text-sm font-medium transition-colors relative ${
+              activeTab === tab.key
+                ? "text-primary"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {tab.label}
+            {activeTab === tab.key && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
+            )}
+          </button>
+        ))}
+      </div>
 
-      {/* Filters */}
-      <div className="flex items-center gap-3 mb-6 flex-wrap">
-        <div className="relative flex-1 min-w-[200px] max-w-[320px]">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+      {/* Filters row with labels */}
+      <div className="flex items-end gap-4 mb-6 flex-wrap">
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-medium text-muted-foreground">Modelo / Placa</label>
           <Input
-            placeholder="Buscar por modelo ou placa..."
+            placeholder="Buscar..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
-            className="pl-9"
+            className="w-[200px]"
           />
         </div>
 
-        <Select value={categoria} onValueChange={(v) => { setCategoria(v); setCurrentPage(1); }}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Categoria" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="todas">Todas as Marcas</SelectItem>
-            {uniqueBrands.map((b) => (
-              <SelectItem key={b} value={b}>{b}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-medium text-muted-foreground">Marca</label>
+          <Select value={categoria} onValueChange={(v) => { setCategoria(v); setCurrentPage(1); }}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Todas as Marcas" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="todas">Todas as Marcas</SelectItem>
+              {uniqueBrands.map((b) => (
+                <SelectItem key={b} value={b}>{b}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-        <Button variant="default" size="sm" onClick={() => {}}>
-          <Search size={14} />
-          Buscar
-        </Button>
-
-        <Button variant="outline" size="sm" onClick={() => {}}>
-          <Download size={14} />
-          Exportar
-        </Button>
+        <div className="flex items-center gap-2 ml-auto">
+          <Button variant="outline" size="sm" onClick={() => {}}>
+            <Search className="h-4 w-4" />
+            Buscar
+          </Button>
+          <Button variant="default" size="sm" onClick={() => {}}>
+            <Download className="h-4 w-4" />
+            Exportar
+          </Button>
+        </div>
       </div>
 
       {/* Table */}
-      <div className="rounded-lg border border-border bg-card">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Modelo</TableHead>
-              <TableHead>Marca</TableHead>
-              <TableHead>Ano</TableHead>
-              <TableHead>Placa</TableHead>
-              <TableHead>Preço</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Ações</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+      <div className="border border-border overflow-hidden">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="bg-muted/50 border-b border-border">
+              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Modelo</th>
+              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Marca</th>
+              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Ano</th>
+              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Placa</th>
+              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Preço</th>
+              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Status</th>
+              <th className="text-right px-4 py-3 font-medium text-muted-foreground">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
             {paginated.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
+              <tr>
+                <td colSpan={7} className="text-center text-muted-foreground py-10">
                   Nenhum veículo encontrado.
-                </TableCell>
-              </TableRow>
+                </td>
+              </tr>
             ) : (
               paginated.map((v) => {
                 const st = statusConfig[v.status];
                 return (
-                  <TableRow key={v.id}>
-                    <TableCell className="font-medium text-foreground">{v.modelo}</TableCell>
-                    <TableCell className="text-muted-foreground">{v.marca}</TableCell>
-                    <TableCell className="text-muted-foreground">{v.ano}</TableCell>
-                    <TableCell className="text-muted-foreground font-mono text-xs">{v.placa}</TableCell>
-                    <TableCell className="text-foreground font-medium">{formatCurrency(v.preco)}</TableCell>
-                    <TableCell>
+                  <tr key={v.id} className="border-b border-border hover:bg-muted/30 transition-colors">
+                    <td className="px-4 py-3.5 font-medium text-foreground">{v.modelo}</td>
+                    <td className="px-4 py-3.5 text-muted-foreground">{v.marca}</td>
+                    <td className="px-4 py-3.5 text-muted-foreground">{v.ano}</td>
+                    <td className="px-4 py-3.5 text-muted-foreground font-mono text-xs">{v.placa}</td>
+                    <td className="px-4 py-3.5 text-foreground font-medium">{formatCurrency(v.preco)}</td>
+                    <td className="px-4 py-3.5">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${st.className}`}>
                         {st.label}
                       </span>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex items-center justify-end gap-1">
-                        <Button variant="outline" size="icon" className="h-8 w-8" title="Detalhes">
-                          <View size={14} />
+                    </td>
+                    <td className="px-4 py-3.5 text-right">
+                      <div className="flex items-center justify-end gap-1.5">
+                        <Button variant="outline" size="sm" className="h-7 text-xs px-2.5">
+                          Detalhes
                         </Button>
-                        <Button variant="outline" size="icon" className="h-8 w-8" title="Editar">
-                          <Edit size={14} />
+                        <Button variant="outline" size="sm" className="h-7 text-xs px-2.5">
+                          Editar
                         </Button>
-                        <Button variant="outline" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" title="Remover">
-                          <TrashCan size={14} />
+                        <Button variant="outline" size="sm" className="h-7 text-xs px-2.5 text-destructive hover:text-destructive">
+                          Remover
                         </Button>
                       </div>
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
                 );
               })
             )}
-          </TableBody>
-        </Table>
+          </tbody>
+        </table>
 
         {/* Pagination */}
-        <div className="flex items-center justify-between px-4 py-3 border-t border-border">
-          <span className="text-sm text-muted-foreground">
-            Mostrando {paginated.length} de {filtered.length} veículos
-          </span>
-          <div className="flex items-center gap-1">
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage((p) => p - 1)}
+        <div className="flex items-center justify-center gap-1 py-4 border-t border-border">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
+            className="w-8 h-8 flex items-center justify-center rounded border border-border text-muted-foreground hover:bg-muted/50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`w-8 h-8 flex items-center justify-center rounded text-sm font-medium transition-colors ${
+                page === currentPage
+                  ? "bg-primary text-primary-foreground"
+                  : "border border-border text-muted-foreground hover:bg-muted/50"
+              }`}
             >
-              Anterior
-            </Button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <Button
-                key={page}
-                variant={page === currentPage ? "default" : "outline"}
-                size="sm"
-                className="w-8 h-8 p-0"
-                onClick={() => setCurrentPage(page)}
-              >
-                {page}
-              </Button>
-            ))}
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage((p) => p + 1)}
-            >
-              Próximo
-            </Button>
-          </div>
+              {page}
+            </button>
+          ))}
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+            className="w-8 h-8 flex items-center justify-center rounded border border-border text-muted-foreground hover:bg-muted/50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </div>
