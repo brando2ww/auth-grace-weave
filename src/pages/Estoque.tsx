@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, Download, Eye, Edit, TrashCan } from "@carbon/icons-react";
+import { Search, Download, View, Edit, TrashCan } from "@carbon/icons-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
