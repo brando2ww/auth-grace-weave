@@ -174,8 +174,8 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <Dashboard size={16} />,
     label: "Dashboard",
-    isActive: true,
     hasDropdown: true,
+    sectionKey: "dashboard",
     children: [
       { label: "Overview" },
       { label: "Resumo Executivo" },
