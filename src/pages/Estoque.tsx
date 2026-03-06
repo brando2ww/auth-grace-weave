@@ -73,7 +73,7 @@ export default function Estoque() {
     return matchSearch && matchTipo && matchStatus;
   });
 
-  const uniqueTypes = [...new Set(mockVehicles.map((v) => v.tipo))];
+  
 
   return (
     <div className="flex-1 p-8 overflow-y-auto bg-background">
