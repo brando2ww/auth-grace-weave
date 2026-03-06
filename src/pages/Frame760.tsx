@@ -382,7 +382,10 @@ function DetailSidebar({ activeSection, onSectionChange }: { activeSection: stri
                       <SubMenuItem
                         key={childIndex}
                         item={child}
-                        onItemClick={() => console.log(`Clicked ${child.label}`)}
+                        onItemClick={() => {
+                          if (child.sectionKey) onSectionChange(child.sectionKey);
+                          else console.log(`Clicked ${child.label}`);
+                        }}
                       />
                     ))}
                   </div>
