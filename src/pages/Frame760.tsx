@@ -619,7 +619,7 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
 
   return (
     <div
-      className={`flex flex-col h-full bg-white border-r border-neutral-200 transition-all duration-400 ${
+      className={`flex flex-col h-full bg-[#fdfbfd] border-r border-neutral-200 transition-all duration-400 ${
         isCollapsed ? "w-[60px]" : "w-[260px]"
       }`}
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
