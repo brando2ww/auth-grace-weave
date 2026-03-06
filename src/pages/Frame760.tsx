@@ -558,9 +558,12 @@ function TwoLevelSidebar({ activeSection, onSectionChange }: { activeSection: st
 /* ------------------------------- Root Frame ------------------------------ */
 
 export function Frame760() {
+  const [activeSection, setActiveSection] = useState("dashboard");
+
   return (
     <div className="flex h-screen w-full bg-white overflow-hidden">
-      <TwoLevelSidebar />
+      <TwoLevelSidebar activeSection={activeSection} onSectionChange={setActiveSection} />
+      {activeSection === "estoque" && <Estoque />}
     </div>
   );
 }
