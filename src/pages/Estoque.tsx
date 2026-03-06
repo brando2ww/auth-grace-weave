@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, Download, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, Download, Fuel, Users, Settings2, MoreHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 
 type VehicleStatus = "disponivel" | "reservado" | "vendido";
+type VehicleType = "Sedan" | "SUV" | "Hatchback" | "Pickup";
 
 interface Vehicle {
   id: string;
@@ -20,17 +21,23 @@ interface Vehicle {
   placa: string;
   preco: number;
   status: VehicleStatus;
+  tipo: VehicleType;
+  cambio: string;
+  assentos: number;
+  combustivel: string;
+  imagem: string;
 }
 
 const mockVehicles: Vehicle[] = [
-  { id: "1", modelo: "Civic Touring", marca: "Honda", ano: 2024, placa: "ABC-1D23", preco: 165000, status: "disponivel" },
-  { id: "2", modelo: "Corolla XEi", marca: "Toyota", ano: 2023, placa: "DEF-4G56", preco: 142000, status: "disponivel" },
-  { id: "3", modelo: "HB20 Sense", marca: "Hyundai", ano: 2024, placa: "GHI-7H89", preco: 82000, status: "reservado" },
-  { id: "4", modelo: "Onix LTZ", marca: "Chevrolet", ano: 2023, placa: "JKL-0I12", preco: 89000, status: "vendido" },
-  { id: "5", modelo: "Compass Limited", marca: "Jeep", ano: 2024, placa: "MNO-3J45", preco: 198000, status: "disponivel" },
-  { id: "6", modelo: "T-Cross Highline", marca: "Volkswagen", ano: 2023, placa: "PQR-6K78", preco: 145000, status: "reservado" },
-  { id: "7", modelo: "Tracker Premier", marca: "Chevrolet", ano: 2024, placa: "STU-9L01", preco: 155000, status: "disponivel" },
-  { id: "8", modelo: "Creta Ultimate", marca: "Hyundai", ano: 2024, placa: "VWX-2M34", preco: 168000, status: "vendido" },
+  { id: "1", modelo: "Civic Touring", marca: "Honda", ano: 2024, placa: "ABC-1D23", preco: 165000, status: "disponivel", tipo: "Sedan", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "2", modelo: "Corolla XEi", marca: "Toyota", ano: 2023, placa: "DEF-4G56", preco: 142000, status: "disponivel", tipo: "Sedan", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "3", modelo: "HB20 Sense", marca: "Hyundai", ano: 2024, placa: "GHI-7H89", preco: 82000, status: "reservado", tipo: "Hatchback", cambio: "Manual", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "4", modelo: "Onix LTZ", marca: "Chevrolet", ano: 2023, placa: "JKL-0I12", preco: 89000, status: "vendido", tipo: "Hatchback", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "5", modelo: "Compass Limited", marca: "Jeep", ano: 2024, placa: "MNO-3J45", preco: 198000, status: "disponivel", tipo: "SUV", cambio: "Automático", assentos: 5, combustivel: "Diesel", imagem: "/placeholder.svg" },
+  { id: "6", modelo: "T-Cross Highline", marca: "Volkswagen", ano: 2023, placa: "PQR-6K78", preco: 145000, status: "reservado", tipo: "SUV", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "7", modelo: "Tracker Premier", marca: "Chevrolet", ano: 2024, placa: "STU-9L01", preco: 155000, status: "disponivel", tipo: "SUV", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "8", modelo: "Creta Ultimate", marca: "Hyundai", ano: 2024, placa: "VWX-2M34", preco: 168000, status: "vendido", tipo: "SUV", cambio: "Automático", assentos: 5, combustivel: "Flex", imagem: "/placeholder.svg" },
+  { id: "9", modelo: "Saveiro Robust", marca: "Volkswagen", ano: 2024, placa: "YZA-5N67", preco: 98000, status: "disponivel", tipo: "Pickup", cambio: "Manual", assentos: 2, combustivel: "Flex", imagem: "/placeholder.svg" },
 ];
 
 const statusConfig: Record<VehicleStatus, { label: string; className: string }> = {
@@ -43,38 +50,23 @@ function formatCurrency(value: number) {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
-const tabs = [
-  { key: "todos", label: "Todos os Veículos" },
-  { key: "disponiveis", label: "Disponíveis" },
-  { key: "reservados", label: "Reservados" },
-  { key: "vendidos", label: "Vendidos" },
-];
-
 export default function Estoque() {
-  const [activeTab, setActiveTab] = useState("todos");
   const [search, setSearch] = useState("");
-  const [categoria, setCategoria] = useState("todas");
-  const [currentPage, setCurrentPage] = useState(1);
-  const perPage = 6;
+  const [tipoFilter, setTipoFilter] = useState("todos");
+  const [statusFilter, setStatusFilter] = useState("todos");
 
   const filtered = mockVehicles.filter((v) => {
-    const matchTab =
-      activeTab === "todos" ||
-      (activeTab === "disponiveis" && v.status === "disponivel") ||
-      (activeTab === "reservados" && v.status === "reservado") ||
-      (activeTab === "vendidos" && v.status === "vendido");
     const matchSearch =
       !search ||
       v.modelo.toLowerCase().includes(search.toLowerCase()) ||
+      v.marca.toLowerCase().includes(search.toLowerCase()) ||
       v.placa.toLowerCase().includes(search.toLowerCase());
-    const matchCategoria =
-      categoria === "todas" || v.marca.toLowerCase() === categoria.toLowerCase();
-    return matchTab && matchSearch && matchCategoria;
+    const matchTipo = tipoFilter === "todos" || v.tipo === tipoFilter;
+    const matchStatus = statusFilter === "todos" || v.status === statusFilter;
+    return matchSearch && matchTipo && matchStatus;
   });
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
-  const paginated = filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
-  const uniqueBrands = [...new Set(mockVehicles.map((v) => v.marca))];
+  const uniqueTypes = [...new Set(mockVehicles.map((v) => v.tipo))];
 
   return (
     <div className="flex-1 p-8 overflow-y-auto bg-background">
@@ -86,152 +78,132 @@ export default function Estoque() {
         </p>
       </div>
 
-      {/* Underline Tabs */}
-      <div className="flex items-center gap-6 border-b border-border mb-6">
-        {tabs.map((tab) => (
-          <button
-            key={tab.key}
-            onClick={() => { setActiveTab(tab.key); setCurrentPage(1); }}
-            className={`pb-3 text-sm font-medium transition-colors relative ${
-              activeTab === tab.key
-                ? "text-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {tab.label}
-            {activeTab === tab.key && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
-            )}
-          </button>
-        ))}
-      </div>
-
-      {/* Filters row with labels */}
-      <div className="flex items-end gap-4 mb-6 flex-wrap">
+      {/* Filters */}
+      <div className="flex items-end gap-3 mb-6 flex-wrap">
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-muted-foreground">Modelo / Placa</label>
-          <Input
-            placeholder="Buscar..."
-            value={search}
-            onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
-            className="w-[200px]"
-          />
+          <label className="text-xs font-medium text-muted-foreground">Buscar</label>
+          <div className="relative">
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Modelo, marca ou placa..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-[220px] pl-8"
+            />
+          </div>
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-muted-foreground">Marca</label>
-          <Select value={categoria} onValueChange={(v) => { setCategoria(v); setCurrentPage(1); }}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Todas as Marcas" />
+          <label className="text-xs font-medium text-muted-foreground">Tipo</label>
+          <Select value={tipoFilter} onValueChange={setTipoFilter}>
+            <SelectTrigger className="w-[160px]">
+              <SelectValue placeholder="Todos os Tipos" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="todas">Todas as Marcas</SelectItem>
-              {uniqueBrands.map((b) => (
-                <SelectItem key={b} value={b}>{b}</SelectItem>
+              <SelectItem value="todos">Todos os Tipos</SelectItem>
+              {uniqueTypes.map((t) => (
+                <SelectItem key={t} value={t}>{t}</SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
 
-        <div className="flex items-center gap-2 ml-auto">
-          <Button variant="outline" size="sm" onClick={() => {}}>
-            <Search className="h-4 w-4" />
-            Buscar
-          </Button>
-          <Button variant="default" size="sm" onClick={() => {}}>
-            <Download className="h-4 w-4" />
-            Exportar
-          </Button>
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-medium text-muted-foreground">Status</label>
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="w-[160px]">
+              <SelectValue placeholder="Todos" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="todos">Todos</SelectItem>
+              <SelectItem value="disponivel">Disponível</SelectItem>
+              <SelectItem value="reservado">Reservado</SelectItem>
+              <SelectItem value="vendido">Vendido</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
+
+        <Button variant="default" size="sm" className="ml-auto">
+          <Download className="h-4 w-4" />
+          Exportar
+        </Button>
       </div>
 
-      {/* Table */}
-      <div className="border border-border overflow-hidden">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="bg-muted/50 border-b border-border">
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Modelo</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Marca</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Ano</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Placa</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Preço</th>
-              <th className="text-left px-4 py-3 font-medium text-muted-foreground">Status</th>
-              <th className="text-right px-4 py-3 font-medium text-muted-foreground">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginated.length === 0 ? (
-              <tr>
-                <td colSpan={7} className="text-center text-muted-foreground py-10">
-                  Nenhum veículo encontrado.
-                </td>
-              </tr>
-            ) : (
-              paginated.map((v) => {
-                const st = statusConfig[v.status];
-                return (
-                  <tr key={v.id} className="border-b border-border hover:bg-muted/30 transition-colors">
-                    <td className="px-4 py-3.5 font-medium text-foreground">{v.modelo}</td>
-                    <td className="px-4 py-3.5 text-muted-foreground">{v.marca}</td>
-                    <td className="px-4 py-3.5 text-muted-foreground">{v.ano}</td>
-                    <td className="px-4 py-3.5 text-muted-foreground font-mono text-xs">{v.placa}</td>
-                    <td className="px-4 py-3.5 text-foreground font-medium">{formatCurrency(v.preco)}</td>
-                    <td className="px-4 py-3.5">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${st.className}`}>
-                        {st.label}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3.5 text-right">
-                      <div className="flex items-center justify-end gap-1.5">
-                        <Button variant="outline" size="sm" className="h-7 text-xs px-2.5">
-                          Detalhes
-                        </Button>
-                        <Button variant="outline" size="sm" className="h-7 text-xs px-2.5">
-                          Editar
-                        </Button>
-                        <Button variant="outline" size="sm" className="h-7 text-xs px-2.5 text-destructive hover:text-destructive">
-                          Remover
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })
-            )}
-          </tbody>
-        </table>
-
-        {/* Pagination */}
-        <div className="flex items-center justify-center gap-1 py-4 border-t border-border">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((p) => p - 1)}
-            className="w-8 h-8 flex items-center justify-center rounded border border-border text-muted-foreground hover:bg-muted/50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <button
-              key={page}
-              onClick={() => setCurrentPage(page)}
-              className={`w-8 h-8 flex items-center justify-center rounded text-sm font-medium transition-colors ${
-                page === currentPage
-                  ? "bg-primary text-primary-foreground"
-                  : "border border-border text-muted-foreground hover:bg-muted/50"
-              }`}
-            >
-              {page}
-            </button>
-          ))}
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((p) => p + 1)}
-            className="w-8 h-8 flex items-center justify-center rounded border border-border text-muted-foreground hover:bg-muted/50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
+      {/* Vehicle Cards Grid */}
+      {filtered.length === 0 ? (
+        <div className="text-center text-muted-foreground py-16">
+          Nenhum veículo encontrado.
         </div>
-      </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filtered.map((v) => {
+            const st = statusConfig[v.status];
+            return (
+              <div
+                key={v.id}
+                className="border border-border rounded-lg overflow-hidden bg-card text-card-foreground shadow-sm hover:shadow-md transition-shadow"
+              >
+                {/* Image */}
+                <div className="relative h-40 bg-muted flex items-center justify-center">
+                  <img
+                    src={v.imagem}
+                    alt={`${v.marca} ${v.modelo}`}
+                    className="h-full w-full object-cover"
+                  />
+                  <span
+                    className={`absolute top-2.5 right-2.5 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border ${st.className}`}
+                  >
+                    {st.label}
+                  </span>
+                </div>
+
+                {/* Info */}
+                <div className="p-4 space-y-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <h3 className="font-semibold text-foreground leading-tight">
+                        {v.marca} {v.modelo}
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {v.tipo} · {v.ano} · {v.placa}
+                      </p>
+                    </div>
+                    <p className="text-sm font-bold text-primary whitespace-nowrap">
+                      {formatCurrency(v.preco)}
+                    </p>
+                  </div>
+
+                  {/* Specs */}
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1">
+                      <Settings2 className="h-3.5 w-3.5" />
+                      {v.cambio}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Users className="h-3.5 w-3.5" />
+                      {v.assentos} lugares
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Fuel className="h-3.5 w-3.5" />
+                      {v.combustivel}
+                    </span>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex items-center gap-2 pt-1">
+                    <Button variant="default" size="sm" className="flex-1 h-8 text-xs">
+                      Selecionar Veículo
+                    </Button>
+                    <Button variant="outline" size="icon" className="h-8 w-8 shrink-0">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
