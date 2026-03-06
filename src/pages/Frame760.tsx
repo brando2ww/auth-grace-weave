@@ -454,7 +454,7 @@ function MenuItem({
             </div>
 
             {item.badge && (
-              <span className="ml-2 px-1.5 py-0.5 rounded text-[10px] font-medium text-white" style={{ backgroundColor: '#1f6ae1' }}>
+              <span className="ml-2 px-1.5 py-0.5 rounded text-[10px] font-medium text-white uppercase" style={{ backgroundColor: '#1f6ae1' }}>
                 {item.badge}
               </span>
             )}
