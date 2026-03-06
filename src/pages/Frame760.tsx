@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Estoque from "@/pages/Estoque";
 import EntradaVeiculo from "@/pages/EntradaVeiculo";
+import Marketplaces from "@/pages/Marketplaces";
 import wiseautoLogo from "@/assets/wiseauto-logo-new.png";
 import waIcon from "@/assets/wa-icon.png";
 import {
