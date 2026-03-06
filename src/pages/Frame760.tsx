@@ -305,10 +305,9 @@ function SectionTitle({
   );
 }
 
-function DetailSidebar({ activeSection }: { activeSection: string }) {
+function DetailSidebar() {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const content = getSidebarContent(activeSection);
 
   const toggleExpanded = (itemKey: string) => {
     setExpandedItems((prev) => {
@@ -328,7 +327,7 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
       }`}
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
     >
-      {/* Logo expandido - fora do container centralizado */}
+      {/* Logo expandido */}
       <div 
         className={`px-3 pt-4 pb-2 transition-all duration-300 ease-in-out ${
           isCollapsed ? "opacity-0 h-0 overflow-hidden" : "opacity-100"
@@ -337,7 +336,7 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
         <BrandBadge />
       </div>
 
-      {/* Container principal - centralizado verticalmente quando colapsado */}
+      {/* Container principal */}
       <div className={`flex-1 overflow-y-auto ${
         isCollapsed 
           ? "flex flex-col items-center justify-center px-0" 
@@ -352,18 +351,37 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
           <img src={waIcon} alt="WA" className="h-8 w-8" />
         </div>
 
-        <SectionTitle title={content.title} onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
+        <SectionTitle title="Menu" onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
         <SearchContainer isCollapsed={isCollapsed} />
 
-        {content.sections.map((section, index) => (
-          <MenuSection
-            key={index}
-            section={section}
-            expandedItems={expandedItems}
-            onToggleExpanded={toggleExpanded}
-            isCollapsed={isCollapsed}
-          />
-        ))}
+        <div className="mt-1">
+          {sidebarMenuItems.map((item, index) => {
+            const itemKey = `menu-${index}`;
+            const isExpanded = expandedItems.has(itemKey);
+            return (
+              <div key={itemKey}>
+                <MenuItem
+                  item={item}
+                  isExpanded={isExpanded}
+                  onToggle={() => toggleExpanded(itemKey)}
+                  onItemClick={() => console.log(`Clicked ${item.label}`)}
+                  isCollapsed={isCollapsed}
+                />
+                {isExpanded && item.children && !isCollapsed && (
+                  <div className="mt-0.5">
+                    {item.children.map((child, childIndex) => (
+                      <SubMenuItem
+                        key={childIndex}
+                        item={child}
+                        onItemClick={() => console.log(`Clicked ${child.label}`)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {!isCollapsed && (
