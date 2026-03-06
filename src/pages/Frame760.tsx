@@ -563,6 +563,7 @@ export function Frame760() {
       <TwoLevelSidebar activeSection={activeSection} onSectionChange={setActiveSection} />
       {activeSection === "estoque" && <Estoque onNavigate={setActiveSection} />}
       {activeSection === "entrada-veiculo" && <EntradaVeiculo onBack={() => setActiveSection("estoque")} />}
+      {activeSection === "marketplaces" && <Marketplaces />}
     </div>
   );
 }
