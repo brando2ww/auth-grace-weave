@@ -103,7 +103,7 @@ function MarketplaceCard({ item }: { item: MarketplaceItem }) {
         <img
           src={item.logo}
           alt={item.name}
-          className="h-14 w-auto object-contain"
+          className={`${item.name === "Mobiauto" ? "h-7" : "h-14"} w-auto object-contain`}
           onError={(e) => {
             (e.target as HTMLImageElement).style.display = "none";
           }}

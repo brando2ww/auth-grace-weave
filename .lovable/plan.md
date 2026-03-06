@@ -1,12 +1,14 @@
 
 
-## Plano: Reduzir logo da Mobiauto
+## Plano: Substituir o BrandBadge pelo logo da WiseAuto
 
-No `Marketplaces.tsx`, o logo da Mobiauto usa a mesma classe `h-14` dos demais. Vou adicionar uma lógica condicional para aplicar `h-7` (metade) quando o item for "Mobiauto".
+O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
 
-### Alteração em `src/pages/Marketplaces.tsx`
+### Alteracao em `src/pages/Frame760.tsx`
 
-Na tag `<img>` dentro de `MarketplaceCard`, alterar a classe de altura para ser condicional:
-- `h-7` para Mobiauto
-- `h-14` para os demais
+1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
+
+2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
+
+3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
 
