@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import VehiclePhotoUpload from "@/components/VehiclePhotoUpload";
 
 const vehicleTypes = [
   "Agrícolas", "Antigos", "Bicicleta Elétrica", "Camionetes", "Carros",
