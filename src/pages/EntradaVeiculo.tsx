@@ -82,7 +82,9 @@ export default function EntradaVeiculo({ onBack }: EntradaVeiculoProps) {
     setToggles((prev) => ({ ...prev, [field]: !prev[field as keyof typeof prev] }));
 
   const handleSave = () => {
-    console.log("Vehicle data:", { ...form, ...toggles });
+    const foto1 = photos[mainPhotoIndex]?.url || "";
+    const fotosUrls = photos.map((p) => p.url);
+    console.log("Vehicle data:", { ...form, ...toggles, foto1, fotos: fotosUrls });
     onBack();
   };
 
