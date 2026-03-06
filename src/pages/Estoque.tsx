@@ -53,7 +53,7 @@ function formatCurrency(value: number) {
 export default function Estoque() {
   const [search, setSearch] = useState("");
   const [tipoFilter, setTipoFilter] = useState("todos");
-  const [statusFilter, setStatusFilter] = useState("todos");
+  const [statusFilter, setStatusFilter] = useState("disponivel");
 
   const filtered = mockVehicles.filter((v) => {
     const matchSearch =
