@@ -177,7 +177,7 @@ export default function Estoque() {
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-1">
                         <Button variant="outline" size="icon" className="h-8 w-8" title="Detalhes">
-                          <Eye size={14} />
+                          <View size={14} />
                         </Button>
                         <Button variant="outline" size="icon" className="h-8 w-8" title="Editar">
                           <Edit size={14} />
