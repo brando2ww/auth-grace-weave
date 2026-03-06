@@ -1,25 +1,14 @@
 
 
-## Plano: Redesign do Estoque para layout de Cards com fotos
+## Plano: Substituir o BrandBadge pelo logo da WiseAuto
 
-Substituir a tabela atual por um grid de cards no estilo da imagem de referência (similar ao layout do "micor/Units").
+O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
 
-### Alteracoes em `src/pages/Estoque.tsx`:
+### Alteracao em `src/pages/Frame760.tsx`
 
-1. **Adicionar campo `imagem` e `tipo` aos dados mock**: Cada veículo terá uma URL de imagem placeholder (usando `/placeholder.svg` ou URLs de placeholder externas) e um tipo (Sedan, SUV, Hatchback, etc.).
+1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
 
-2. **Filtros**: Manter header + simplificar filtros para uma barra de busca + selects de "Tipo" e "Status" inline (como na referência com "Car Type" e "Status").
+2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
 
-3. **Substituir tabela por grid de cards**: Layout `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3` com cards contendo:
-   - Imagem do veículo (área cinza clara com a foto, ~160px de altura)
-   - Nome do modelo (bold) + preço alinhado à direita
-   - Tipo do veículo (Sedan, SUV, etc.) em texto menor
-   - Badge de status (Disponível/Reservado/Vendido) com cores
-   - Linha de specs: Câmbio, Assentos, Combustível (com ícones pequenos)
-   - Botão "Selecionar Veículo" (primary, full-width) + botão "..." (menu)
-
-4. **Remover paginação numérica**: Substituir por scroll ou manter paginação simplificada abaixo do grid.
-
-### Arquivo alterado:
-- `src/pages/Estoque.tsx` -- Reescrita completa do layout de tabela para cards
+3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
 
