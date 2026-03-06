@@ -226,6 +226,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <Analytics size={16} />,
     label: "Inteligência",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Métricas" },
