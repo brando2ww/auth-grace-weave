@@ -94,7 +94,7 @@ function InterfacesLogoSquare() {
 function BrandBadge() {
   return (
     <div className="flex items-center">
-      <img src={wiseautoLogo} alt="Wise Auto" className="h-[60px] w-auto" />
+      <img src={wiseautoLogo} alt="Wise Auto" className="h-[75px] w-auto" />
     </div>
   );
 }
