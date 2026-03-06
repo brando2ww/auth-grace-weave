@@ -57,7 +57,7 @@ function formatCurrency(value: number) {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
-export default function Estoque() {
+export default function Estoque({ onNavigate }: { onNavigate?: (section: string) => void }) {
   const [search, setSearch] = useState("");
   const [tipoFilter, setTipoFilter] = useState("todos");
   const [statusFilter, setStatusFilter] = useState("disponivel");
