@@ -1,14 +1,12 @@
 
 
-## Plano: Substituir o BrandBadge pelo logo da WiseAuto
+## Plano: Badge "EM BREVE" em maiúsculas
 
-O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
+Alterar o texto das badges de `"em breve"` para `"EM BREVE"` nos itens do `sidebarMenuItems` em `src/pages/Frame760.tsx` (Leads, Anúncios, Automação, Inteligência, Integrações, Financeiro, Equipe).
 
-### Alteracao em `src/pages/Frame760.tsx`
+Alternativa mais robusta: adicionar `uppercase` na classe do `<span>` da badge, assim qualquer texto futuro também será maiúsculo. Linha do MenuItem onde a badge é renderizada:
 
-1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
-
-2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
-
-3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
+```tsx
+<span className="ml-2 px-1.5 py-0.5 rounded text-[10px] font-medium text-white uppercase" style={{ backgroundColor: '#1f6ae1' }}>
+```
 
