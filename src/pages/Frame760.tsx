@@ -235,7 +235,6 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <Integration size={16} />,
     label: "Integrações",
-    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Conectadas" },
