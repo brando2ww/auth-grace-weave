@@ -239,6 +239,8 @@ const sidebarMenuItems: MenuItemT[] = [
     children: [
       { label: "Conectadas" },
       { label: "Marketplace" },
+      { label: "Marketplaces" },
+      { label: "Comerciais" },
       { label: "Configurações" },
     ],
   },
