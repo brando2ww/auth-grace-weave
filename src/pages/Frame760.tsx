@@ -215,6 +215,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <InProgress size={16} />,
     label: "Automação",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Fluxos Ativos" },
