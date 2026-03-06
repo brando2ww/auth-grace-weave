@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import VehiclePhotoUpload from "@/components/VehiclePhotoUpload";
 
 const vehicleTypes = [
   "Agrícolas", "Antigos", "Bicicleta Elétrica", "Camionetes", "Carros",
@@ -55,9 +56,10 @@ export default function EntradaVeiculo({ onBack }: EntradaVeiculoProps) {
     adicionais: "",
     observacao: "",
     video: "",
-    fotos: "",
-    foto1: "",
   });
+
+  const [photos, setPhotos] = useState<{ url: string; name: string }[]>([]);
+  const [mainPhotoIndex, setMainPhotoIndex] = useState(0);
 
   const [toggles, setToggles] = useState({
     airBag: false,
@@ -80,7 +82,9 @@ export default function EntradaVeiculo({ onBack }: EntradaVeiculoProps) {
     setToggles((prev) => ({ ...prev, [field]: !prev[field as keyof typeof prev] }));
 
   const handleSave = () => {
-    console.log("Vehicle data:", { ...form, ...toggles });
+    const foto1 = photos[mainPhotoIndex]?.url || "";
+    const fotosUrls = photos.map((p) => p.url);
+    console.log("Vehicle data:", { ...form, ...toggles, foto1, fotos: fotosUrls });
     onBack();
   };
 
@@ -244,12 +248,14 @@ export default function EntradaVeiculo({ onBack }: EntradaVeiculoProps) {
           <Field label="Vídeo (URL)">
             <Input value={form.video} onChange={(e) => updateField("video", e.target.value)} placeholder="https://..." />
           </Field>
-          <Field label="Fotos (URL)">
-            <Input value={form.fotos} onChange={(e) => updateField("fotos", e.target.value)} placeholder="https://..." />
-          </Field>
-          <Field label="Foto Principal (URL)">
-            <Input value={form.foto1} onChange={(e) => updateField("foto1", e.target.value)} placeholder="https://..." />
-          </Field>
+        </div>
+        <div className="mt-4">
+          <VehiclePhotoUpload
+            photos={photos}
+            onPhotosChange={setPhotos}
+            mainPhotoIndex={mainPhotoIndex}
+            onMainPhotoChange={setMainPhotoIndex}
+          />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <Field label="Equipamentos">
