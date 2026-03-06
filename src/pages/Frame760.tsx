@@ -241,7 +241,6 @@ const sidebarMenuItems: MenuItemT[] = [
       { label: "Marketplace" },
       { label: "Marketplaces" },
       { label: "Comerciais" },
-      { label: "Configurações" },
     ],
   },
   {
