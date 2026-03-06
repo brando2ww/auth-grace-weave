@@ -259,6 +259,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <Group size={16} />,
     label: "Equipe",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Membros" },
