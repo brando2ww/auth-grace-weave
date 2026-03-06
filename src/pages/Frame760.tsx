@@ -154,6 +154,7 @@ function SearchContainer({
 interface MenuItemT {
   icon?: React.ReactNode;
   label: string;
+  badge?: string;
   hasDropdown?: boolean;
   isActive?: boolean;
   children?: MenuItemT[];
