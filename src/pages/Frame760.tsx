@@ -186,6 +186,7 @@ const sidebarMenuItems: MenuItemT[] = [
     icon: <Folder size={16} />,
     label: "Estoque",
     hasDropdown: true,
+    sectionKey: "estoque",
     children: [
       { label: "Veículos Disponíveis" },
       { label: "Entrada de Veículos" },
