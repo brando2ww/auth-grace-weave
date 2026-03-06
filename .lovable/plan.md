@@ -1,14 +1,24 @@
 
 
-## Plano: Substituir o BrandBadge pelo logo da WiseAuto
+## Plano: Adicionar logo compacto (WA) no sidebar colapsado
 
-O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
+1. **Copiar a imagem** `user-uploads://WA_4.png` para `src/assets/wa-icon.png`
 
-### Alteracao em `src/pages/Frame760.tsx`
+2. **Importar** em `Frame760.tsx`: `import waIcon from "@/assets/wa-icon.png"`
 
-1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
+3. **Adicionar o logo no estado colapsado** (linha ~641): Antes do `SectionTitle`, inserir o ícone WA centralizado com tamanho ~32px:
 
-2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
+```tsx
+{isCollapsed && (
+  <>
+    <div className="mb-4">
+      <img src={waIcon} alt="WA" className="h-8 w-8" />
+    </div>
+    <SectionTitle ... />
+    <SearchContainer ... />
+  </>
+)}
+```
 
-3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
+O logo ficará no topo da área central do sidebar colapsado, acima dos ícones de navegação.
 
