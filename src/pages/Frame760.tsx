@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Estoque from "@/pages/Estoque";
 import EntradaVeiculo from "@/pages/EntradaVeiculo";
+import Marketplaces from "@/pages/Marketplaces";
 import wiseautoLogo from "@/assets/wiseauto-logo-new.png";
 import waIcon from "@/assets/wa-icon.png";
 import {
@@ -238,7 +239,7 @@ const sidebarMenuItems: MenuItemT[] = [
     hasDropdown: true,
     children: [
       { label: "Conectadas" },
-      { label: "Marketplaces" },
+      { label: "Marketplaces", sectionKey: "marketplaces" },
       { label: "Comerciais" },
     ],
   },
@@ -381,7 +382,10 @@ function DetailSidebar({ activeSection, onSectionChange }: { activeSection: stri
                       <SubMenuItem
                         key={childIndex}
                         item={child}
-                        onItemClick={() => console.log(`Clicked ${child.label}`)}
+                        onItemClick={() => {
+                          if (child.sectionKey) onSectionChange(child.sectionKey);
+                          else console.log(`Clicked ${child.label}`);
+                        }}
                       />
                     ))}
                   </div>
@@ -559,6 +563,7 @@ export function Frame760() {
       <TwoLevelSidebar activeSection={activeSection} onSectionChange={setActiveSection} />
       {activeSection === "estoque" && <Estoque onNavigate={setActiveSection} />}
       {activeSection === "entrada-veiculo" && <EntradaVeiculo onBack={() => setActiveSection("estoque")} />}
+      {activeSection === "marketplaces" && <Marketplaces />}
     </div>
   );
 }
