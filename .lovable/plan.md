@@ -1,14 +1,18 @@
 
 
-## Plano: Substituir o BrandBadge pelo logo da WiseAuto
+## Plano: Atualizar tipos de veículos com lista completa
 
-O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
+### Alterações em `src/pages/Estoque.tsx`:
 
-### Alteracao em `src/pages/Frame760.tsx`
+1. **Substituir `VehicleType`** pelo union type com todos os 19 tipos:
+   `"Agrícolas" | "Antigos" | "Bicicleta Elétrica" | "Camionetes" | "Carros" | "Empilhadeira" | "Kart" | "Motos" | "Náuticos" | "Off-Roads" | "Outros" | "Patinete Elétrico" | "Quadriciclos" | "Reboques" | "Scooter Elétrico" | "Trailer" | "Triciclos" | "Utilitários" | "Van"`
 
-1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
+2. **Criar array constante `vehicleTypes`** com todos os tipos ordenados para usar no filtro dropdown (substituindo o `uniqueTypes` derivado dos mocks).
 
-2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
+3. **Atualizar os mock vehicles** para usar os novos nomes de tipo (ex: `"Sedan"` → `"Carros"`, `"SUV"` → `"Utilitários"` ou `"Camionetes"`, `"Hatchback"` → `"Carros"`, `"Pickup"` → `"Camionetes"`).
 
-3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
+4. **Atualizar o dropdown de filtro "Tipo"** para iterar sobre o array `vehicleTypes` em vez de `uniqueTypes`.
+
+### Arquivo alterado:
+- `src/pages/Estoque.tsx`
 
