@@ -108,7 +108,7 @@ export default function Estoque() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="todos">Todos os Tipos</SelectItem>
-              {uniqueTypes.map((t) => (
+              {vehicleTypes.map((t) => (
                 <SelectItem key={t} value={t}>{t}</SelectItem>
               ))}
             </SelectContent>
