@@ -369,13 +369,16 @@ function DetailSidebar({ activeSection, onSectionChange }: { activeSection: stri
           {sidebarMenuItems.map((item, index) => {
             const itemKey = `menu-${index}`;
             const isExpanded = expandedItems.has(itemKey);
+            const itemWithActive = { ...item, isActive: item.sectionKey === activeSection };
             return (
               <div key={itemKey}>
                 <MenuItem
-                  item={item}
+                  item={itemWithActive}
                   isExpanded={isExpanded}
                   onToggle={() => toggleExpanded(itemKey)}
-                  onItemClick={() => console.log(`Clicked ${item.label}`)}
+                  onItemClick={() => {
+                    if (item.sectionKey) onSectionChange(item.sectionKey);
+                  }}
                   isCollapsed={isCollapsed}
                 />
                 {isExpanded && item.children && !isCollapsed && (
