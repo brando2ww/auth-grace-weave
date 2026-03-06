@@ -1,34 +1,14 @@
 
 
-## Plano: Página de Entrada de Veículo
+## Plano: Substituir o BrandBadge pelo logo da WiseAuto
 
-Criar uma página completa (não dialog) para cadastro de veículos, acessível ao clicar no botão "Entrada de Veículo" na página de Estoque.
+O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
 
-### Navegação
+### Alteracao em `src/pages/Frame760.tsx`
 
-O `Frame760` usa `activeSection` para alternar conteúdo. Adicionaremos uma nova seção `"entrada-veiculo"` que renderiza a nova página. O botão "Entrada de Veículo" no Estoque mudará o `activeSection` para `"entrada-veiculo"`, e a nova página terá um botão "Voltar" que retorna para `"estoque"`.
+1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
 
-### Arquivo novo: `src/pages/EntradaVeiculo.tsx`
+2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
 
-Página com formulário organizado em seções:
-
-**Dados Básicos:** Tipo (Select 19 tipos), Marca, Modelo, Versão, Placa, Ano Fabricação, Ano Modelo, Combustível (Select), Câmbio (Select), Portas (Select), Cor, Km, Tração (Select), Carroceria.
-
-**Valores:** Preço, Valor Troca, Valor Promocional, Valor Entrada, Valor Parcela.
-
-**Opcionais (Switch/Toggle):** Air Bag, Freio ABS, Alarme, Ar Condicionado, Blindado, Teto Solar, Turbo, Vidros Elétricos, Travas Elétricas, Desembaçador Traseiro, Direção Hidráulica.
-
-**Informações Adicionais:** Título da Oferta, Equipamentos (Textarea), Adicionais (Textarea), Observação (Textarea), Vídeo (Input URL), Fotos/Foto1 (Input URL placeholder).
-
-Layout em grid responsivo (2-3 colunas) com separadores visuais entre seções. Botões "Voltar" e "Salvar" no topo/rodapé.
-
-### Alterações em `src/pages/Frame760.tsx`
-
-- Importar `EntradaVeiculo`
-- Renderizar quando `activeSection === "entrada-veiculo"`
-
-### Alterações em `src/pages/Estoque.tsx`
-
-- Receber prop `onNavigate` para mudar seção
-- Botão "Entrada de Veículo" chama `onNavigate("entrada-veiculo")`
+3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
 

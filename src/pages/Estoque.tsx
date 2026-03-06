@@ -57,7 +57,7 @@ function formatCurrency(value: number) {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
-export default function Estoque() {
+export default function Estoque({ onNavigate }: { onNavigate?: (section: string) => void }) {
   const [search, setSearch] = useState("");
   const [tipoFilter, setTipoFilter] = useState("todos");
   const [statusFilter, setStatusFilter] = useState("disponivel");
@@ -136,7 +136,7 @@ export default function Estoque() {
             <Download className="h-4 w-4" />
             Exportar
           </Button>
-          <Button variant="default" size="sm">
+          <Button variant="default" size="sm" onClick={() => onNavigate?.("entrada-veiculo")}>
             <Plus className="h-4 w-4" />
             Entrada de Veículo
           </Button>
