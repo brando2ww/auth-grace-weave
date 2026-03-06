@@ -316,7 +316,7 @@ function SectionTitle({
   );
 }
 
-function DetailSidebar() {
+function DetailSidebar({ activeSection, onSectionChange }: { activeSection: string; onSectionChange: (s: string) => void }) {
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const [isCollapsed, setIsCollapsed] = useState(false);
 
