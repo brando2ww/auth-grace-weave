@@ -56,9 +56,10 @@ export default function EntradaVeiculo({ onBack }: EntradaVeiculoProps) {
     adicionais: "",
     observacao: "",
     video: "",
-    fotos: "",
-    foto1: "",
   });
+
+  const [photos, setPhotos] = useState<{ url: string; name: string }[]>([]);
+  const [mainPhotoIndex, setMainPhotoIndex] = useState(0);
 
   const [toggles, setToggles] = useState({
     airBag: false,
