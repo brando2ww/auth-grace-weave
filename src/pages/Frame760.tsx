@@ -204,6 +204,7 @@ const sidebarMenuItems: MenuItemT[] = [
   {
     icon: <View size={16} />,
     label: "Anúncios",
+    badge: "em breve",
     hasDropdown: true,
     children: [
       { label: "Ativos" },
