@@ -159,6 +159,7 @@ interface MenuItemT {
   hasDropdown?: boolean;
   isActive?: boolean;
   children?: MenuItemT[];
+  sectionKey?: string;
 }
 interface MenuSectionT {
   title: string;
