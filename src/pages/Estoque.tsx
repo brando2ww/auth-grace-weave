@@ -123,10 +123,16 @@ export default function Estoque() {
           </Select>
         </div>
 
-        <Button variant="default" size="sm" className="ml-auto">
-          <Download className="h-4 w-4" />
-          Exportar
-        </Button>
+        <div className="flex items-center gap-2 ml-auto">
+          <Button variant="outline" size="sm">
+            <Download className="h-4 w-4" />
+            Exportar
+          </Button>
+          <Button variant="default" size="sm">
+            <Plus className="h-4 w-4" />
+            Entrada de Veículo
+          </Button>
+        </div>
       </div>
 
       {/* Vehicle Cards Grid */}
