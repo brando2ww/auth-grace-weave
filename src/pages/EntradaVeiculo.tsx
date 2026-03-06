@@ -257,7 +257,6 @@ export default function EntradaVeiculo({ onBack }: EntradaVeiculoProps) {
             onMainPhotoChange={setMainPhotoIndex}
           />
         </div>
-        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <Field label="Equipamentos">
             <Textarea value={form.equipamentos} onChange={(e) => updateField("equipamentos", e.target.value)} placeholder="Liste os equipamentos..." rows={3} />
