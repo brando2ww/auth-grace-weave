@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import wiseautoLogo from "@/assets/wiseauto-logo.png";
 import waIcon from "@/assets/wa-icon.png";
+import waIcon from "@/assets/wa-icon.png";
 import {
   Search as SearchIcon,
   Dashboard,
