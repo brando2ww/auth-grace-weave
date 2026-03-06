@@ -625,28 +625,33 @@ function DetailSidebar({ activeSection }: { activeSection: string }) {
       }`}
       style={{ transition: `all 0.4s ${softSpringEasing}` }}
     >
-      {/* Logo container - ambos renderizados, transição suave */}
-      <div className="relative">
+      {/* Logo expandido - fora do container centralizado */}
+      <div 
+        className={`px-3 pt-4 pb-2 transition-all duration-300 ease-in-out ${
+          isCollapsed ? "opacity-0 h-0 overflow-hidden" : "opacity-100"
+        }`}
+      >
+        <BrandBadge />
+      </div>
+
+      {/* Container principal - centralizado verticalmente quando colapsado */}
+      <div className={`flex-1 overflow-y-auto ${
+        isCollapsed 
+          ? "flex flex-col items-center justify-center px-0" 
+          : "px-2"
+      }`}>
+        {/* Logo WA colapsado */}
         <div 
-          className={`px-3 pt-4 pb-2 transition-all duration-300 ease-in-out ${
-            isCollapsed ? "opacity-0 h-0 overflow-hidden" : "opacity-100"
-          }`}
-        >
-          <BrandBadge />
-        </div>
-        <div 
-          className={`flex justify-center pt-3 pb-1 transition-all duration-300 ease-in-out ${
-            isCollapsed ? "opacity-100" : "opacity-0 h-0 overflow-hidden"
+          className={`flex justify-center transition-all duration-300 ease-in-out ${
+            isCollapsed ? "opacity-100 pb-2" : "opacity-0 h-0 overflow-hidden"
           }`}
         >
           <img src={waIcon} alt="WA" className="h-8 w-8" />
         </div>
-      </div>
 
-      <SectionTitle title={content.title} onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
-      <SearchContainer isCollapsed={isCollapsed} />
+        <SectionTitle title={content.title} onToggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
+        <SearchContainer isCollapsed={isCollapsed} />
 
-      <div className={`flex-1 overflow-y-auto ${isCollapsed ? "flex flex-col items-center justify-center px-0" : "px-2"}`}>
         {content.sections.map((section, index) => (
           <MenuSection
             key={index}
