@@ -1,14 +1,14 @@
 
 
-## Plano: Adicionar botão "Entrada de Veículo"
+## Plano: Substituir o BrandBadge pelo logo da WiseAuto
 
-Adicionar um botão "Entrada de Veículo" com ícone `Plus` na barra de filtros, ao lado do botão "Exportar".
+O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
 
-### Alteracao em `src/pages/Estoque.tsx`:
+### Alteracao em `src/pages/Frame760.tsx`
 
-- Importar `Plus` do lucide-react.
-- Adicionar um `Button` com variante `default` antes do botão "Exportar" (ou como primeiro botão à direita com `ml-auto`), com ícone `Plus` e texto "Entrada de Veículo".
-- O botão "Exportar" passará a ter variante `outline` para dar destaque visual ao novo botão principal.
+1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
 
-Arquivo: `src/pages/Estoque.tsx` -- 2 linhas de import + ~4 linhas no JSX.
+2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
+
+3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
 
