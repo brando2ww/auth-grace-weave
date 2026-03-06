@@ -11,7 +11,14 @@ import {
 } from "@/components/ui/select";
 
 type VehicleStatus = "disponivel" | "reservado" | "vendido";
-type VehicleType = "Sedan" | "SUV" | "Hatchback" | "Pickup";
+type VehicleType = "Agrícolas" | "Antigos" | "Bicicleta Elétrica" | "Camionetes" | "Carros" | "Empilhadeira" | "Kart" | "Motos" | "Náuticos" | "Off-Roads" | "Outros" | "Patinete Elétrico" | "Quadriciclos" | "Reboques" | "Scooter Elétrico" | "Trailer" | "Triciclos" | "Utilitários" | "Van";
+
+const vehicleTypes: VehicleType[] = [
+  "Agrícolas", "Antigos", "Bicicleta Elétrica", "Camionetes", "Carros",
+  "Empilhadeira", "Kart", "Motos", "Náuticos", "Off-Roads", "Outros",
+  "Patinete Elétrico", "Quadriciclos", "Reboques", "Scooter Elétrico",
+  "Trailer", "Triciclos", "Utilitários", "Van",
+];
 
 interface Vehicle {
   id: string;
