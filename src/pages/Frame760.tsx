@@ -530,7 +530,7 @@ function MenuSection({
 function TwoLevelSidebar() {
   return (
     <div className="flex h-full">
-      <DetailSidebar activeSection="dashboard" />
+      <DetailSidebar />
     </div>
   );
 }
