@@ -239,7 +239,7 @@ const sidebarMenuItems: MenuItemT[] = [
     hasDropdown: true,
     children: [
       { label: "Conectadas" },
-      { label: "Marketplaces" },
+      { label: "Marketplaces", sectionKey: "marketplaces" },
       { label: "Comerciais" },
     ],
   },
