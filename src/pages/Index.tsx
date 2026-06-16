@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { SignInPage } from "@/components/ui/sign-in";
 import { useAuthContext } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
-import wiseautoLogo from "@/assets/wiseauto-logo.png";
+import wiseautoLogo from "@/assets/wiseauto-logo-new.png";
 import { Loader2 } from 'lucide-react';
 
 const SignInPageDemo = () => {
