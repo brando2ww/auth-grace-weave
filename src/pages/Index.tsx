@@ -115,7 +115,7 @@ const SignInPageDemo = () => {
         logoSrc={wiseautoLogo}
         title={<span className="font-light text-foreground tracking-tighter">Bem-vindo</span>}
         description="Entre para gerenciar seus veículos e canais."
-        heroImageSrc="/images/WA.png"
+        heroImageSrc="/images/WA-nova.jpg"
         onSignIn={handleSignIn}
         onGoogleSignIn={handleGoogleSignIn}
         onAppleSignIn={handleAppleSignIn}
