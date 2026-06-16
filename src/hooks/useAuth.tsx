@@ -34,7 +34,7 @@ interface AuthState {
 
 interface AuthResponse {
   error: AuthError | null;
-  data?: any;
+  data?: unknown;
 }
 
 export function useAuth() {
