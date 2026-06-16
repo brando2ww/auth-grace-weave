@@ -117,9 +117,6 @@ const SignInPageDemo = () => {
         description="Entre para gerenciar seus veículos e canais."
         heroImageSrc="/images/WA-nova.jpg"
         onSignIn={handleSignIn}
-        onGoogleSignIn={handleGoogleSignIn}
-        onAppleSignIn={handleAppleSignIn}
-        onFacebookSignIn={handleFacebookSignIn}
         onResetPassword={handleResetPassword}
         onCreateAccount={handleCreateAccount}
         isLoading={isSubmitting}
