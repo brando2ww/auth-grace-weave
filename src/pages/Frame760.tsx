@@ -63,15 +63,15 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Visão Geral",
           items: [
-            { icon: <View size={16} className="text-neutral-50" />, label: "Overview", isActive: true },
+            { icon: <View size={16} className="text-neutral-700" />, label: "Overview", isActive: true },
             {
-              icon: <Dashboard size={16} className="text-neutral-50" />,
+              icon: <Dashboard size={16} className="text-neutral-700" />,
               label: "Resumo Executivo",
               hasDropdown: true,
               children: [{ label: "KPIs" }, { label: "Metas" }, { label: "Tendências" }],
             },
             {
-              icon: <ChartBar size={16} className="text-neutral-50" />,
+              icon: <ChartBar size={16} className="text-neutral-700" />,
               label: "Relatórios",
               hasDropdown: true,
               children: [{ label: "Semanal" }, { label: "Mensal" }, { label: "Trimestral" }],
@@ -82,7 +82,7 @@ function getSidebarContent(activeSection: string): SidebarContent {
           title: "Métricas",
           items: [
             {
-              icon: <Analytics size={16} className="text-neutral-50" />,
+              icon: <Analytics size={16} className="text-neutral-700" />,
               label: "Performance",
               hasDropdown: true,
               children: [
@@ -103,31 +103,31 @@ function getSidebarContent(activeSection: string): SidebarContent {
           title: "Ações Rápidas",
           items: [
             {
-              icon: <AddLarge size={16} className="text-neutral-50" />,
+              icon: <AddLarge size={16} className="text-neutral-700" />,
               label: "Entrada de Veículo",
               sectionKey: "entrada-veiculo",
             },
-            { icon: <Filter size={16} className="text-neutral-50" />, label: "Filtrar Veículos" },
+            { icon: <Filter size={16} className="text-neutral-700" />, label: "Filtrar Veículos" },
           ],
         },
         {
           title: "Veículos",
           items: [
-            { icon: <FolderOpen size={16} className="text-neutral-50" />, label: "Todos", isActive: true },
-            { icon: <CheckmarkOutline size={16} className="text-neutral-50" />, label: "Disponíveis" },
-            { icon: <View size={16} className="text-neutral-50" />, label: "Reservados" },
-            { icon: <Archive size={16} className="text-neutral-50" />, label: "Vendidos" },
+            { icon: <FolderOpen size={16} className="text-neutral-700" />, label: "Todos", isActive: true },
+            { icon: <CheckmarkOutline size={16} className="text-neutral-700" />, label: "Disponíveis" },
+            { icon: <View size={16} className="text-neutral-700" />, label: "Reservados" },
+            { icon: <Archive size={16} className="text-neutral-700" />, label: "Vendidos" },
           ],
         },
         {
           title: "Gestão",
           items: [
             {
-              icon: <Share size={16} className="text-neutral-50" />,
+              icon: <Share size={16} className="text-neutral-700" />,
               label: "Marketplaces",
               sectionKey: "marketplaces",
             },
-            { icon: <DocumentAdd size={16} className="text-neutral-50" />, label: "Avaliações" },
+            { icon: <DocumentAdd size={16} className="text-neutral-700" />, label: "Avaliações" },
           ],
         },
       ],
@@ -139,10 +139,10 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Pipeline",
           items: [
-            { icon: <AddLarge size={16} className="text-neutral-50" />, label: "Novos Leads" },
-            { icon: <InProgress size={16} className="text-neutral-50" />, label: "Em Negociação" },
-            { icon: <CheckmarkOutline size={16} className="text-neutral-50" />, label: "Convertidos" },
-            { icon: <Archive size={16} className="text-neutral-50" />, label: "Perdidos" },
+            { icon: <AddLarge size={16} className="text-neutral-700" />, label: "Novos Leads" },
+            { icon: <InProgress size={16} className="text-neutral-700" />, label: "Em Negociação" },
+            { icon: <CheckmarkOutline size={16} className="text-neutral-700" />, label: "Convertidos" },
+            { icon: <Archive size={16} className="text-neutral-700" />, label: "Perdidos" },
           ],
         },
       ],
@@ -154,9 +154,9 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Campanhas",
           items: [
-            { icon: <View size={16} className="text-neutral-50" />, label: "Anúncios Ativos" },
-            { icon: <AddLarge size={16} className="text-neutral-50" />, label: "Criar Anúncio" },
-            { icon: <ChartBar size={16} className="text-neutral-50" />, label: "Performance" },
+            { icon: <View size={16} className="text-neutral-700" />, label: "Anúncios Ativos" },
+            { icon: <AddLarge size={16} className="text-neutral-700" />, label: "Criar Anúncio" },
+            { icon: <ChartBar size={16} className="text-neutral-700" />, label: "Performance" },
           ],
         },
       ],
@@ -168,9 +168,9 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Fluxos",
           items: [
-            { icon: <InProgress size={16} className="text-neutral-50" />, label: "Fluxos Ativos" },
-            { icon: <AddLarge size={16} className="text-neutral-50" />, label: "Criar Fluxo" },
-            { icon: <Archive size={16} className="text-neutral-50" />, label: "Histórico" },
+            { icon: <InProgress size={16} className="text-neutral-700" />, label: "Fluxos Ativos" },
+            { icon: <AddLarge size={16} className="text-neutral-700" />, label: "Criar Fluxo" },
+            { icon: <Archive size={16} className="text-neutral-700" />, label: "Histórico" },
           ],
         },
       ],
@@ -182,9 +182,9 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Analytics",
           items: [
-            { icon: <Analytics size={16} className="text-neutral-50" />, label: "Métricas" },
-            { icon: <ChartBar size={16} className="text-neutral-50" />, label: "Previsões" },
-            { icon: <DocumentAdd size={16} className="text-neutral-50" />, label: "Relatórios" },
+            { icon: <Analytics size={16} className="text-neutral-700" />, label: "Métricas" },
+            { icon: <ChartBar size={16} className="text-neutral-700" />, label: "Previsões" },
+            { icon: <DocumentAdd size={16} className="text-neutral-700" />, label: "Relatórios" },
           ],
         },
       ],
@@ -197,20 +197,20 @@ function getSidebarContent(activeSection: string): SidebarContent {
           title: "Marketplaces",
           items: [
             {
-              icon: <Share size={16} className="text-neutral-50" />,
+              icon: <Share size={16} className="text-neutral-700" />,
               label: "Todos os canais",
               sectionKey: "marketplaces",
             },
-            { icon: <View size={16} className="text-neutral-50" />, label: "OLX / ZAP" },
-            { icon: <View size={16} className="text-neutral-50" />, label: "iCarros" },
-            { icon: <View size={16} className="text-neutral-50" />, label: "WebMotors" },
+            { icon: <View size={16} className="text-neutral-700" />, label: "OLX / ZAP" },
+            { icon: <View size={16} className="text-neutral-700" />, label: "iCarros" },
+            { icon: <View size={16} className="text-neutral-700" />, label: "WebMotors" },
           ],
         },
         {
           title: "Configurar",
           items: [
-            { icon: <Integration size={16} className="text-neutral-50" />, label: "Conectar canal" },
-            { icon: <Security size={16} className="text-neutral-50" />, label: "API Keys" },
+            { icon: <Integration size={16} className="text-neutral-700" />, label: "Conectar canal" },
+            { icon: <Security size={16} className="text-neutral-700" />, label: "API Keys" },
           ],
         },
       ],
@@ -222,9 +222,9 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Fluxo",
           items: [
-            { icon: <ChartBar size={16} className="text-neutral-50" />, label: "Faturamento" },
-            { icon: <DocumentAdd size={16} className="text-neutral-50" />, label: "Despesas" },
-            { icon: <Analytics size={16} className="text-neutral-50" />, label: "Fluxo de Caixa" },
+            { icon: <ChartBar size={16} className="text-neutral-700" />, label: "Faturamento" },
+            { icon: <DocumentAdd size={16} className="text-neutral-700" />, label: "Despesas" },
+            { icon: <Analytics size={16} className="text-neutral-700" />, label: "Fluxo de Caixa" },
           ],
         },
       ],
@@ -236,9 +236,9 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Pessoas",
           items: [
-            { icon: <UserMultiple size={16} className="text-neutral-50" />, label: "Membros" },
-            { icon: <ChartBar size={16} className="text-neutral-50" />, label: "Desempenho" },
-            { icon: <Security size={16} className="text-neutral-50" />, label: "Permissões" },
+            { icon: <UserMultiple size={16} className="text-neutral-700" />, label: "Membros" },
+            { icon: <ChartBar size={16} className="text-neutral-700" />, label: "Desempenho" },
+            { icon: <Security size={16} className="text-neutral-700" />, label: "Permissões" },
           ],
         },
       ],
@@ -250,16 +250,16 @@ function getSidebarContent(activeSection: string): SidebarContent {
         {
           title: "Conta",
           items: [
-            { icon: <UserIcon size={16} className="text-neutral-50" />, label: "Perfil" },
-            { icon: <Security size={16} className="text-neutral-50" />, label: "Segurança" },
-            { icon: <Notification size={16} className="text-neutral-50" />, label: "Notificações" },
+            { icon: <UserIcon size={16} className="text-neutral-700" />, label: "Perfil" },
+            { icon: <Security size={16} className="text-neutral-700" />, label: "Segurança" },
+            { icon: <Notification size={16} className="text-neutral-700" />, label: "Notificações" },
           ],
         },
         {
           title: "App",
           items: [
-            { icon: <SettingsIcon size={16} className="text-neutral-50" />, label: "Preferências" },
-            { icon: <Integration size={16} className="text-neutral-50" />, label: "Integrações" },
+            { icon: <SettingsIcon size={16} className="text-neutral-700" />, label: "Preferências" },
+            { icon: <Integration size={16} className="text-neutral-700" />, label: "Integrações" },
           ],
         },
       ],
@@ -273,13 +273,13 @@ function getSidebarContent(activeSection: string): SidebarContent {
 
 function AvatarCircle() {
   return (
-    <div className="relative rounded-full shrink-0 size-8 bg-neutral-800">
+    <div className="relative rounded-full shrink-0 size-8 bg-neutral-100">
       <div className="flex items-center justify-center size-8">
-        <UserIcon size={16} className="text-neutral-50" />
+        <UserIcon size={16} className="text-neutral-700" />
       </div>
       <div
         aria-hidden="true"
-        className="absolute inset-0 rounded-full border border-neutral-700 pointer-events-none"
+        className="absolute inset-0 rounded-full border border-neutral-200 pointer-events-none"
       />
     </div>
   );
@@ -298,7 +298,7 @@ function SearchContainer({ isCollapsed = false }: { isCollapsed?: boolean }) {
       style={{ transitionTimingFunction: softSpringEasing }}
     >
       <div
-        className={`bg-black h-10 relative rounded-lg flex items-center transition-all duration-500 ${
+        className={`bg-white h-10 relative rounded-lg flex items-center transition-all duration-500 ${
           isCollapsed ? "w-10 min-w-10 justify-center" : "w-full"
         }`}
         style={{ transitionTimingFunction: softSpringEasing }}
@@ -310,7 +310,7 @@ function SearchContainer({ isCollapsed = false }: { isCollapsed?: boolean }) {
           style={{ transitionTimingFunction: softSpringEasing }}
         >
           <div className="size-8 flex items-center justify-center">
-            <SearchIcon size={16} className="text-neutral-50" />
+            <SearchIcon size={16} className="text-neutral-700" />
           </div>
         </div>
 
@@ -325,14 +325,14 @@ function SearchContainer({ isCollapsed = false }: { isCollapsed?: boolean }) {
             placeholder="Buscar..."
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            className="w-full bg-transparent border-none outline-none text-sm text-neutral-50 placeholder:text-neutral-400 leading-5 pr-2 py-1"
+            className="w-full bg-transparent border-none outline-none text-sm text-neutral-900 placeholder:text-neutral-500 leading-5 pr-2 py-1"
             tabIndex={isCollapsed ? -1 : 0}
           />
         </div>
 
         <div
           aria-hidden="true"
-          className="absolute inset-0 rounded-lg border border-neutral-800 pointer-events-none"
+          className="absolute inset-0 rounded-lg border border-neutral-200 pointer-events-none"
         />
       </div>
     </div>
@@ -358,8 +358,8 @@ function IconNavButton({
       title={title}
       className={`flex items-center justify-center rounded-lg size-10 min-w-10 transition-colors duration-500 ${
         isActive
-          ? "bg-neutral-800 text-neutral-50"
-          : "hover:bg-neutral-800 text-neutral-400 hover:text-neutral-300"
+          ? "bg-neutral-100 text-neutral-900"
+          : "hover:bg-neutral-100 text-neutral-500 hover:text-neutral-600"
       }`}
       style={{ transitionTimingFunction: softSpringEasing }}
       onClick={onClick}
@@ -399,7 +399,7 @@ function IconNavigation({
   ];
 
   return (
-    <aside className="bg-black flex flex-col gap-2 items-center p-3 w-16 min-w-16 h-full border-r border-neutral-800 rounded-l-2xl">
+    <aside className="bg-white flex flex-col gap-2 items-center p-3 w-16 min-w-16 h-full border-r border-neutral-200 rounded-l-2xl">
       {/* Logo WA */}
       <div className="mb-2 size-10 flex items-center justify-center">
         <img src={waIcon} alt="WA" className="h-7 w-7 object-contain" />
@@ -453,7 +453,7 @@ function SectionTitle({
         <button
           type="button"
           onClick={onToggleCollapse}
-          className="flex items-center justify-center rounded-lg size-10 min-w-10 hover:bg-neutral-800 text-neutral-400 hover:text-neutral-300 transition-colors duration-500"
+          className="flex items-center justify-center rounded-lg size-10 min-w-10 hover:bg-neutral-100 text-neutral-500 hover:text-neutral-600 transition-colors duration-500"
           style={{ transitionTimingFunction: softSpringEasing }}
           aria-label="Expandir sidebar"
         >
@@ -469,13 +469,13 @@ function SectionTitle({
     <div className="w-full overflow-hidden transition-all duration-500" style={{ transitionTimingFunction: softSpringEasing }}>
       <div className="flex items-center justify-between">
         <div className="flex items-center h-10 px-2">
-          <span className="font-semibold text-lg text-neutral-50 leading-tight">{title}</span>
+          <span className="font-semibold text-lg text-neutral-900 leading-tight">{title}</span>
         </div>
         <div className="pr-1">
           <button
             type="button"
             onClick={onToggleCollapse}
-            className="flex items-center justify-center rounded-lg size-10 min-w-10 hover:bg-neutral-800 text-neutral-400 hover:text-neutral-300 transition-colors duration-500"
+            className="flex items-center justify-center rounded-lg size-10 min-w-10 hover:bg-neutral-100 text-neutral-500 hover:text-neutral-600 transition-colors duration-500"
             style={{ transitionTimingFunction: softSpringEasing }}
             aria-label="Colapsar sidebar"
           >
@@ -516,7 +516,7 @@ function MenuItem({
     >
       <div
         className={`rounded-lg cursor-pointer transition-all duration-500 flex items-center relative ${
-          item.isActive ? "bg-neutral-800" : "hover:bg-neutral-800"
+          item.isActive ? "bg-neutral-100" : "hover:bg-neutral-100"
         } ${isCollapsed ? "w-10 min-w-10 h-10 justify-center" : "w-full h-10 px-3 py-2"}`}
         style={{ transitionTimingFunction: softSpringEasing }}
         onClick={handleClick}
@@ -530,7 +530,7 @@ function MenuItem({
           }`}
           style={{ transitionTimingFunction: softSpringEasing }}
         >
-          <span className="text-sm text-neutral-50 leading-5 truncate block">{item.label}</span>
+          <span className="text-sm text-neutral-900 leading-5 truncate block">{item.label}</span>
         </div>
 
         {item.hasDropdown && (
@@ -542,7 +542,7 @@ function MenuItem({
           >
             <ChevronDownIcon
               size={16}
-              className="text-neutral-50 transition-transform duration-500"
+              className="text-neutral-900 transition-transform duration-500"
               style={{
                 transitionTimingFunction: softSpringEasing,
                 transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
@@ -561,10 +561,10 @@ function SubMenuItem({ item, onItemClick }: { item: MenuItemT; onItemClick?: () 
   return (
     <div className="w-full pl-9 pr-1 py-[1px]">
       <div
-        className="h-9 w-full rounded-lg cursor-pointer transition-colors hover:bg-neutral-800 flex items-center px-3"
+        className="h-9 w-full rounded-lg cursor-pointer transition-colors hover:bg-neutral-100 flex items-center px-3"
         onClick={onItemClick}
       >
-        <span className="text-sm text-neutral-300 leading-[18px] truncate">{item.label}</span>
+        <span className="text-sm text-neutral-600 leading-[18px] truncate">{item.label}</span>
       </div>
     </div>
   );
@@ -594,7 +594,7 @@ function MenuSection({
         style={{ transitionTimingFunction: softSpringEasing }}
       >
         <div className="flex items-center h-9 px-3">
-          <span className="text-xs text-neutral-400 uppercase tracking-wider font-medium">
+          <span className="text-xs text-neutral-500 uppercase tracking-wider font-medium">
             {section.title}
           </span>
         </div>
@@ -659,7 +659,7 @@ function DetailSidebar({
 
   return (
     <aside
-      className={`bg-black flex flex-col rounded-r-2xl transition-all duration-500 h-full overflow-hidden ${
+      className={`bg-white flex flex-col rounded-r-2xl transition-all duration-500 h-full overflow-hidden ${
         isCollapsed
           ? "w-16 min-w-16 gap-3 items-center px-2 py-3"
           : "w-72 gap-3 items-start p-4"
@@ -708,21 +708,21 @@ function DetailSidebar({
 
       {/* Footer */}
       {!isCollapsed && (
-        <div className="w-full shrink-0 pt-2 border-t border-neutral-800">
+        <div className="w-full shrink-0 pt-2 border-t border-neutral-200">
           <div className="flex items-center gap-2 px-1 py-1">
             <AvatarCircle />
-            <span className="text-sm text-neutral-50 truncate flex-1">
+            <span className="text-sm text-neutral-900 truncate flex-1">
               {profile?.first_name ?? "Usuário"}
             </span>
             <button
               type="button"
-              className="ml-auto size-8 rounded-md flex items-center justify-center hover:bg-neutral-800 shrink-0 transition-colors"
+              className="ml-auto size-8 rounded-md flex items-center justify-center hover:bg-neutral-100 shrink-0 transition-colors"
               aria-label="Mais opções"
             >
               <svg className="size-4" viewBox="0 0 16 16" fill="none">
-                <circle cx="4" cy="8" r="1" fill="#FAFAFA" />
-                <circle cx="8" cy="8" r="1" fill="#FAFAFA" />
-                <circle cx="12" cy="8" r="1" fill="#FAFAFA" />
+                <circle cx="4" cy="8" r="1" fill="#525252" />
+                <circle cx="8" cy="8" r="1" fill="#525252" />
+                <circle cx="12" cy="8" r="1" fill="#525252" />
               </svg>
             </button>
           </div>
@@ -767,8 +767,8 @@ export function Frame760() {
         )}
         {activeSection === "marketplaces" && <Marketplaces />}
         {!contentSections.includes(activeSection) && (
-          <div className="flex flex-col items-center justify-center h-full gap-3 text-neutral-400">
-            <span className="text-2xl font-semibold text-neutral-300">
+          <div className="flex flex-col items-center justify-center h-full gap-3 text-neutral-500">
+            <span className="text-2xl font-semibold text-neutral-600">
               {getSidebarContent(activeSection).title}
             </span>
             <span className="text-sm">Em breve</span>
