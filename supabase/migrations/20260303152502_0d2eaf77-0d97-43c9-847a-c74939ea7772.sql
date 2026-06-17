@@ -1,0 +1,1 @@
+ALTER TABLE public.atendentes ADD COLUMN config_ia jsonb DEFAULT '{}'::jsonb;

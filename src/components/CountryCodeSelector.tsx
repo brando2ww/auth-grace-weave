@@ -1,0 +1,289 @@
+import React, { useState, useRef, useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import { ChevronDown } from 'lucide-react';
+
+export const countryCodes: { flag: string; code: string; dial: string }[] = [
+  { flag: '🇧🇷', code: 'BR', dial: '+55' },
+  { flag: '🇦🇫', code: 'AF', dial: '+93' },
+  { flag: '🇦🇱', code: 'AL', dial: '+355' },
+  { flag: '🇩🇿', code: 'DZ', dial: '+213' },
+  { flag: '🇦🇩', code: 'AD', dial: '+376' },
+  { flag: '🇦🇴', code: 'AO', dial: '+244' },
+  { flag: '🇦🇬', code: 'AG', dial: '+1-268' },
+  { flag: '🇦🇷', code: 'AR', dial: '+54' },
+  { flag: '🇦🇲', code: 'AM', dial: '+374' },
+  { flag: '🇦🇺', code: 'AU', dial: '+61' },
+  { flag: '🇦🇹', code: 'AT', dial: '+43' },
+  { flag: '🇦🇿', code: 'AZ', dial: '+994' },
+  { flag: '🇧🇸', code: 'BS', dial: '+1-242' },
+  { flag: '🇧🇭', code: 'BH', dial: '+973' },
+  { flag: '🇧🇩', code: 'BD', dial: '+880' },
+  { flag: '🇧🇧', code: 'BB', dial: '+1-246' },
+  { flag: '🇧🇾', code: 'BY', dial: '+375' },
+  { flag: '🇧🇪', code: 'BE', dial: '+32' },
+  { flag: '🇧🇿', code: 'BZ', dial: '+501' },
+  { flag: '🇧🇯', code: 'BJ', dial: '+229' },
+  { flag: '🇧🇹', code: 'BT', dial: '+975' },
+  { flag: '🇧🇴', code: 'BO', dial: '+591' },
+  { flag: '🇧🇦', code: 'BA', dial: '+387' },
+  { flag: '🇧🇼', code: 'BW', dial: '+267' },
+  { flag: '🇧🇳', code: 'BN', dial: '+673' },
+  { flag: '🇧🇬', code: 'BG', dial: '+359' },
+  { flag: '🇧🇫', code: 'BF', dial: '+226' },
+  { flag: '🇧🇮', code: 'BI', dial: '+257' },
+  { flag: '🇨🇻', code: 'CV', dial: '+238' },
+  { flag: '🇰🇭', code: 'KH', dial: '+855' },
+  { flag: '🇨🇲', code: 'CM', dial: '+237' },
+  { flag: '🇨🇦', code: 'CA', dial: '+1' },
+  { flag: '🇨🇫', code: 'CF', dial: '+236' },
+  { flag: '🇹🇩', code: 'TD', dial: '+235' },
+  { flag: '🇨🇱', code: 'CL', dial: '+56' },
+  { flag: '🇨🇳', code: 'CN', dial: '+86' },
+  { flag: '🇨🇴', code: 'CO', dial: '+57' },
+  { flag: '🇰🇲', code: 'KM', dial: '+269' },
+  { flag: '🇨🇬', code: 'CG', dial: '+242' },
+  { flag: '🇨🇩', code: 'CD', dial: '+243' },
+  { flag: '🇨🇷', code: 'CR', dial: '+506' },
+  { flag: '🇨🇮', code: 'CI', dial: '+225' },
+  { flag: '🇭🇷', code: 'HR', dial: '+385' },
+  { flag: '🇨🇺', code: 'CU', dial: '+53' },
+  { flag: '🇨🇾', code: 'CY', dial: '+357' },
+  { flag: '🇨🇿', code: 'CZ', dial: '+420' },
+  { flag: '🇩🇰', code: 'DK', dial: '+45' },
+  { flag: '🇩🇯', code: 'DJ', dial: '+253' },
+  { flag: '🇩🇲', code: 'DM', dial: '+1-767' },
+  { flag: '🇩🇴', code: 'DO', dial: '+1-809' },
+  { flag: '🇪🇨', code: 'EC', dial: '+593' },
+  { flag: '🇪🇬', code: 'EG', dial: '+20' },
+  { flag: '🇸🇻', code: 'SV', dial: '+503' },
+  { flag: '🇬🇶', code: 'GQ', dial: '+240' },
+  { flag: '🇪🇷', code: 'ER', dial: '+291' },
+  { flag: '🇪🇪', code: 'EE', dial: '+372' },
+  { flag: '🇸🇿', code: 'SZ', dial: '+268' },
+  { flag: '🇪🇹', code: 'ET', dial: '+251' },
+  { flag: '🇫🇯', code: 'FJ', dial: '+679' },
+  { flag: '🇫🇮', code: 'FI', dial: '+358' },
+  { flag: '🇫🇷', code: 'FR', dial: '+33' },
+  { flag: '🇬🇦', code: 'GA', dial: '+241' },
+  { flag: '🇬🇲', code: 'GM', dial: '+220' },
+  { flag: '🇬🇪', code: 'GE', dial: '+995' },
+  { flag: '🇩🇪', code: 'DE', dial: '+49' },
+  { flag: '🇬🇭', code: 'GH', dial: '+233' },
+  { flag: '🇬🇷', code: 'GR', dial: '+30' },
+  { flag: '🇬🇩', code: 'GD', dial: '+1-473' },
+  { flag: '🇬🇹', code: 'GT', dial: '+502' },
+  { flag: '🇬🇳', code: 'GN', dial: '+224' },
+  { flag: '🇬🇼', code: 'GW', dial: '+245' },
+  { flag: '🇬🇾', code: 'GY', dial: '+592' },
+  { flag: '🇭🇹', code: 'HT', dial: '+509' },
+  { flag: '🇭🇳', code: 'HN', dial: '+504' },
+  { flag: '🇭🇺', code: 'HU', dial: '+36' },
+  { flag: '🇮🇸', code: 'IS', dial: '+354' },
+  { flag: '🇮🇳', code: 'IN', dial: '+91' },
+  { flag: '🇮🇩', code: 'ID', dial: '+62' },
+  { flag: '🇮🇷', code: 'IR', dial: '+98' },
+  { flag: '🇮🇶', code: 'IQ', dial: '+964' },
+  { flag: '🇮🇪', code: 'IE', dial: '+353' },
+  { flag: '🇮🇱', code: 'IL', dial: '+972' },
+  { flag: '🇮🇹', code: 'IT', dial: '+39' },
+  { flag: '🇯🇲', code: 'JM', dial: '+1-876' },
+  { flag: '🇯🇵', code: 'JP', dial: '+81' },
+  { flag: '🇯🇴', code: 'JO', dial: '+962' },
+  { flag: '🇰🇿', code: 'KZ', dial: '+7' },
+  { flag: '🇰🇪', code: 'KE', dial: '+254' },
+  { flag: '🇰🇮', code: 'KI', dial: '+686' },
+  { flag: '🇰🇵', code: 'KP', dial: '+850' },
+  { flag: '🇰🇷', code: 'KR', dial: '+82' },
+  { flag: '🇰🇼', code: 'KW', dial: '+965' },
+  { flag: '🇰🇬', code: 'KG', dial: '+996' },
+  { flag: '🇱🇦', code: 'LA', dial: '+856' },
+  { flag: '🇱🇻', code: 'LV', dial: '+371' },
+  { flag: '🇱🇧', code: 'LB', dial: '+961' },
+  { flag: '🇱🇸', code: 'LS', dial: '+266' },
+  { flag: '🇱🇷', code: 'LR', dial: '+231' },
+  { flag: '🇱🇾', code: 'LY', dial: '+218' },
+  { flag: '🇱🇮', code: 'LI', dial: '+423' },
+  { flag: '🇱🇹', code: 'LT', dial: '+370' },
+  { flag: '🇱🇺', code: 'LU', dial: '+352' },
+  { flag: '🇲🇬', code: 'MG', dial: '+261' },
+  { flag: '🇲🇼', code: 'MW', dial: '+265' },
+  { flag: '🇲🇾', code: 'MY', dial: '+60' },
+  { flag: '🇲🇻', code: 'MV', dial: '+960' },
+  { flag: '🇲🇱', code: 'ML', dial: '+223' },
+  { flag: '🇲🇹', code: 'MT', dial: '+356' },
+  { flag: '🇲🇭', code: 'MH', dial: '+692' },
+  { flag: '🇲🇷', code: 'MR', dial: '+222' },
+  { flag: '🇲🇺', code: 'MU', dial: '+230' },
+  { flag: '🇲🇽', code: 'MX', dial: '+52' },
+  { flag: '🇫🇲', code: 'FM', dial: '+691' },
+  { flag: '🇲🇩', code: 'MD', dial: '+373' },
+  { flag: '🇲🇨', code: 'MC', dial: '+377' },
+  { flag: '🇲🇳', code: 'MN', dial: '+976' },
+  { flag: '🇲🇪', code: 'ME', dial: '+382' },
+  { flag: '🇲🇦', code: 'MA', dial: '+212' },
+  { flag: '🇲🇿', code: 'MZ', dial: '+258' },
+  { flag: '🇲🇲', code: 'MM', dial: '+95' },
+  { flag: '🇳🇦', code: 'NA', dial: '+264' },
+  { flag: '🇳🇷', code: 'NR', dial: '+674' },
+  { flag: '🇳🇵', code: 'NP', dial: '+977' },
+  { flag: '🇳🇱', code: 'NL', dial: '+31' },
+  { flag: '🇳🇿', code: 'NZ', dial: '+64' },
+  { flag: '🇳🇮', code: 'NI', dial: '+505' },
+  { flag: '🇳🇪', code: 'NE', dial: '+227' },
+  { flag: '🇳🇬', code: 'NG', dial: '+234' },
+  { flag: '🇲🇰', code: 'MK', dial: '+389' },
+  { flag: '🇳🇴', code: 'NO', dial: '+47' },
+  { flag: '🇴🇲', code: 'OM', dial: '+968' },
+  { flag: '🇵🇰', code: 'PK', dial: '+92' },
+  { flag: '🇵🇼', code: 'PW', dial: '+680' },
+  { flag: '🇵🇦', code: 'PA', dial: '+507' },
+  { flag: '🇵🇬', code: 'PG', dial: '+675' },
+  { flag: '🇵🇾', code: 'PY', dial: '+595' },
+  { flag: '🇵🇪', code: 'PE', dial: '+51' },
+  { flag: '🇵🇭', code: 'PH', dial: '+63' },
+  { flag: '🇵🇱', code: 'PL', dial: '+48' },
+  { flag: '🇵🇹', code: 'PT', dial: '+351' },
+  { flag: '🇶🇦', code: 'QA', dial: '+974' },
+  { flag: '🇷🇴', code: 'RO', dial: '+40' },
+  { flag: '🇷🇺', code: 'RU', dial: '+7' },
+  { flag: '🇷🇼', code: 'RW', dial: '+250' },
+  { flag: '🇰🇳', code: 'KN', dial: '+1-869' },
+  { flag: '🇱🇨', code: 'LC', dial: '+1-758' },
+  { flag: '🇻🇨', code: 'VC', dial: '+1-784' },
+  { flag: '🇼🇸', code: 'WS', dial: '+685' },
+  { flag: '🇸🇲', code: 'SM', dial: '+378' },
+  { flag: '🇸🇹', code: 'ST', dial: '+239' },
+  { flag: '🇸🇦', code: 'SA', dial: '+966' },
+  { flag: '🇸🇳', code: 'SN', dial: '+221' },
+  { flag: '🇷🇸', code: 'RS', dial: '+381' },
+  { flag: '🇸🇨', code: 'SC', dial: '+248' },
+  { flag: '🇸🇱', code: 'SL', dial: '+232' },
+  { flag: '🇸🇬', code: 'SG', dial: '+65' },
+  { flag: '🇸🇰', code: 'SK', dial: '+421' },
+  { flag: '🇸🇮', code: 'SI', dial: '+386' },
+  { flag: '🇸🇧', code: 'SB', dial: '+677' },
+  { flag: '🇸🇴', code: 'SO', dial: '+252' },
+  { flag: '🇿🇦', code: 'ZA', dial: '+27' },
+  { flag: '🇸🇸', code: 'SS', dial: '+211' },
+  { flag: '🇪🇸', code: 'ES', dial: '+34' },
+  { flag: '🇱🇰', code: 'LK', dial: '+94' },
+  { flag: '🇸🇩', code: 'SD', dial: '+249' },
+  { flag: '🇸🇷', code: 'SR', dial: '+597' },
+  { flag: '🇸🇪', code: 'SE', dial: '+46' },
+  { flag: '🇨🇭', code: 'CH', dial: '+41' },
+  { flag: '🇸🇾', code: 'SY', dial: '+963' },
+  { flag: '🇹🇼', code: 'TW', dial: '+886' },
+  { flag: '🇹🇯', code: 'TJ', dial: '+992' },
+  { flag: '🇹🇿', code: 'TZ', dial: '+255' },
+  { flag: '🇹🇭', code: 'TH', dial: '+66' },
+  { flag: '🇹🇱', code: 'TL', dial: '+670' },
+  { flag: '🇹🇬', code: 'TG', dial: '+228' },
+  { flag: '🇹🇴', code: 'TO', dial: '+676' },
+  { flag: '🇹🇹', code: 'TT', dial: '+1-868' },
+  { flag: '🇹🇳', code: 'TN', dial: '+216' },
+  { flag: '🇹🇷', code: 'TR', dial: '+90' },
+  { flag: '🇹🇲', code: 'TM', dial: '+993' },
+  { flag: '🇹🇻', code: 'TV', dial: '+688' },
+  { flag: '🇺🇬', code: 'UG', dial: '+256' },
+  { flag: '🇺🇦', code: 'UA', dial: '+380' },
+  { flag: '🇦🇪', code: 'AE', dial: '+971' },
+  { flag: '🇬🇧', code: 'GB', dial: '+44' },
+  { flag: '🇺🇸', code: 'US', dial: '+1' },
+  { flag: '🇺🇾', code: 'UY', dial: '+598' },
+  { flag: '🇺🇿', code: 'UZ', dial: '+998' },
+  { flag: '🇻🇺', code: 'VU', dial: '+678' },
+  { flag: '🇻🇦', code: 'VA', dial: '+39' },
+  { flag: '🇻🇪', code: 'VE', dial: '+58' },
+  { flag: '🇻🇳', code: 'VN', dial: '+84' },
+  { flag: '🇾🇪', code: 'YE', dial: '+967' },
+  { flag: '🇿🇲', code: 'ZM', dial: '+260' },
+  { flag: '🇿🇼', code: 'ZW', dial: '+263' },
+];
+
+interface CountryCodeSelectorProps {
+  value: string;
+  onChange: (dial: string) => void;
+  variant?: 'glass' | 'default';
+}
+
+export const CountryCodeSelector = ({ value, onChange, variant = 'default' }: CountryCodeSelectorProps) => {
+  const [open, setOpen] = useState(false);
+  const [dropdownPos, setDropdownPos] = useState<{ top: number; left: number } | null>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const justOpenedRef = useRef(false);
+  const current = countryCodes.find((c) => c.dial === value) ?? countryCodes[0];
+
+  const handleToggle = () => {
+    if (!open && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDropdownPos({ top: rect.bottom + 4, left: rect.left });
+      justOpenedRef.current = true;
+    }
+    setOpen((o) => !o);
+  };
+
+  useEffect(() => {
+    if (!open) return;
+
+    const handlePointerDown = (e: PointerEvent) => {
+      if (justOpenedRef.current) {
+        justOpenedRef.current = false;
+        return;
+      }
+      const target = e.target as Node;
+      if (!buttonRef.current?.contains(target) && !dropdownRef.current?.contains(target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, [open]);
+
+  const buttonClass = variant === 'glass'
+    ? 'flex items-center gap-1 px-3 py-4 text-sm text-foreground border-r border-border hover:bg-foreground/5 transition-colors rounded-l-2xl h-full'
+    : 'flex items-center gap-1 px-3 text-sm text-foreground border-r border-input hover:bg-accent transition-colors rounded-l-md h-10';
+
+  const dropdownContent = open && dropdownPos
+    ? ReactDOM.createPortal(
+        <div
+          ref={dropdownRef}
+          style={{ position: 'fixed', top: dropdownPos.top, left: dropdownPos.left, zIndex: 9999 }}
+          className="min-w-[140px] rounded-xl border border-border bg-popover shadow-lg overflow-y-auto max-h-60"
+        >
+          {countryCodes.map((c) => (
+            <button
+              key={c.code}
+              type="button"
+              onClick={() => { onChange(c.dial); setOpen(false); }}
+              className={`flex w-full items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground ${
+                value === c.dial ? 'bg-accent/50 font-medium' : 'text-popover-foreground'
+              }`}
+            >
+              <span>{c.flag}</span>
+              <span>{c.dial}</span>
+              <span className="text-muted-foreground">{c.code}</span>
+            </button>
+          ))}
+        </div>,
+        document.body
+      )
+    : null;
+
+  return (
+    <div className="relative flex-shrink-0">
+      <button
+        ref={buttonRef}
+        type="button"
+        onClick={handleToggle}
+        className={buttonClass}
+      >
+        <span>{current.flag}</span>
+        <span className="font-medium text-muted-foreground">{current.dial}</span>
+        <ChevronDown className={`h-3 w-3 text-muted-foreground transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      {dropdownContent}
+    </div>
+  );
+};

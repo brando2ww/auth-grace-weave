@@ -1,0 +1,1 @@
+DELETE FROM chat_last_messages WHERE 1=1;

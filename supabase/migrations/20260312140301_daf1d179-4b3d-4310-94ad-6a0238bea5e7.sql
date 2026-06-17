@@ -1,0 +1,1 @@
+UPDATE public.chat_last_messages SET last_message_from_me = false WHERE last_message_from_me IS NULL;

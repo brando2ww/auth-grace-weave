@@ -12,11 +12,11 @@ export default {
         "2xl": "1400px",
       },
     },
+    fontFamily: {
+      sans: ['Montserrat', 'sans-serif'],
+      montserrat: ['Montserrat', 'sans-serif'],
+    },
     extend: {
-      fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        jakarta: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -91,6 +91,5 @@ export default {
       },
     },
   },
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

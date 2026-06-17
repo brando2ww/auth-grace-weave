@@ -1,0 +1,1 @@
+ALTER TABLE public.chat_last_messages ADD COLUMN IF NOT EXISTS last_message_status text DEFAULT NULL;

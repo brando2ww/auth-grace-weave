@@ -1,0 +1,1 @@
+TRUNCATE TABLE chat_pins, chat_last_messages, messages;

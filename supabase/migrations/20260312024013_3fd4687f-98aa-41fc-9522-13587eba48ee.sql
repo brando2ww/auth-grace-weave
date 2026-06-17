@@ -1,0 +1,1 @@
+ALTER TABLE public.chat_last_messages ADD COLUMN last_message_sender text;

@@ -1,14 +1,26 @@
 
 
-## Plano: Substituir o BrandBadge pelo logo da WiseAuto
+## Alterar nome exibido para "Demonstração"
 
-O componente `BrandBadge` (linha 93-118) atualmente exibe um SVG generico com o texto "Interfaces". Sera substituido pela imagem do logo da WiseAuto que ja existe no projeto em `src/assets/wiseauto-logo.png`.
+### Arquivo: `src/components/layouts/DashboardLayout.tsx`
 
-### Alteracao em `src/pages/Frame760.tsx`
+Na linha onde exibe `{userName || "Usuário"}` (linha ~68), adicionar uma lógica: se o role for `demo_estoque`, exibir "Demonstração" em vez do userName real.
 
-1. **Importar** a imagem: `import wiseautoLogo from "@/assets/wiseauto-logo.png"`
+Também na linha do role (~69), exibir "Demonstração" em vez de "demo_estoque".
 
-2. **Reescrever `BrandBadge`**: Substituir o SVG e o texto "Interfaces" por uma tag `<img>` usando o logo importado, com altura adequada (~30px) e `alt="Wise Auto"`.
+```ts
+// Antes
+<span className="text-sm font-semibold">{userName || "Usuário"}</span>
+<span className="text-xs">{role}</span>
 
-3. **Sidebar colapsada**: Quando colapsada, mostrar uma versao menor do logo (ex: 24px) ou o icone `indux-x-icon.png` se existir um icone compacto. Verificar se o `BrandBadge` tambem e renderizado no estado colapsado — atualmente so aparece com `!isCollapsed` (linha 645-648), entao nenhuma mudanca extra e necessaria.
+// Depois
+<span className="text-sm font-semibold">
+  {role === "demo_estoque" ? "Demonstração" : (userName || "Usuário")}
+</span>
+<span className="text-xs">
+  {role === "demo_estoque" ? "Demonstração" : role}
+</span>
+```
+
+Apenas 1 arquivo, 2 linhas alteradas.
 

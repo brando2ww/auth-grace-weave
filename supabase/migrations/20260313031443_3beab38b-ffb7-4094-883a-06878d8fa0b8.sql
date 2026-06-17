@@ -1,0 +1,1 @@
+ALTER TABLE public.contatos ADD COLUMN profile_picture_url text;

@@ -1,0 +1,1 @@
+INSERT INTO public.atendentes (nome, email, user_id) VALUES ('Super Admin', 'superadmin@izotopetechnolgybusiness.com.br', '242ecccf-5331-4cde-99b7-3123933aef13');
